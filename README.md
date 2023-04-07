@@ -54,6 +54,3 @@ Clone this repository to a preffered location.
     npm i
     npm run dev
     ```
-
-3. Each service will now be running on your localhost at the respective ports that you have set. You can access them on your web browser by going to <YOUR_IP_ADDRESS>:<YOUR_PORT_ID>.  
-**ex: `http://localhost:5000`**
