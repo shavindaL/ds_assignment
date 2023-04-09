@@ -2,7 +2,9 @@
 require('dotenv').config();
 
 const express = require('express');
-const mongoose = require('mongoose');
+const { dbConnect } = require('./utils/dbConnect');
+const inventoryRoutes = require('./routes/inventoryRoutes');
+
 
 //* express app
 const app = express();
@@ -15,22 +17,10 @@ app.use((req, res, next) => {
     next();
 });
 
-app.get('/', (req, res) => {
-    res.status(200).send("Inventory Service");
-})
+app.use('/', inventoryRoutes);
 
-//* Connect to db
-mongoose
-    .connect(process.env.MONGO_URI)
-    .then(() => {
-
-        console.log(`Connected to the database`);
-
-        app.listen(process.env.PORT, process.env.HOST_NAME, (req, res) => {
-            console.log(`Inventory service is running on ${process.env.HOST_NAME}:${process.env.PORT}`)
-        });
-
-    })
-    .catch(error => {
-        console.log(error);
-    });
+app.listen(process.env.PORT, process.env.HOST_NAME, (req, res) => {
+    //Connect to db
+    dbConnect();
+    console.log(`Order service is running on ${process.env.HOST_NAME}:${process.env.PORT}`);
+});
