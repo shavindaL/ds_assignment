@@ -4,7 +4,10 @@ require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 
-//* express app
+// Import the sellerRoutes module
+const sellerRoutes = require('./routes/sellerRoutes');
+
+//* express Application
 const app = express();
 
 //middleware
@@ -15,10 +18,8 @@ app.use((req, res, next) => {
     next();
 });
 
-//TODO remove this and add route to the respective service's routes folder
-app.get('/', (req, res) => {
-    res.status(200).send("Seller Service");
-})
+// Use the sellerRoutes module
+app.use('/', sellerRoutes);
 
 //* Connect to db
 mongoose
