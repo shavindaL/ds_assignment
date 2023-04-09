@@ -54,6 +54,17 @@ const routes = [
                 ["^/v1/seller"]: "",
             },
         },
+    },
+    {
+        url: "/v1/mail",
+        auth: "false",
+        proxy: {
+            target: "http://127.0.0.1:5006",
+            changeOrigin: "true",
+            pathRewrite: {
+                ["^/v1/mail"]: "",
+            },
+        },
     }
 ];
 
