@@ -1,25 +1,18 @@
 import { useEffect, useState } from "react";
 import StarRating from "./starRating";
 
-export default function ProductOverview() {
+export default function ProductOverview({product}) {
     const imgLinks = [
         "https://picsum.photos/id/13/300",
         "https://picsum.photos/id/17/300",
         "https://picsum.photos/id/10/300",
         "https://picsum.photos/id/237/300",
     ];
-    const productName = "ABC Balm";
+    const productName = product.productName;
     const reviewCount = 69;
-    const price = 12;
+    const price = product.unitPrice;
     const stock = 20;
-    const productSpecification = [
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ultrices.",
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ultrices.",
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ultrices.",
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ultrices.",
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ultrices.",
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ultrices.",
-    ];
+    const productDescription = product.productDescription;
 
     const [mainImg, setMainImg] = useState(imgLinks[0]);
     const [count, setCount] = useState(0);
@@ -76,11 +69,7 @@ export default function ProductOverview() {
                     </table>
 
                     <ul className="px-12">
-                        {productSpecification.map((specificattion, idx) => (
-                            <li className="list-disc" key={idx}>
-                                {specificattion}
-                            </li>
-                        ))}
+                        {productDescription}
                     </ul>
                 </div>
                 {/* Product Details Section ends here*/}
