@@ -40,7 +40,7 @@ export default function ProductCard({product}) {
                 </button>
               </td>
               <td className="pr-4">
-                <Link href={{pathname:`./products/${product.productId}`}} >
+                <Link href={{pathname:`./${product.productId}`}} >
                   <button className="bg-green-4 px-4 py-2 rounded-md text-white">
                     View
                   </button>

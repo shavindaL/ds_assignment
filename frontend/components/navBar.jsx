@@ -1,3 +1,4 @@
+import Link from "next/link";
 import SearchBar from "./search";
 
 export default function Navbar() {
@@ -46,16 +47,15 @@ export default function Navbar() {
               data-te-navbar-nav-ref
             >
               <li class="p-2" data-te-nav-item-ref>
-                <a
-                  class="text-white disabled:text-black/30 lg:px-20 [&.active]:text-black/90 dark:[&.active]:text-neutral-400"
-                  href="#"
-                  data-te-nav-link-ref
+                <Link
+                  className="text-white disabled:text-black/30 lg:px-20 [&.active]:text-black/90 dark:[&.active]:text-neutral-400"
+                  href="/"
                 >
                   Home
-                </a>
+                </Link>
               </li>
               <li>
-                <SearchBar/>
+                <SearchBar />
               </li>
             </ul>
             {/* <!-- Left links --> */}
@@ -69,22 +69,20 @@ export default function Navbar() {
                 data-te-navbar-nav-ref
               >
                 <li class="p-2" data-te-nav-item-ref>
-                  <a
-                    class="p-0 text-white opacity-60 hover:opacity-80 focus:opacity-80 disabled:text-black/30 lg:px-2 [&.active]:text-black/90 dark:[&.active]:text-neutral-400"
-                    href="#"
-                    data-te-nav-link-ref
+                  <Link
+                    className="p-0 text-white opacity-60 hover:opacity-80 focus:opacity-80 disabled:text-black/30 lg:px-2 [&.active]:text-black/90 dark:[&.active]:text-neutral-400"
+                    href="/login"
                   >
-                    LogIn
-                  </a>
+                    Log In
+                  </Link>
                 </li>
                 <li class="p-2" data-te-nav-item-ref>
-                  <a
-                    class="p-0 text-white opacity-60 hover:opacity-80 focus:opacity-80 disabled:text-black/30 lg:px-2 [&.active]:text-black/90 dark:[&.active]:text-neutral-400"
-                    href="#"
-                    data-te-nav-link-ref
+                  <Link
+                    href={"/signup"}
+                    className="p-0 text-white opacity-60 hover:opacity-80 focus:opacity-80 disabled:text-black/30 lg:px-2 [&.active]:text-black/90 dark:[&.active]:text-neutral-400"
                   >
-                    SignUp
-                  </a>
+                    Sign Up
+                  </Link>
                 </li>
               </ul>
             </div>
