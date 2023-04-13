@@ -4,7 +4,8 @@ const {
     addSeller,
     getSeller,
     updateSeller,
-    deleteSeller
+    deleteSeller,
+    updatePhoto
 } = require('../controller/sellerController');
 
 // Import the express module
@@ -27,6 +28,9 @@ router.put("/v1/sellers/:id", updateSeller);
 
 // Handle DELETE request at "v1/sellers/:id" URI
 router.delete("/v1/sellers/:id", deleteSeller);
+
+//Handle PATCH request at "/v1/sellers/:id/uploadPhoto" URI
+router.patch("/v1/sellers/updatePhoto/:id", updatePhoto);
 
 // Export the router object
 module.exports = router;
