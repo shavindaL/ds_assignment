@@ -1,4 +1,3 @@
-import { useRouter } from "next/router";
 import Navbar from "@/components/navBar";
 import ProductOverview from "@/components/customer/productOverview";
 
