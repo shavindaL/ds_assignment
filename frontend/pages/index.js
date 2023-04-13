@@ -1,4 +1,4 @@
-import Head from 'next/head'
+import Head from 'next/head';
 import Navbar from "@/components/navBar";
 import ProductCard from "@/components/customer/productCard";
 import Herocarousel from '@/components/customer/heroCarousel';
