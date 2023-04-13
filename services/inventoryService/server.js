@@ -22,6 +22,6 @@ app.use('/', inventoryRoutes);
 app.listen(process.env.PORT, process.env.HOST_NAME, () => {
     //Connect to db
     dbConnect();
-    console.log(`Order service is running on ${process.env.HOST_NAME}:${process.env.PORT}`);
+    console.log(`Inventory service is running on ${process.env.HOST_NAME}:${process.env.PORT}`);
 });
     

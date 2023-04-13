@@ -1,4 +1,4 @@
-import styles from '../styles/Cart.module.css';
+import styles from '../../styles/Cart.module.css';
 import React, { Component } from 'react';
 
 class App extends Component {
