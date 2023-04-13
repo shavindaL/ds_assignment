@@ -11,7 +11,7 @@ export default function Sidebar() {
                 className="fixed top-0 left-0 z-[1035] h-screen w-[239px] 
                 -translate-x-full overflow-hidden bg-green-10 
                 shadow-[0_4px_12px_0_rgba(0,0,0,0.07),_0_2px_4px_rgba(0,0,0,0.05)] 
-                dark:bg-zinc-800 md:data-[te-sidenav-hidden='false']:translate-x-0"
+                dark:bg-green-10 md:data-[te-sidenav-hidden='false']:translate-x-0"
                 data-te-sidenav-init
                 data-te-sidenav-mode-breakpoint-over="0"
                 data-te-sidenav-mode-breakpoint-side="sm"
@@ -49,7 +49,7 @@ export default function Sidebar() {
                                 active:text-inherit active:outline-none data-[te-sidenav-state-active]:text-inherit 
                                 data-[te-sidenav-state-focus]:outline-none motion-reduce:transition-none 
                                 "
-                                href="/sellerDashboard"
+                                href="/seller/dashboard"
                             >
 
                                 <span
@@ -71,7 +71,7 @@ export default function Sidebar() {
                                 active:text-inherit active:outline-none data-[te-sidenav-state-active]:text-inherit 
                                 data-[te-sidenav-state-focus]:outline-none motion-reduce:transition-none 
                                 "
-                                href="#!"
+                                href="/seller/products"
                             >
 
                                 <span

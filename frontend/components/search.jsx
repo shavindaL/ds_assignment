@@ -2,7 +2,7 @@ export default function SearchBar() {
 
     return (
         <>
-            <div className="bg-white rounded-lg px-5  mobile-720:ml-1 desktop-1440:ml-64 desktop-1920:ml-96">
+            <div className="bg-white rounded-lg px-5  mobile-720:ml-1 desktop-1440:ml-64 desktop-1920:ml-96 border-2 border-solid">
                 <input
                     className="border-0 px-5 py-2  desktop-1920:w-30vw desktop-1440:w-20vw mobile-720:w-20vw mobile-360:w-10/12 focus:outline-none"
 

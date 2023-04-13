@@ -4,7 +4,7 @@ export default function ProductCard() {
         <>
 
             <div className="box-border flex flex-col items-center p-[20px] gap-[80px] w-[275px] h-[426px] border-[1px]
-                        border-solid border-green-4 rounded-[10px]">
+                        border-solid border-green-4 rounded-[10px] mx-5 my-4">
 
                 <div
                     className="max-w-sm bg-white">
