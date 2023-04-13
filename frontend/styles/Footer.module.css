@@ -1,0 +1,155 @@
+/* .footer :where(*){
+  background-color: red;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+} */
+.footerContainer{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    max-width: 1170px;
+    margin: auto;
+}
+  
+.footerCol ul{
+    list-style: none;
+}
+  
+.footer{
+    background-color:#092B00;
+    padding: 70px 0px 50px;
+}
+  
+.row{
+    display: flex;
+    flex-wrap: wrap;
+}
+  
+.footerCol{
+    width: 25%;
+    padding: 0 15px;
+}
+  
+.footerCol h4{
+    font-size: 18px;
+    color: #FFFFFF;
+    text-transform: capitalize;
+    margin-bottom: 35px;
+    font-weight: 500;
+    position: relative;
+}
+  
+.footerCol h4 ::before{
+    content: '';
+}
+  
+.footerCol ul li:not(:last-child) {
+    margin-bottom: 10px;
+}
+  
+.footerCol ul li a{
+    padding-top: 8px;
+    font-size: 16px;
+    text-transform: capitalize;
+    color: #FFFFFF;
+    text-decoration: none;
+    font-weight: 300;
+    color: #bbbbbb;
+    display: block;
+    transition: all 0.3s ease;
+}
+  
+.footerCol ul li a:hover{
+    color: #FFFFFF;
+    padding-left: 8px;
+}
+  
+.footerCol h1{
+    padding-top: 30px;
+    color:#FFFFFF;
+    text-transform: capitalize;
+    margin-bottom: 35px;
+    font-weight: 500;
+    position: relative;
+}
+  
+.footerCol h1 ul li{
+  
+    color: rgba(255, 255, 255, 0.5);
+    text-transform: capitalize;
+    margin-bottom: 35px;
+    font-weight: 500;
+    position: relative;
+}
+  
+.row2{
+    margin-top: 40px;
+    padding: 30px;
+    text-align: left;
+}
+  
+.row2 a{
+    display: inline-block;
+    height: 40px;
+    width: 40px;
+    background-color: rgba(255, 255, 255, 0.2);
+    margin: 0 20px 10px 0;
+    text-align: center;
+    line-height: 40px;
+    border-radius: 50px;
+    color: #FFFFFF;
+    transition: all 0.5s ease;
+}
+  
+.row2 a :hover{
+    color: #24262b;
+    background-color: #FFFFFF;
+    height: 40px;
+    width: 40px;
+    line-height: 40px;
+    border-radius: 50px;
+    transition: ease;
+}
+  
+.email{
+    width: 350px;
+    height: 40px;
+    border-radius: 8px;
+    font-size: 20px;
+    padding: 10px;
+    background-color: #bbbbbb;
+}
+  
+.button{
+    margin: 20px;
+    margin-right: 150px;
+    width: 114px;
+    height: 50px;
+    background: #52C41A;
+    border: 0px solid #52C41A;
+    color: #FFFFFF;
+    border-radius: 5px;
+}
+  
+.button:hover {
+    opacity: 0.8;
+}
+  
+@media(max-width: 767px){
+  .footerCol{
+      width: 50%;
+      padding: 0 15px;
+      margin-bottom: 30px;
+  }
+}
+  
+@media(max-width: 574px){
+  .footerCol{
+      width: 100%;
+  }
+  .row2{
+      width: 50%;
+  }
+}
+  

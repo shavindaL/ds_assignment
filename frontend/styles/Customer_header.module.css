@@ -1,0 +1,43 @@
+.custContainer{
+    background-color: #D9F7BE;
+    margin-top: 49px;
+    margin-left: 40px;
+    margin-bottom: 50px;
+    width: 93%;
+    height: 153px;
+    padding-top: 20px;
+  }
+
+  .myOrder{
+    width: 180px;
+    height: 50px;
+    margin-left: 47px;
+    margin-top: 10px;
+    padding: 15px;
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 32px;
+  }
+
+  .breadcrumbs{
+    position: absolute;
+    margin-top: -30px;
+    height: 22px;
+    width: 200px;
+    margin-left: 900px;
+    word-spacing: 3px;
+  }
+
+  .breadcrumbs a{
+    color: #237804;
+    text-decoration: none;
+    font-size: 14px;
+  }
+  
+  .breadcrumbs h5{
+    color: #237804;
+    display: inline-block;
+    font-size: 14px;
+  }
