@@ -41,6 +41,11 @@ const inventoryProductSchema = new mongoose.Schema({
         type: Number,
         required: true
     },
+    productImages: [
+        {
+            type: String,
+        }
+    ],
 },
     {
         timestamps: true
