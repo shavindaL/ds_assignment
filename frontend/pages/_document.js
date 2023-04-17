@@ -10,15 +10,14 @@ export default function Document() {
         />
         <link
           rel="stylesheet"
-          href="https://cdn.jsdelivr.net/npm/tw-elements/dist/css/index.min.css"
+          href="https://cdn.jsdelivr.net/npm/tw-elements@1.0.0-beta1/dist/css/index.min.css"
         />
       </Head>
 
       <body>
         <Main />
         <NextScript />
-
-        <script src="https://cdn.jsdelivr.net/npm/tw-elements/dist/js/index.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/tw-elements@1.0.0-beta1/dist/js/index.min.js" />
       </body>
     </Html>
   );
