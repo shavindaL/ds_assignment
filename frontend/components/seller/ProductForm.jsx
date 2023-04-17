@@ -1,24 +1,81 @@
+import axios from "axios";
+import { useState } from "react";
+
 export default function ProductForm() {
+
+    const [productName, setProductName] = useState("");
+    const [productDescription, setProductDescription] = useState("");
+    const [productImage1, setProductImage1] = useState();
+    const [productImage2, setProductImage2] = useState();
+    const [productImage3, setProductImage3] = useState();
+    const [productImage4, setProductImage4] = useState();
+    const [unitPrice, setUnitPrice] = useState(0);
+    const [unitsInStock, setUnitsInStock] = useState(0);
+    const [weight, setWeight] = useState(0);
+    const [brand, setBrand] = useState("");
+    const [packageQuantity, setPackageQuantity] = useState(0);
+    const [category, setCategory] = useState("Soap");
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+
+
+
+
+        const formData = new FormData();
+        formData.append('productName', productName)
+        formData.append('productDescription', productDescription)
+        formData.append('images', productImage1, productImage1.name)
+        formData.append('images', productImage2, productImage2.name);
+        formData.append('images', productImage3, productImage3.name);
+        formData.append('images', productImage4, productImage4.name);
+        formData.append('unitPrice', unitPrice)
+        formData.append('productCategory', category)
+        formData.append('unitsInStock', unitsInStock)
+        formData.append('brand', brand)
+        formData.append('sellerName', "ABC")
+        formData.append('productWeight', weight)
+        formData.append('packageQuantity', packageQuantity)
+
+
+
+        const res = await fetch("http://127.0.0.1:5000/v1/inventory/products", {
+            method: `POST`,
+            body: formData,
+        })
+        const json = await res.json()
+
+        if (res.ok) {
+            console.log(json);
+        }
+
+    }
+
     return (
         /* Start of Product Form for seller */
         <>
-
             <button
                 type="button"
-                className="inline-block rounded bg-primary px-6 pt-2.5 pb-2 text-xs font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-primary-600 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-primary-600 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-primary-700 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)]"
+                className="p-[10px] mt-[44px] ml-[863px] justify-center mb-2 flex rounded-[5px] px-6 py-2.5 leading-normal font-roboto font-[700] text-[14px] text-white shadow-md transition duration-150 ease-in-out hover:shadow-lg focus:outline-none focus:ring-0 bg-green-5 w-[150px] h-[48px]"
                 data-te-toggle="modal"
                 data-te-target="#exampleModalCenteredScrollable"
                 data-te-ripple-init
-                data-te-ripple-color="light">
-                Vertically centered scrollable modal
+                data-te-ripple-color="light"
+            >
+
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" width={15} fill="#FFF">
+                    <path d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32V224H48c-17.7 0-32
+                         14.3-32 32s14.3 32 32 32H192V432c0 17.7 14.3 32 32 32s32-14.3 32-32V288H400c17.7
+                        0 32-14.3 32-32s-14.3-32-32-32H256V80z" /></svg>
+                &nbsp;&nbsp;&nbsp;&nbsp;Create New
             </button>
 
-            <form>
+            <form onSubmit={handleSubmit}>
                 <div
                     data-te-modal-init
                     className="fixed top-0 left-0 z-[1055] hidden h-full w-full overflow-y-auto overflow-x-hidden outline-none"
                     id="exampleModalCenteredScrollable"
-                    tabindex="-1"
+                    tabIndex="-1"
                     aria-labelledby="exampleModalCenteredScrollable"
                     aria-modal="true"
                     role="dialog">
@@ -41,12 +98,12 @@ export default function ProductForm() {
                                         xmlns="http://www.w3.org/2000/svg"
                                         fill="none"
                                         viewBox="0 0 24 24"
-                                        stroke-width="1.5"
+                                        strokeWidth="1.5"
                                         stroke="currentColor"
                                         className="h-6 w-6">
                                         <path
-                                            stroke-linecap="round"
-                                            stroke-linejoin="round"
+                                            strokeLinecap="round"
+                                            strokeLinejoin="round"
                                             d="M6 18L18 6M6 6l12 12" />
                                     </svg>
                                 </button>
@@ -58,7 +115,7 @@ export default function ProductForm() {
 
 
                                 <input className="w-[464px] h-[46px] border-[1px] rounded-[10px] border-green-3
-                                 text-[12px] mt-[5px] p-[10px] font-roboto text-[16px]" type="text" />
+                                  mt-[5px] p-[10px] font-roboto text-[16px]" type="text" value={productName} onChange={e => { setProductName(e.target.value) }} />
 
                             </div>
 
@@ -66,9 +123,46 @@ export default function ProductForm() {
                                 <label className="text-black font-roboto font-500 text-[20px]">Description</label>
 
                                 <textarea className="w-[464px] h-[89px] border-[1px] rounded-[10px] border-green-3
-                                 text-[12px] mt-[5px] p-[10px] font-roboto text-[16px]" style={{ resize: "none" }} type="text" />
+                                  mt-[5px] p-[10px] font-roboto text-[16px]" style={{ resize: "none" }} type="text" value={productDescription} onChange={e => setProductDescription(e.target.value)} />
 
                             </div>
+
+                            <div className="relative p-4">
+                                <label className="text-black font-roboto font-500 text-[20px]">Units In Stock</label>
+
+
+                                <input className="w-[464px] h-[46px] border-[1px] rounded-[10px] border-green-3
+                                  mt-[5px] p-[10px] font-roboto text-[16px]" type="text" value={unitsInStock} onChange={e => { setUnitsInStock(e.target.value) }} />
+
+                            </div>
+
+                            <div className="relative p-4">
+                                <label className="text-black font-roboto font-500 text-[20px]">Brand</label>
+
+
+                                <input className="w-[464px] h-[46px] border-[1px] rounded-[10px] border-green-3
+                                  mt-[5px] p-[10px] font-roboto text-[16px]" type="text" value={brand} onChange={e => { setBrand(e.target.value) }} />
+
+                            </div>
+
+                            <div className="relative p-4">
+                                <label className="text-black font-roboto font-500 text-[20px]">Weight</label>
+
+
+                                <input className="w-[464px] h-[46px] border-[1px] rounded-[10px] border-green-3
+                                  mt-[5px] p-[10px] font-roboto text-[16px]" type="text" value={weight} onChange={e => { setWeight(e.target.value) }} />
+
+                            </div>
+
+                            <div className="relative p-4">
+                                <label className="text-black font-roboto font-500 text-[20px]">Package Quantity</label>
+
+
+                                <input className="w-[464px] h-[46px] border-[1px] rounded-[10px] border-green-3
+                                  mt-[5px] p-[10px] font-roboto text-[16px]" type="text" value={packageQuantity} onChange={e => { setPackageQuantity(e.target.value) }} />
+
+                            </div>
+
 
                             <div className="relative p-4">
                                 <label className="relative p-4text-black font-roboto font-500 text-[20px]">Images</label>
@@ -89,6 +183,7 @@ export default function ProductForm() {
                                         dark:text-neutral-200 dark:file:bg-neutral-700 dark:file:text-neutral-100"
 
                                     type="file"
+                                    onChange={e => setProductImage1(e.target.files[0])}
                                 />
                             </div>
 
@@ -109,8 +204,9 @@ export default function ProductForm() {
                                         focus:border-primary focus:text-neutral-700 focus:shadow-[0_0_0_1px] 
                                         focus:shadow-primary focus:outline-none dark:border-neutral-600 
                                         dark:text-neutral-200 dark:file:bg-neutral-700 dark:file:text-neutral-100"
-
+                                    accept="image/*"
                                     type="file"
+                                    onChange={e => setProductImage2(e.target.files[0])}
                                 />
                             </div>
 
@@ -133,6 +229,7 @@ export default function ProductForm() {
                                         dark:text-neutral-200 dark:file:bg-neutral-700 dark:file:text-neutral-100"
 
                                     type="file"
+                                    onChange={e => setProductImage3(e.target.files[0])}
                                 />
                             </div>
 
@@ -155,6 +252,7 @@ export default function ProductForm() {
                                     dark:text-neutral-200 dark:file:bg-neutral-700 dark:file:text-neutral-100"
 
                                     type="file"
+                                    onChange={e => setProductImage4(e.target.files[0])}
                                 />
                             </div>
 
@@ -163,8 +261,13 @@ export default function ProductForm() {
                                 <div className="relative p-4">
                                     <label className="text-black font-roboto font-500 text-[20px]">Category</label>
 
-                                    <select className="w-[218px] h-[45px] border-[1px] rounded-[10px] border-green-3 text-[16px] font-400 pl-[10px] mt-[5px]">
-                                        <option>&nbsp;&nbsp;A</option>
+                                    <select className="w-[218px] h-[45px] border-[1px] rounded-[10px] border-green-3 text-[16px] font-400 pl-[10px] mt-[5px]" value={category} onChange={e => setCategory(e.target.value)}>
+                                        <option>&nbsp;&nbsp;Soap</option>
+                                        <option>&nbsp;&nbsp;Balm</option>
+                                        <option>&nbsp;&nbsp;Toothpaste</option>
+                                        <option>&nbsp;&nbsp;Lotion</option>
+                                        <option>&nbsp;&nbsp;Shampoo</option>
+                                        <option>&nbsp;&nbsp;Face Wash</option>
                                     </select>
 
                                 </div>
@@ -172,7 +275,7 @@ export default function ProductForm() {
                                 <div className="relative p-4">
                                     <label className="text-black font-roboto font-500 text-[20px]">Price (Rs.)</label>
                                     <input className="w-[218px] h-[45px] border-[1px] rounded-[10px] border-green-3 text-[16px] font-400 pl-[10px] mt-[5px]"
-                                        type="text"></input>
+                                        type="text" value={unitPrice} onChange={e => setUnitPrice(e.target.value)}></input>
                                 </div>
 
 
@@ -200,7 +303,7 @@ export default function ProductForm() {
                                         <label
                                             className="inline-block pl-[0.15rem] hover:cursor-pointer
                                             font-roboto font-400 text-[12px]"
-                                            for="checkboxDefault">
+                                            htmlFor="checkboxDefault">
                                             Publish on site
                                         </label>
                                     </div>
@@ -210,7 +313,7 @@ export default function ProductForm() {
 
                             <div className="mt-[30px] mb-[20px] flex justify-center">
                                 <button
-                                    type="button"
+                                    type="submit"
                                     className="h-[32px] w-[130px] inline-block rounded-[2px] border border-[#73D13D] px-6 pt-[4px] pb-[px] 
                                     text-[14px] font-roboto font-[400px] leading-normal text-[#73D13D] transition  bg-[#FFFF]
                                     duration-150 ease-in-out hover:border-success-600 hover:bg-green-2

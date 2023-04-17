@@ -27,9 +27,9 @@ export default function Home({ products }) {
         <Navbar />
         <Herocarousel />
         <div className="grid desktop-1920:grid-cols-4 desktop-1440:grid-cols-3 mobile-720:grid-cols-2 mobile-360:grid-cols-1 gap-10 w-95vw my-12 mx-auto">
-          {products && products.map(product => (
-            <div className="inline-block w-96 ml-auto mr-auto" key={product.productId}>
-              <ProductCard product={product} />
+          {products && products.map(productData => (
+            <div className="inline-block w-96 ml-auto mr-auto" key={productData.product.productId}>
+              <ProductCard productData={productData} />
             </div>
           ))}
         </div>

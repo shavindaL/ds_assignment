@@ -1,10 +1,10 @@
 import Link from "next/link";
 import StarRating from "./starRating";
 
-export default function ProductCard({product}) {
-  const productName = product.productName;
-  const price = product.unitPrice;
-  const imgLink = "https://via.placeholder.com/300x300";
+export default function ProductCard({ productData }) {
+  const productName = productData['product'].productName;
+  const price = productData['product'].unitPrice;
+  const imgLink = productData['imageUrls'][0];
   const reviewCount = 231;
 
   return (
@@ -40,7 +40,7 @@ export default function ProductCard({product}) {
                 </button>
               </td>
               <td className="pr-4">
-                <Link href={{pathname:`./products/${product.productId}`}} >
+                <Link href={{ pathname: `./products/${productData['product'].productId}` }} >
                   <button className="bg-green-4 px-4 py-2 rounded-md text-white">
                     View
                   </button>

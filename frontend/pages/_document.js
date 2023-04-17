@@ -4,6 +4,11 @@ export default function Document() {
   return (
     <Html lang="en">
       <Head>
+
+
+        <title>iHerb</title>
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon.ico" />
+
         <link
           href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900&display=swap"
           rel="stylesheet"
