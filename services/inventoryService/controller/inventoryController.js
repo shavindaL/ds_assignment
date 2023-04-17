@@ -46,6 +46,7 @@ const getInventoryItems = async (req, res) => {
                     //* assign urls to images
                     inventoryProducts.push({ product, imageUrls })
                 }
+
                 res.status(200).json(inventoryProducts);
             }
             else {
@@ -67,11 +68,10 @@ const getInventoryItem = async (req, res) => {
             //* check if the product object is empty
 
             if (product != null) {
-                const inventoryProduct = [];
                 const imageUrls = [];
 
                 if (product != null) {
-                    for (productImage of product.productImages) {
+                    for (let productImage of product.productImages) {
                         const getObjectParams = {
                             Bucket: process.env.S3_BUCKET_NAME,
                             Key: productImage,
@@ -79,14 +79,14 @@ const getInventoryItem = async (req, res) => {
 
                         //* get urls to images
                         const command = new GetObjectCommand(getObjectParams);
-                        await getSignedUrl(s3, command, { expiresIn: 6000 }).then((url) =>
+
+                        await getSignedUrl(s3, command, { expiresIn: 3000 }).then((url) =>
                             imageUrls.push(url)
                         );
                     }
                 }
                 //* assign urls to images
-                //product.productImages = imageUrls;
-                inventoryProduct.push(product, imageUrls)
+                const inventoryProduct = { product, imageUrls }
 
                 res.status(200).json(inventoryProduct);
             } else {
@@ -113,6 +113,7 @@ const addInventoryItem = async (req, res) => {
 
     const images = req.files;
     const imageNames = [];
+    // console.log(req.body.images[0]);
 
     if (images != null) {
         //* upload images to s3 bucket
@@ -141,9 +142,21 @@ const addInventoryItem = async (req, res) => {
         });
     }
 
+    const lastProductId = await InventoryProduct.find().sort({ productId: -1 });
+
+    //* update product Id
+    let productId;
+    if (lastProductId == "") {
+        productId = 1
+    }
+    else {
+        productId = (lastProductId[0].productId + 1)
+    }
+
+
     //* new product object
     const newInventoryProduct = new InventoryProduct({
-        productId: req.body.productId,
+        productId: productId,
         productName: req.body.productName,
         productDescription: req.body.productDescription,
         brand: req.body.brand,
@@ -162,12 +175,12 @@ const addInventoryItem = async (req, res) => {
         .then((inventoryProduct) => {
             res.status(201).send({ response: inventoryProduct });
 
-            axios
-                .post("http://127.0.0.1:5000/v1/mail/newmail", data)
-                .then((res) => {
-                    console.log("Confirmation mail sent");
-                })
-                .catch((err) => console.log(err));
+            // axios
+            //     .post("http://127.0.0.1:5000/v1/mail/newmail", data)
+            //     .then((res) => {
+            //         console.log("Confirmation mail sent");
+            //     })
+            //     .catch((err) => console.log(err));
         })
         .catch((err) => {
             res.status(404).send({ error: err });
@@ -194,7 +207,6 @@ const updateInventoryItem = async (req, res) => {
             else {
                 imageName = randImgName();
             }
-            console.log(imageName);
             //* save images to image array
             imageNames.push(imageName);
 
@@ -272,7 +284,7 @@ const deleteInventoryItem = async (req, res) => {
         res.status(404).json({ error: "Product not found" });
     }
     else {
-        for (productImage of product.productImages) {
+        for (let productImage of product.productImages) {
             const deleteObjectParams = {
                 Bucket: process.env.S3_BUCKET_NAME,
                 Key: productImage,

@@ -1,14 +1,19 @@
 //* dotenv
 require('dotenv').config();
 
-
 const express = require('express');
+const cors = require('cors')
 
 const { ROUTES } = require('./routes');
 const { setupProxies } = require('./proxy');
 
 
 const app = express();
+
+app.use(cors({
+    origin: 'http://127.0.0.1:3000',
+}));
+
 //* proxy
 setupProxies(app, ROUTES);
 
