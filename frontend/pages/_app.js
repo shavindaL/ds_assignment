@@ -1,5 +1,6 @@
 import '@/styles/globals.css'
-import { AuthContextProvider} from '@/context/AuthContext';
+import { AuthContextProvider } from '@/context/AuthContext';
+import Head from 'next/head';
 
 export default function App({ Component, pageProps }) {
 
