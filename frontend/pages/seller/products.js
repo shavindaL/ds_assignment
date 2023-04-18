@@ -3,10 +3,21 @@ import ProductForm from "@/components/seller/ProductForm";
 import SellerSearchBar from "@/components/seller/SellerSearchBar";
 import dynamic from "next/dynamic";
 
+export const getStaticProps = async () => {
+    const res = await fetch("http://127.0.0.1:5000/v1/inventory/products");
+    const data = await res.json();
+
+    return {
+        props: {
+            products: data
+        }
+    }
+}
+
 const Sidebar = dynamic(() => import("@/components/seller/Sidebar"),
     { ssr: false })
 
-export default function Products() {
+export default function Products({ products }) {
 
     return (
         <>
@@ -25,7 +36,7 @@ export default function Products() {
             <SellerSearchBar />
 
             <div className="ml-[292px] grid desktop-1920:grid-cols-4 desktop-1440:grid-cols-3">
-                {[1, 2, 3, 4, 5, 6, 7, 8].map((idx) => <ProductCard key={idx}/>)}
+                {products && products.map(productData => <ProductCard key={productData.id} productData={productData} />)}
             </div>
 
 
