@@ -4,6 +4,10 @@ require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 
+// Import the sellerRoutes module
+const userRoutes = require('./routes/userRoutes');
+
+
 //* express app
 const app = express();
 
@@ -15,14 +19,12 @@ app.use((req, res, next) => {
     next();
 });
 
-//TODO remove this and add route to the respective service's routes folder
-app.get('/', (req, res) => {
-    res.status(200).send("Customer Service");
-})
+app.use("/",userRoutes)
+
 
 //* Connect to db
 mongoose
-    .connect(process.env.MONGO_URI)
+    .connect(process.env.MONGO_URI , {dbName:"User"})
     .then(() => {
 
         console.log(`Connected to the database`);

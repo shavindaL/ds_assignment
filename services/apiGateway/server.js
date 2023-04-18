@@ -9,6 +9,16 @@ const { setupProxies } = require('./proxy');
 
 
 const app = express();
+
+// Import cors module
+const cors = require("cors");
+ 
+// Use the cors module
+app.use(cors({
+    origin: "http://127.0.0.1:3000",
+}));
+
+
 //* proxy
 setupProxies(app, ROUTES);
 
