@@ -1,7 +1,18 @@
 import Link from "next/link";
 import SearchBar from "./search";
 
+import { UseLogout } from "@/hooks/userLogout";
+import { useAuthContext } from "@/hooks/userAuthContext";
+
 export default function Navbar() {
+  const { logout } = UseLogout();
+
+  const { user } = useAuthContext();
+
+  const handleClick = () => {
+    logout();
+  };
+
   return (
     <>
       <nav
@@ -62,30 +73,41 @@ export default function Navbar() {
 
             {/* <!-- Collapsible wrapper --> */}
 
-            {/* <!-- Right elements --> */}
-            <div className="relative flex items-center">
-              <ul
-                className="list-style-none mr-auto flex flex-col pl-0 lg:flex-row"
-                data-te-navbar-nav-ref
-              >
-                <li className="p-2" data-te-nav-item-ref>
-                  <Link
-                    className="p-0 text-white opacity-60 hover:opacity-80 focus:opacity-80 disabled:text-black/30 lg:px-2 [&.active]:text-black/90 dark:[&.active]:text-neutral-400"
-                    href="/login"
-                  >
-                    Log In
-                  </Link>
-                </li>
-                <li className="p-2" data-te-nav-item-ref>
-                  <Link
-                    href={"/signup"}
-                    className="p-0 text-white opacity-60 hover:opacity-80 focus:opacity-80 disabled:text-black/30 lg:px-2 [&.active]:text-black/90 dark:[&.active]:text-neutral-400"
-                  >
-                    Sign Up
-                  </Link>
-                </li>
-              </ul>
+            <div>
+              {user && (
+                <div>
+                  <span>{user.email}</span>
+                  <button onClick={handleClick}>LOG OUT</button>
+                </div>
+              )}
             </div>
+
+            {/* <!-- Right elements --> */}
+            {!user && (
+              <div class="relative flex items-center">
+                <ul
+                  class="list-style-none mr-auto flex flex-col pl-0 lg:flex-row"
+                  data-te-navbar-nav-ref
+                >
+                  <li class="p-2" data-te-nav-item-ref>
+                    <Link
+                      className="p-0 text-white opacity-60 hover:opacity-80 focus:opacity-80 disabled:text-black/30 lg:px-2 [&.active]:text-black/90 dark:[&.active]:text-neutral-400"
+                      href="/login"
+                    >
+                      Log In
+                    </Link>
+                  </li>
+                  <li class="p-2" data-te-nav-item-ref>
+                    <Link
+                      href={"/signup"}
+                      className="p-0 text-white opacity-60 hover:opacity-80 focus:opacity-80 disabled:text-black/30 lg:px-2 [&.active]:text-black/90 dark:[&.active]:text-neutral-400"
+                    >
+                      Sign Up
+                    </Link>
+                  </li>
+                </ul>
+              </div>
+            )}
             {/* <!-- Right elements --> */}
           </div>
         </div>
