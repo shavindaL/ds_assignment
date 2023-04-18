@@ -113,7 +113,6 @@ const addInventoryItem = async (req, res) => {
 
     const images = req.files;
     const imageNames = [];
-    // console.log(req.body.images[0]);
 
     if (images != null) {
         //* upload images to s3 bucket
@@ -160,7 +159,7 @@ const addInventoryItem = async (req, res) => {
         productName: req.body.productName,
         productDescription: req.body.productDescription,
         brand: req.body.brand,
-        sellerName: req.body.sellerName,
+        sellerId: req.body.sellerId,
         packageQuantity: req.body.packageQuantity,
         productCategory: req.body.productCategory,
         productWeight: req.body.productWeight,
@@ -228,11 +227,11 @@ const updateInventoryItem = async (req, res) => {
 
     //* inventory product object
     const updatedInventoryProduct = {
-        productId: req.body.productId,
+        productId: req.params.id,
         productName: req.body.productName,
         productDescription: req.body.productDescription,
         brand: req.body.brand,
-        sellerName: req.body.sellerName,
+        sellerId: req.body.sellerId,
         packageQuantity: req.body.packageQuantity,
         productCategory: req.body.productCategory,
         productWeight: req.body.productWeight,
@@ -260,12 +259,12 @@ const updateInventoryItem = async (req, res) => {
             };
 
             res.status(201).json(response);
-            axios
-                .post("http://127.0.0.1:5000/v1/mail/newmail", data)
-                .then(() => {
-                    console.log("Confirmation mail sent");
-                })
-                .catch((err) => console.log(err));
+            // axios
+            //     .post("http://127.0.0.1:5000/v1/mail/newmail", data)
+            //     .then(() => {
+            //         console.log("Confirmation mail sent");
+            //     })
+            //     .catch((err) => console.log(err));
         })
         .catch((err) => {
             res.status(404).json({ error: err });
