@@ -1,0 +1,17 @@
+.navcontainer{
+position: relative;
+width: 1350px;
+height: 80px;
+top: 0px;
+background: #092B00;
+color: #FFFFFF;
+font-family: 'Roboto';
+font-style: normal;
+font-weight: 500;
+}
+
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
