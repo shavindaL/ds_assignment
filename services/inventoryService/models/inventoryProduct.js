@@ -18,8 +18,8 @@ const inventoryProductSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    sellerName: {
-        type: String,
+    sellerId: {
+        type: Number,
         required: true
     },
     packageQuantity: {

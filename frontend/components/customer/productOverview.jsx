@@ -27,7 +27,7 @@ export default function ProductOverview({productData}) {
                     <div className="grid grid-cols-4">
                         {imgLinks && imgLinks.map((link, idx) => (
                             <div
-                                key={idx}
+                                key={productData["product"].productImages[idx]}
                                 className="px-2 w-28 opacity-70 hover:cursor-pointer hover:scale-150 hover:opacity-100 hover:transform transition ease-in-out"
                             >
                                 <img
