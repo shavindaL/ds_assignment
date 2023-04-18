@@ -3,6 +3,7 @@ import dynamic from "next/dynamic";
 
 import { useState } from "react";
 
+
 // Sidebar component is dynamically imported to prevent hydration error
 const Sidebar = dynamic(() => import("@/components/seller/Sidebar"),
     { ssr: false });
@@ -94,13 +95,21 @@ export default function Profile({ seller }) {
 
     // Function to validate the updated details if any
     function validateDetails() {
-        // Variable to check whether the form is ready to be submitted
-        let isValid = false;
+
+        // An object to check whether all input fields are valid
+        let isAllValid = {
+            isFirstNameValid: false,
+            isLastNameValid: false,
+            isPhoneValid: false,
+            isEmailValid: false,
+            isPwdValid: false,
+            isShopNameValid: false
+        };
 
         // Validate the firstName state variable to be filled and contain letters only
         if (/^[a-zA-Z]+$/.test(firstName) == true && firstName.length != 0) {
 
-            isValid = true;
+            isAllValid.isFirstNameValid = true;
 
             setFirstNameAlert("");
 
@@ -122,12 +131,12 @@ export default function Profile({ seller }) {
 
             }
 
-            isValid = false;
+            isAllValid.isFirstNameValid = false;
         }
 
         // Validate the lastName state variable to be filled and contain letters only
         if (/^[a-zA-Z]+$/.test(lastName) == true && lastName.length != 0) {
-            isValid = true;
+            isAllValid.isLastNameValid = true;
             setLastNameAlert("");
 
         } else {
@@ -147,12 +156,12 @@ export default function Profile({ seller }) {
 
             }
 
-            isValid = false;
+            isAllValid.isLastNameValid = false;
         }
 
         // Validate the shopName state variable to be filled
         if (shopName.length == 0) {
-            isValid = false;
+            isAllValid.isShopNameValid = false;
 
             setShopNameAlert(
                 <p className="text-danger-700 text-[14px]" role="alert">
@@ -162,14 +171,14 @@ export default function Profile({ seller }) {
 
 
         } else {
-            isValid = true;
+            isAllValid.isShopNameValid = true;
 
             setShopNameAlert("");
         }
 
         // Validate the phoneNumber state variable to be filled and contain numbers only and of length 10 only
         if (/^\d+$/.test(phoneNumber) == true && phoneNumber.length == 10) {
-            isValid = true;
+            isAllValid.isPhoneValid = true;
             setPhoneNumberAlert("");
 
         } else {
@@ -198,7 +207,7 @@ export default function Profile({ seller }) {
 
             }
 
-            isValid = false;
+            isAllValid.isPhoneValid = false;
         }
 
         // Validate the email state variable to be filled and check for appropriate pattern
@@ -209,12 +218,12 @@ export default function Profile({ seller }) {
                 </p>
             );
 
-            isValid = false;
+            isAllValid.isEmailValid = false;
         } else {
             if (email.match(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/)) {
                 setEmailAlert("");
 
-                isValid = true;
+                isAllValid.isEmailValid = true;
             } else {
                 setEmailAlert(
                     <p className="text-danger-700 text-[14px]" role="alert">
@@ -222,7 +231,7 @@ export default function Profile({ seller }) {
                     </p>
                 );
 
-                isValid = false;
+                isAllValid.isEmailValid = false;
             }
         }
 
@@ -235,7 +244,7 @@ export default function Profile({ seller }) {
             ) &&
             password.length >= 8
         ) {
-            isValid = true;
+            isAllValid.isPwdValid = true;
             setPwdAlert("");
 
         } else {
@@ -268,11 +277,16 @@ export default function Profile({ seller }) {
 
             }
 
-            isValid = false;
+            isAllValid.isPwdValid = false;
         }
 
         // Return the boolean value
-        return isValid;
+        if (isAllValid.isFirstNameValid === false || isAllValid.isLastNameValid === false || isAllValid.isPhoneValid === false ||
+            isAllValid.isEmailValid === false || isAllValid.isPwdValid === false || isAllValid.isShopNameValid === false) {
+            return false;
+        } else {
+            return true;
+        }
     }
 
 
@@ -280,7 +294,9 @@ export default function Profile({ seller }) {
     // Function to submit the updated details if any
     async function submitUpdatedData() {
 
-        if (validateDetails() == true) {
+
+        if (validateDetails() === true) {
+
             // Create new object
             const updatedSeller = {
                 firstName: firstName,
@@ -309,19 +325,19 @@ export default function Profile({ seller }) {
                 const resMsg = await res.text();
 
                 // Display error alert
-                if (resMsg == "Sorry, this email is already taken") {
+                if (resMsg === "Sorry, this email is already taken") {
                     setEmailAlert(
                         <p className="text-danger-700 text-[14px]" role="alert">
                             {resMsg}
                         </p>
                     );
 
-                } else if (resMsg == "Seller updated successfully") {
+                } else if (resMsg === "Seller updated successfully") {
                     // Remove error alert if any
                     //setErrorAlert("");
 
-                    // Reload page 
-                    //window.location.reload();
+                    // Reload page                  
+                    window.location.reload();
 
                 } else {
                     // Set accountUpdateAlert state variable as following
@@ -389,25 +405,6 @@ export default function Profile({ seller }) {
                         window.location.reload();
                     }
                 }).catch(err => console.log(err.message));
-
-            //const resMsg = await res.text();
-
-            //if(resMsg){
-            // window.location.reload();
-            //}
-            // if (resMsg === "Failed to upload the image for seller") {
-            //     console.log(resMsg);
-            // } else if(resMsg === "Failed to upload the image to cloud") {
-
-            //     console.log("Could not upload image to Google Cloud");
-            // } else{
-            //window.location.reload();
-            //}
-
-            //} catch (err) {
-            // Print error message
-            // console.log(err.message);
-            //}
 
 
         } else {
