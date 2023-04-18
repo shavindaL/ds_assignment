@@ -83,7 +83,8 @@ export default function Sidebar({ profilePhoto, sellerName, sellerID }) {
                                 active:text-inherit active:outline-none data-[te-sidenav-state-active]:text-inherit 
                                 data-[te-sidenav-state-focus]:outline-none motion-reduce:transition-none 
                                 "
-                href={`/seller/products/${sellerID}`}
+                // href={`/seller/products/${sellerID}`}
+                href="#"
               >
                 <span className="mr-4 [&>svg]:h-3.5 [&>svg]:w-[18px] [&svg]:h-[18px]">
                   <svg
