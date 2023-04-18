@@ -1,18 +1,13 @@
 import { useEffect, useState } from "react";
 import StarRating from "./starRating";
 
-export default function ProductOverview({product}) {
-    const imgLinks = [
-        "https://picsum.photos/id/13/300",
-        "https://picsum.photos/id/17/300",
-        "https://picsum.photos/id/10/300",
-        "https://picsum.photos/id/237/300",
-    ];
-    const productName = product.productName;
+export default function ProductOverview({productData}) {
+    const imgLinks = productData["imageUrls"];
+    const productName = productData["product"].productName;
     const reviewCount = 69;
-    const price = product.unitPrice;
-    const stock = 20;
-    const productDescription = product.productDescription;
+    const price = productData["product"].unitPrice;
+    const stock = productData["product"].unitsInStock;
+    const productDescription = productData["product"].productDescription;
 
     const [mainImg, setMainImg] = useState(imgLinks[0]);
     const [count, setCount] = useState(0);
@@ -30,9 +25,9 @@ export default function ProductOverview({product}) {
                 </div>
                 <div className="py-2 mt-4 mx-4 border-green-9 border-solid border-2 bg-green-5 rounded-lg">
                     <div className="grid grid-cols-4">
-                        {imgLinks.map((link, idx) => (
+                        {imgLinks && imgLinks.map((link, idx) => (
                             <div
-                                key={idx}
+                                key={productData["product"].productImages[idx]}
                                 className="px-2 w-28 opacity-70 hover:cursor-pointer hover:scale-150 hover:opacity-100 hover:transform transition ease-in-out"
                             >
                                 <img
@@ -56,7 +51,7 @@ export default function ProductOverview({product}) {
                                     <h1 className="text-4xl font-700">{productName}</h1>
                                 </td>
                                 <td>
-                                    <p className="ml-8 text-3xl font-700">{`$ ${price} /each`}</p>
+                                    <p className="ml-8 text-3xl font-700">{`LKR ${price} /each`}</p>
                                 </td>
                             </tr>
                             <tr>
@@ -120,7 +115,7 @@ export default function ProductOverview({product}) {
                                     </div>
                                 </td>
                                 <td className="text-4xl w-max" width={2}>
-                                    <p className="ml-8 inline-block">{`Total : $ ${total}`}</p>
+                                    <p className="ml-8 inline-block">{`Total : LKR ${total}`}</p>
                                 </td>
                                 <td className="px-8">
                                     <button className="text-white bg-green-7 border-solid border-2 px-5 py-2 rounded-lg hover:border-green-7 hover:text-green-7 hover:bg-white">
