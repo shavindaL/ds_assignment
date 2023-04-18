@@ -14,6 +14,8 @@ const fs = require('fs');
 // Import the googleapis module
 const { google } = require('googleapis');
 
+// Import stream module
+const stream = require('stream');
 
 
 
@@ -123,6 +125,60 @@ const addSeller = async (req, res) => {
 
 };
 
+// Method to get all existing sellers
+const getSellers = async (req, res) => {
+    try {
+        // Get all existing documents from sellers collection
+        const sellers = await Seller.find();
+
+        if (sellers) {
+            // Loop through the array and decrypt already encrypted details
+            for (let seller of sellers) {
+                seller.phoneNumber = decrypt(seller.phoneNumber, process.env.ENCRYPTION_KEY);
+                seller.email = decrypt(seller.email, process.env.ENCRYPTION_KEY);
+                seller.password = decrypt(seller.password, process.env.ENCRYPTION_KEY);
+            }
+
+            // Respond with status code 200 (OK) if successful
+            res.status(200).send(sellers);
+
+            // Insert an audit log document
+            new SellerAuditTrail({
+                userIPAddress: req.socket.remoteAddress,
+                operation: "read",
+                documentID: "",
+                dataBefore: sellers,
+                dataAfter: sellers,
+                outcome: "success",
+                time: new Date().toLocaleDateString()
+            }).save();
+
+        } else {
+            // Respond with status code 400 (Bad Request) if unsuccessful
+            res.status(400).send("Failed to get sellers");
+
+            // Insert an audit log document
+            new SellerAuditTrail({
+                userIPAddress: req.socket.remoteAddress,
+                operation: "read",
+                documentID: "",
+                dataBefore: "",
+                dataAfter: "",
+                outcome: "failure",
+                time: new Date().toLocaleDateString()
+            }).save();
+        }
+
+
+
+    } catch (err) {
+        // Print error message
+        console.log(err.message);
+    }
+};
+
+
+
 // Method to get details of a particular seller
 const getSeller = async (req, res) => {
 
@@ -185,7 +241,7 @@ const updateSeller = async (req, res) => {
         const existingEmails = await Seller.distinct("email");
 
         // Boolean variable to check if the seller with the given email already exists
-        let isSellerExists = false;
+        let isSellerExists;
 
         let tempSeller;
 
@@ -195,10 +251,13 @@ const updateSeller = async (req, res) => {
             // Check if email is matching after decrypting
             if (decrypt(existingEmails[i], process.env.ENCRYPTION_KEY).toString() === req.body.email) {
 
-                // Get sellerID that matches email
-                let existingSellerID = await Seller.findOne({email: existingEmails[i]}, {sellerID: 1, _id: 0}).sellerID;
+                // Get sellerID object that matches email
+                let existingSellerIDObj = await Seller.findOne({ email: existingEmails[i] }, { sellerID: 1, _id: 0 });
 
-                if (existingSellerID = req.params.id) {
+                // Get the sellerID value from the object
+                let existingSellerID = existingSellerIDObj.sellerID;
+
+                if (existingSellerID == req.params.id) {
                     // isSellerExists = false if existingSellerID is the same as req.params.id
                     isSellerExists = false;
                 } else {
@@ -210,9 +269,6 @@ const updateSeller = async (req, res) => {
         }
 
         if (isSellerExists === true) {
-
-            // Respond with status code 400 (Bad Request) if seller exists
-            res.status(400).send("Sorry, this email is already taken");
 
             tempSeller = await Seller.findOne({ sellerID: req.params.id });
 
@@ -231,6 +287,9 @@ const updateSeller = async (req, res) => {
                 outcome: "failure",
                 time: new Date().toLocaleDateString()
             }).save();
+
+            // Respond with status code 400 (Bad Request) if seller exists
+            res.status(400).send("Sorry, this email is already taken");
 
         } else {
             // Get previous details of the seller
@@ -379,7 +438,7 @@ const updatePhoto = async (req, res) => {
     try {
 
         // Invoke the uploadPhoto() method
-        const photoID = await uploadPhoto(req.params.id);
+        const photoID = await uploadPhoto(req);
 
         if (photoID) {
             // Print the id for the newly uploaded image
@@ -396,7 +455,7 @@ const updatePhoto = async (req, res) => {
                 {
                     $set:
                     {
-                        photo: `https://drive.google.com/file/d/${photoID}/view`
+                        photo: `https://drive.google.com/uc?export=view&id=${photoID}`
                     }
                 },
                 {
@@ -481,9 +540,16 @@ const updatePhoto = async (req, res) => {
 }
 
 // Method to upload the desired photo to google drive
-const uploadPhoto = async () => {
+const uploadPhoto = async (req) => {
 
     try {
+
+        // Assign file object to variable
+        const fileObject = req.file;
+
+        const bufferStream = new stream.PassThrough();
+
+        bufferStream.end(fileObject.buffer);
 
         // Google authentication
         const auth = new google.auth.GoogleAuth({
@@ -506,7 +572,7 @@ const uploadPhoto = async () => {
         // Define the media parameters for the file
         const media = {
             mimeType: "image/*",
-            body: fs.createReadStream("../sellerService/sign.jpg")
+            body: bufferStream
         };
 
         // Get the response from the driveService
@@ -529,6 +595,7 @@ const uploadPhoto = async () => {
 
 // Export all the methods
 module.exports = {
+    getSellers,
     getSellerService,
     addSeller,
     getSeller,

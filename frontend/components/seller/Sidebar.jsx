@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-export default function Sidebar() {
+export default function Sidebar({ profilePhoto, sellerName, sellerID }) {
   return (
     /* Start of Sidebar for seller */
     <>
@@ -22,9 +22,9 @@ export default function Sidebar() {
       >
         <div className="flex justify-center pt-6 mt-[30px]">
           <div id="header-content" className="pl-4">
-            <Link href="/seller/profile">
+            <Link href={`/seller/profile/${sellerID}`}>
               <img
-                src="https://tecdn.b-cdn.net/img/Photos/Avatars/img%20(23).webp"
+                src={profilePhoto}
                 alt="Avatar"
                 className="mb-4 h-auto rounded-full align-middle"
                 style={{ maxWidth: "80px", maxHeight: "80px" }}
@@ -35,7 +35,7 @@ export default function Sidebar() {
         </div>
 
         <h4 className="font-roboto text-white text-[24px] flex justify-center mb-2 font-medium leading-[1.2]">
-         Ann
+          {sellerName}
         </h4>
         <br />
         <br />
@@ -52,7 +52,7 @@ export default function Sidebar() {
                                 active:text-inherit active:outline-none data-[te-sidenav-state-active]:text-inherit 
                                 data-[te-sidenav-state-focus]:outline-none motion-reduce:transition-none 
                                 "
-                href="/seller/dashboard"
+                href={`/seller/dashboard/${sellerID}`}
               >
                 <span className="mr-4 [&>svg]:h-3.5 [&>svg]:w-[18px] [&svg]:h-[18px]">
                   <svg
@@ -83,7 +83,7 @@ export default function Sidebar() {
                                 active:text-inherit active:outline-none data-[te-sidenav-state-active]:text-inherit 
                                 data-[te-sidenav-state-focus]:outline-none motion-reduce:transition-none 
                                 "
-                href="/seller/products"
+                href={`/seller/products/${sellerID}`}
               >
                 <span className="mr-4 [&>svg]:h-3.5 [&>svg]:w-[18px] [&svg]:h-[18px]">
                   <svg
@@ -115,7 +115,7 @@ export default function Sidebar() {
                                 active:text-inherit active:outline-none data-[te-sidenav-state-active]:text-inherit 
                                 data-[te-sidenav-state-focus]:outline-none motion-reduce:transition-none 
                                 "
-                href="/seller/notifications"
+                href={`/seller/notifications/${sellerID}`}
               >
                 <span className="mr-4 [&>svg]:h-3.5 [&>svg]:w-[18px] [&svg]:h-[18px]">
                   <svg
