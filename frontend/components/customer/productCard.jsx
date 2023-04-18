@@ -7,6 +7,69 @@ export default function ProductCard({ productData }) {
   const imgLink = productData['imageUrls'][0];
   const reviewCount = 231;
 
+
+  const addToCart = () => {
+    const cs = localStorage.getItem('cart')
+    let cart;
+
+    let isAdded = false;
+
+    if (!cs) {
+      cart = {
+        cid: 1,
+        products: [{
+          id: productData['product'].productId,
+          name: productName,
+          description: productData['product'].productDescription,
+          price: productData['product'].unitPrice,
+          qty: 1,
+          imgLink: productData['imageUrls'][0]
+        }]
+      }
+    }
+    else {
+      cart = JSON.parse(cs)
+      cart.products = cart.products.map(ci => {
+        if (ci.id == productData['product'].productId) {
+          isAdded = true
+          return {
+            id: ci.id,
+            name: ci.name,
+            description: ci.description,
+            price: ci.price,
+            qty: ci.qty + 1,
+            imgLink: ci.imgLink
+
+          }
+        }
+        return {
+          id: ci.id,
+          name: ci.name,
+          description: ci.description,
+          price: ci.price,
+          qty: ci.qty,
+          imgLink: ci.imgLink
+
+        }
+      }
+      )
+
+      if (!isAdded) {
+        cart.products.push({
+          id: productData['product'].productId,
+          name: productName,
+          description: productData['product'].productDescription,
+          price: productData['product'].unitPrice,
+          qty: 1,
+          imgLink: productData['imageUrls'][0]
+
+        })
+      }
+    }
+
+    localStorage.setItem('cart', JSON.stringify(cart))
+  }
+
   return (
     <>
       <div className="px-1 py-10 rounded-2xl mobile-720:w-96 mobile-360:w-80 bg-white border-solid border-2">
@@ -35,7 +98,7 @@ export default function ProductCard({ productData }) {
                 <p className="inline">{`(${reviewCount})`}</p>
               </td>
               <td className="pr-4">
-                <button className="bg-green-6 px-4 py-2 rounded-md text-white text-sm">
+                <button className="bg-green-6 px-4 py-2 rounded-md text-white text-sm" onClick={addToCart}>
                   Add to cart
                 </button>
               </td>

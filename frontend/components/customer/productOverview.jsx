@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import StarRating from "./starRating";
 
-export default function ProductOverview({productData}) {
+export default function ProductOverview({ productData }) {
     const imgLinks = productData["imageUrls"];
     const productName = productData["product"].productName;
     const reviewCount = 69;
@@ -13,6 +13,68 @@ export default function ProductOverview({productData}) {
     const [count, setCount] = useState(0);
     const [total, setTotal] = useState(0);
     useEffect(() => setTotal(price * count), [count]);
+
+    const addToCart = () => {
+        const cs = localStorage.getItem('cart')
+        let cart;
+
+        let isAdded = false;
+
+        if (!cs) {
+            cart = {
+                cid: 1,
+                products: [{
+                    id: productData['product'].productId,
+                    name: productName,
+                    description: productData['product'].productDescription,
+                    price: productData['product'].unitPrice,
+                    qty: count,
+                    imgLink: productData['imageUrls'][0]
+                }]
+            }
+        }
+        else {
+            cart = JSON.parse(cs)
+            cart.products = cart.products.map(ci => {
+                if (ci.id == productData['product'].productId) {
+                    isAdded = true
+                    return {
+                        id: ci.id,
+                        name: ci.name,
+                        description: ci.description,
+                        price: ci.price,
+                        qty: ci.qty + count,
+                        imgLink: ci.imgLink
+
+                    }
+                }
+                return {
+                    id: ci.id,
+                    name: ci.name,
+                    description: ci.description,
+                    price: ci.price,
+                    qty: ci.qty,
+                    imgLink: ci.imgLink
+
+                }
+            }
+            )
+
+            if (!isAdded) {
+                cart.products.push({
+                    id: productData['product'].productId,
+                    name: productName,
+                    description: productData['product'].productDescription,
+                    price: productData['product'].unitPrice,
+                    qty: count,
+                    imgLink: productData['imageUrls'][0]
+
+                })
+            }
+        }
+
+        localStorage.setItem('cart', JSON.stringify(cart))
+    }
 
     return (
         <div className="bg-white p-16 grid grid-cols-3 gap-4">
@@ -123,7 +185,7 @@ export default function ProductOverview({productData}) {
                                     </button>
                                 </td>
                                 <td className="px-8">
-                                    <button className="text-white bg-green-7 border-solid border-2 px-5 py-2 rounded-lg hover:border-green-7 hover:text-green-7 hover:bg-white">
+                                    <button className="text-white bg-green-7 border-solid border-2 px-5 py-2 rounded-lg hover:border-green-7 hover:text-green-7 hover:bg-white" onClick={addToCart}>
                                         Add to cart
                                     </button>
                                 </td>
