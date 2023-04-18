@@ -4,6 +4,15 @@ require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 
+// Import multer module
+const multer = require('multer');
+const storage = multer.memoryStorage();
+
+const upload = multer({
+    storage: storage
+});
+
+
 // Import the sellerRoutes module
 const sellerRoutes = require('./routes/sellerRoutes');
 
@@ -12,6 +21,9 @@ const app = express();
 
 //middleware
 app.use(express.json());
+
+app.use(upload.single("sellerImage"));
+
 
 app.use((req, res, next) => {
     console.log(`${req.method} ${req.path}`);
