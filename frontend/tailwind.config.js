@@ -18,6 +18,9 @@ module.exports = {
         "green-8": "#237804",
         "green-9": "#135200",
         "green-10": "#092b00",
+        'facebook': '#4267B2', // dineth login facebook
+        'twit': '#1DA1F2', //dineth login twit
+        'linkedin': '#0077b5' //dineth login linkedin
       },
       margin: {
         10: "10vw",
@@ -46,6 +49,7 @@ module.exports = {
         "20vw": "20vw",
         "30vw": "30vw",
         "50vw": "50vw",
+        "80vw": "80vw",
         "95vw": "95vw",
         "210": "840px"
 

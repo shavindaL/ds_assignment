@@ -1,14 +1,16 @@
 import '@/styles/globals.css'
-import { useEffect } from 'react';
+import { AuthContextProvider } from '@/context/AuthContext';
+import Head from 'next/head';
 
 export default function App({ Component, pageProps }) {
 
-  useEffect(() => {
-    const use = async () => {
-      (await import('tw-elements')).default;
-    };
-    use();
-  }, []);
+  return (
+    <>
+      <Head>
+        <title>iHerb</title>
+      </Head>
 
-  return <Component {...pageProps} />
+      <AuthContextProvider><Component {...pageProps} /></AuthContextProvider>
+    </>
+  )
 }

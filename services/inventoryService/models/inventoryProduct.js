@@ -18,8 +18,8 @@ const inventoryProductSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    sellerName: {
-        type: String,
+    sellerId: {
+        type: Number,
         required: true
     },
     packageQuantity: {
@@ -41,6 +41,11 @@ const inventoryProductSchema = new mongoose.Schema({
         type: Number,
         required: true
     },
+    productImages: [
+        {
+            type: String,
+        }
+    ],
 },
     {
         timestamps: true

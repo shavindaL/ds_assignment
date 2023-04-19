@@ -1,10 +1,12 @@
 // Import all the methods from sellerController
 const {
+    getSellers,
     getSellerService,
     addSeller,
     getSeller,
     updateSeller,
-    deleteSeller
+    deleteSeller,
+    updatePhoto
 } = require('../controller/sellerController');
 
 // Import the express module
@@ -16,17 +18,23 @@ const router = express.Router();
 // Handle GET request at root
 router.get("/", getSellerService);
 
-// Handle POST request at "v1/addSeller" URI
-router.post("/v1/addSeller", addSeller);
+// Handle POST request at "/addSeller" URI
+router.post("/addSeller", addSeller);
 
-// Handle GET request at "v1/sellers/:id" URI
-router.get("/v1/sellers/:id", getSeller);
+// Handle GET request at "/sellers" URI
+router.get("/sellers", getSellers);
 
-// Handle PUT request at "v1/sellers/:id" URI
-router.put("/v1/sellers/:id", updateSeller);
+// Handle GET request at "/:id" URI
+router.get("/:id", getSeller);
 
-// Handle DELETE request at "v1/sellers/:id" URI
-router.delete("/v1/sellers/:id", deleteSeller);
+// Handle PUT request at "/:id" URI
+router.put("/:id", updateSeller);
+
+// Handle DELETE request at "/:id" URI
+router.delete("/:id", deleteSeller);
+
+//Handle POST request at "/updatePhoto/:id" URI
+router.post("/updatePhoto/:id", updatePhoto);
 
 // Export the router object
 module.exports = router;

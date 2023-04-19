@@ -6,7 +6,7 @@ const { getInventoryItems, getInventoryItem, addInventoryItem, updateInventoryIt
 router.get("/products", getInventoryItems);
 router.get("/products/:id", getInventoryItem);
 router.post("/products", addInventoryItem);
-router.patch("/products/:id", updateInventoryItem);
+router.put("/products/:id", updateInventoryItem);
 router.delete("/products/:id", deleteInventoryItem);
 
 module.exports = router;
