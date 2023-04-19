@@ -20,7 +20,7 @@ app.use('/', orderRoutes);
 
 //* Connect to db
 mongoose
-    .connect(process.env.MONGO_URI, {dbName:"sample"}) //TODO add  your dbname here
+    .connect(process.env.MONGO_URI, {dbName:"orders"}) // dbname
     .then(() => {
 
         console.log(`Connected to the database`);

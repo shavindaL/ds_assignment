@@ -1,6 +1,7 @@
 // Import all the methods from orderController
 const {
     getOrderService,
+    getOrders,
     addOrder,
     getOrder,
     updateOrder,
@@ -15,6 +16,9 @@ const router = express.Router();
 
 // Handle GET request at root
 router.get("/", getOrderService);
+
+// Handle GET request at "/orders" URI
+router.get("/orders", getOrders);
 
 // Handle POST request at "addOrder" URI
 router.post("/addOrder", addOrder);
