@@ -62,13 +62,16 @@ const addSeller = async (req, res) => {
 
         } else {
 
-            // Variable to hold the no.of documents currently existing in the collection
-            let documentCount = await Seller.estimatedDocumentCount();
+            // Variable to hold the last document in the collection
+            let lastDoc = await Seller.find().limit(1).sort({$natural:-1}) ;
+
+            // Variable to hold the sellerID of the last document in the collection
+            let lastDocSellerID = await lastDoc[0].sellerID;
 
             // Create new document if isSellerExists variable is false
             // Sensitive data is encrypted
             const seller = new Seller({
-                sellerID: documentCount + 1,
+                sellerID: lastDocSellerID + 1,
                 firstName: req.body.firstName,
                 lastName: req.body.lastName,
                 phoneNumber: encrypt(req.body.phoneNumber, process.env.ENCRYPTION_KEY),
