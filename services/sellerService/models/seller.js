@@ -79,7 +79,7 @@ sellerSchema.statics.login = async function (email, password) {
 
 
     try{
-        const res = await axios.get("http://localhost:5000/v1/seller/sellers");
+        const res = await axios.get("http://127.0.0.1:5000/v1/seller/sellers");
        
         let allSellers = await res.data;
        

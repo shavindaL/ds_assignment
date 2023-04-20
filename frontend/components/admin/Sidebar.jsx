@@ -1,15 +1,15 @@
 import Link from "next/link";
 
-export default function Sidebar({ profilePhoto, sellerName, sellerID }) {
+export default function Sidebar() {
   return (
-    /* Start of Sidebar for seller */
+    /* Start of Sidebar for admin */
     <>
       {/* <body class="dark:bg-zinc-800 [&>*]:leading-[1.6]"> */}
 
       <nav
         id="full-screen-example"
         className="fixed top-0 left-0 z-[1035] h-screen w-[239px] 
-                -translate-x-full overflow-hidden bg-green-10 
+                -translate-x-full overflow-hidden bg-[#3061AF]
                 shadow-[0_4px_12px_0_rgba(0,0,0,0.07),_0_2px_4px_rgba(0,0,0,0.05)] 
                 dark:bg-green-10 md:data-[te-sidenav-hidden='false']:translate-x-0"
         data-te-sidenav-init
@@ -21,12 +21,13 @@ export default function Sidebar({ profilePhoto, sellerName, sellerID }) {
         data-te-sidenav-scroll-container="#scrollContainer"
       >
         <div className="flex justify-center pt-6 mt-[30px]">
-          <div id="header-content" >
-            <Link className="justify-center" href={`/seller/profile/${sellerID}`}>
+          <div id="header-content" className="pl-4">
+            <Link href="#">
               <img
-                src={profilePhoto}
+                src="https://media.istockphoto.com/id/1016744004/vector/profile-placeholder-image-gray-silhouette-no-photo.jpg?s=612x612&w=0&k=20&c=mB6A9idhtEtsFXphs1WVwW_iPBt37S2kJp6VpPhFeoA="
                 alt="Avatar"
-                className="w-[80px] h-[80px] mb-4 h-auto rounded-full align-middle"
+                className="mb-4 h-auto rounded-full align-middle"
+                style={{ maxWidth: "80px", maxHeight: "80px" }}
               />
             </Link>
           </div>
@@ -34,13 +35,13 @@ export default function Sidebar({ profilePhoto, sellerName, sellerID }) {
         </div>
 
         <h4 className="font-roboto text-white text-[24px] flex justify-center mb-2 font-medium leading-[1.2]">
-          {sellerName}
+          Administrator
         </h4>
         <br />
         <br />
 
         <div id="scrollContainer">
-          <ul className="relative bottom-[15px] list-none" data-te-sidenav-menu-ref>
+          <ul className="relative list-none" data-te-sidenav-menu-ref>
             <li className="relative">
               <Link
                 className="font-roboto font-[500px] text-[18px] text-white group flex h-12 cursor-pointer
@@ -51,7 +52,7 @@ export default function Sidebar({ profilePhoto, sellerName, sellerID }) {
                                 active:text-inherit active:outline-none data-[te-sidenav-state-active]:text-inherit 
                                 data-[te-sidenav-state-focus]:outline-none motion-reduce:transition-none 
                                 "
-                href={`/seller/dashboard/${sellerID}`}
+                href="#"
               >
                 <span className="mr-4 [&>svg]:h-3.5 [&>svg]:w-[18px] [&svg]:h-[18px]">
                   <svg
@@ -101,11 +102,11 @@ export default function Sidebar({ profilePhoto, sellerName, sellerID }) {
                     ></path>
                   </svg>
                 </span>
-                <span>Products</span>
+                <span>Customers</span>
               </a>
             </li>
 
-            {/* <li className="relative">
+            <li className="relative">
               <Link
                 className="font-roboto font-[500px] text-[18px] text-white group flex h-12 cursor-pointer
                                  items-center truncate w-[239px]
@@ -115,7 +116,7 @@ export default function Sidebar({ profilePhoto, sellerName, sellerID }) {
                                 active:text-inherit active:outline-none data-[te-sidenav-state-active]:text-inherit 
                                 data-[te-sidenav-state-focus]:outline-none motion-reduce:transition-none 
                                 "
-                href={`/seller/notifications/${sellerID}`}
+                href="#"
               >
                 <span className="mr-4 [&>svg]:h-3.5 [&>svg]:w-[18px] [&svg]:h-[18px]">
                   <svg
@@ -133,9 +134,9 @@ export default function Sidebar({ profilePhoto, sellerName, sellerID }) {
                     ></path>
                   </svg>
                 </span>
-                <span>Notifications</span>
+                <span>Sellers</span>
               </Link>
-            </li> */}
+            </li>
 
             <li className="relative">
               <a
@@ -172,6 +173,6 @@ export default function Sidebar({ profilePhoto, sellerName, sellerID }) {
         </div>
       </nav>
     </>
-    /* End of Sidebar for seller */
+    /* End of Sidebar for admin */
   );
 }
