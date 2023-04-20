@@ -1,41 +1,43 @@
 import { useState } from "react";
 import { useAuthContext } from "./userAuthContext";
 
-export const useLogin = () => {
+export const sellerLogin = () => {
   const [error, setError] = useState(null);
-  const [isloading, setIsloading] = useState(null);
   const { dispatch } = useAuthContext();
 
 
-  const login = async (email, password) => {
-    setIsloading(true);
+  const slogin = async (email, password) => {
+    
     setError(null);
-
-    const response = await fetch('http://localhost:5000/v1/customer/login', {
+// console.log(email, password)
+    
+    const response = await fetch('http://localhost:5000/v1/seller/login', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ email, password }),
     });
 
+    console.log(response)
+
     const json = await response.json();
 
     if (!response.ok) {
-      setIsloading(false);
+      
       setError(json.error);
     }
     if (response.ok) {
       //save the user to local storage
-      localStorage.setItem('user', JSON.stringify(json));
+      localStorage.setItem('seller', JSON.stringify(json));
 
       //redirect
-      window.location.href = 'http://localhost:3000/'
+      window.location.href = 'https://www.youtube.com/'
 
       //update the auth context
       dispatch({type: 'LOGIN', payload: json})
 
-      setIsloading(false)
+      
     }
   };
 
-  return{login,isloading,error}
+  return{slogin,error}
 };
