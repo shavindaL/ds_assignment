@@ -89,14 +89,47 @@ export default function UpdateProductForm({ currentProductData }) {
             formData.append("sellerName", "ABC");
             formData.append("productWeight", weight);
             formData.append("packageQuantity", packageQuantity);
-            formData.append("productImages", currentProductData.productImages[0])
-            formData.append("productImages", currentProductData.productImages[1])
-            formData.append("productImages", currentProductData.productImages[2])
-            formData.append("productImages", currentProductData.productImages[3])
-            formData.append("images", productImage1, currentProductData.productImages[0])
-            formData.append("images", productImage2, currentProductData.productImages[1])
-            formData.append("images", productImage3, currentProductData.productImages[2])
-            formData.append("images", productImage4, currentProductData.productImages[3])
+            // formData.append("productImages", currentProductData.productImages[0])
+            // formData.append("productImages", currentProductData.productImages[1])
+            // formData.append("productImages", currentProductData.productImages[2])
+            // formData.append("productImages", currentProductData.productImages[3])
+            // formData.append("images", productImage1, currentProductData.productImages[0])
+            // formData.append("images", productImage2, currentProductData.productImages[1])
+            // formData.append("images", productImage3, currentProductData.productImages[2])
+            // formData.append("images", productImage4, currentProductData.productImages[3])
+
+            if (productImage1)
+                if (currentProductData.productImages[0]) {
+                    formData.append("images", productImage1, currentProductData.productImages[0])
+                }
+                else {
+                    formData.append("images", productImage1, productImage1.name)
+                }
+
+            if (productImage2)
+                if (currentProductData.productImages[1]) {
+                    formData.append("images", productImage2, currentProductData.productImages[1])
+                }
+                else {
+                    formData.append("images", productImage2.name)
+
+                }
+            if (productImage3)
+                if (currentProductData.productImages[2]) {
+                    formData.append("images", productImage3, currentProductData.productImages[2])
+                }
+                else {
+                    formData.append("images", productImage3.name)
+                }
+
+            if (productImage4)
+                if (currentProductData.productImages[3]) {
+                    formData.append("images", productImage4, currentProductData.productImages[3])
+                }
+                else {
+                    formData.append("images", productImage4, productImage4.name)
+
+                }
 
 
             if (currentProductData.productImages[0]) {
@@ -582,7 +615,7 @@ export default function UpdateProductForm({ currentProductData }) {
                                                 value=""
                                                 id="checkboxDefault"
                                                 checked={isPublish}
-                                                onChange={(e) => setIsPublish(!isPublish)}
+                                                onChange={() => setIsPublish(!isPublish)}
                                             />
                                             <label
                                                 className="inline-block pl-[0.15rem] hover:cursor-pointer
