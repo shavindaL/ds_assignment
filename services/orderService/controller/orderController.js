@@ -4,14 +4,35 @@ const getOrderService = async (req, res) => {
     res.status(200).send("Order Service");
 }
 
+// Method to get all existing orders
+const getOrders = async (req, res) => {
+    try {
+        // Get all existing documents from orders collection
+        const orders = await Order.find();
+
+        if (orders) {
+
+            // Respond with status code 200 (OK) if successful
+            res.status(200).send(orders);
+
+        } else {
+            // Respond with status code 400 (Bad Request) if unsuccessful
+            res.status(400).send("Failed to get orders"); 
+
+    } } catch (err) {
+        // Print error message
+        console.log(err.message);
+    }
+};
+
 // Method to add new order
 const addOrder = async (req, res) => {
 
     // Create new document
     const order = new Order({
         orderID: req.body.orderID,
-        customerName: req.body.customerName,
-        address: req.body.address,
+        customerID: req.body.customerID,
+        name: req.body.name,
         quantity: req.body.quantity,
         price: req.body.price
         
@@ -50,7 +71,7 @@ const getOrder = async (req, res) => {
     } catch (err) {
 
         // Respond with status code 400 (Bad Request) if unsuccessful
-        res.status(400).send("Failed to find oreder");
+        res.status(400).send("Failed to find order");
 
         // Print the error message
         console.log(err.message);
@@ -65,7 +86,6 @@ const updateOrder = async (req, res) => {
     try {
 
         // Update the particular document with the new data
-        // Encrypt sensitive data
         await Order.findOneAndUpdate(
             {
                 orderID:
@@ -74,8 +94,8 @@ const updateOrder = async (req, res) => {
             {
                 $set:
                 {
-                    customerName: req.body.customerName,
-                    address: req.body.address,
+                    customerID: req.body.customerID,
+                    name: req.body.name,
                     quantity: req.body.quantity,
                     price: req.body.price
                     
@@ -121,6 +141,7 @@ const deleteOrder = async (req, res) => {
 //* export all the functions
 module.exports = {
     getOrderService,
+    getOrders,
     addOrder,
     getOrder,
     updateOrder,

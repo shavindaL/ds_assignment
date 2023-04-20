@@ -1,17 +1,18 @@
 // Import the mongoose module
 const mongoose = require('mongoose');
 
-// Define the schema for the seller
+// Define the schema for the order
 const orderSchema = mongoose.Schema({
     orderID: {
         type: Number,
+        unique: true,
         required: true
     },
-    customerName : {
-        type : String,
+    customerID : {
+        type : Number,
         required : true
     },
-    address : {
+    name : {
         type : String,
         required : true
     },
