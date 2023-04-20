@@ -124,10 +124,8 @@ function Shopcart() {
                 :
                 <div className="bg-white rounded-lg shadow-lg p-6">
                   <div className="text-gray-400 text-center py-6">
-                    <svg className="mx-auto h-12 w-12" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                      <path fillRule="evenodd" d="M10 3.236L9.667 3H4v1h4.616l-.74 2.815H4v1h4.315l-1.3 4.936h1.392l1.302-4.936H16v-1H7.945l.73-2.815H16v-1h-4.667zM8 15a2 2 0 1 1 4 0 2 2 0 0 1-4 0z" clipRule="evenodd" />
-                    </svg>
-                    <div className="mt-2">Your cart is empty.</div>
+                    <img className="mx-auto" src="empty_cart.png" width={480}/>
+                    <div className="mt-6">Your cart is empty.</div>
                   </div>
                 </div>}
             </div>

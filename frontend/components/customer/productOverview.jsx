@@ -20,66 +20,70 @@ export default function ProductOverview({ productData }) {
     useEffect(() => setTotal(price * count), [count]);
 
     const addToCart = () => {
-        const cs = localStorage.getItem('cart')
-        let cart;
+        if (count !== 0 ) {
+            const cs = localStorage.getItem('cart');
+            let cart;
 
-        let isAdded = false;
+            let isAdded = false;
 
-        if (!cs) {
-            cart = {
-                cid: 1,
-                products: [{
-                    id: productData['product'].productId,
-                    name: productName,
-                    description: productData['product'].productDescription,
-                    price: productData['product'].unitPrice,
-                    qty: count,
-                    imgLink: productData['imageUrls'][0]
-                }]
+            if (!cs) {
+                cart = {
+                    cid: 1,
+                    products: [{
+                        id: productData['product'].productId,
+                        name: productName,
+                        description: productData['product'].productDescription,
+                        price: productData['product'].unitPrice,
+                        qty: count,
+                        imgLink: productData['imageUrls'][0]
+                    }]
+                }
             }
-        }
-        else {
-            cart = JSON.parse(cs)
-            cart.products = cart.products.map(ci => {
-                if (ci.id == productData['product'].productId) {
-                    isAdded = true
+            else {
+                cart = JSON.parse(cs)
+                cart.products = cart.products.map(ci => {
+                    if (ci.id == productData['product'].productId) {
+                        isAdded = true
+                        return {
+                            id: ci.id,
+                            name: ci.name,
+                            description: ci.description,
+                            price: ci.price,
+                            qty: ci.qty + count,
+                            imgLink: ci.imgLink
+
+                        }
+                    }
                     return {
                         id: ci.id,
                         name: ci.name,
                         description: ci.description,
                         price: ci.price,
-                        qty: ci.qty + count,
+                        qty: ci.qty,
                         imgLink: ci.imgLink
 
                     }
                 }
-                return {
-                    id: ci.id,
-                    name: ci.name,
-                    description: ci.description,
-                    price: ci.price,
-                    qty: ci.qty,
-                    imgLink: ci.imgLink
+                )
 
+                if (!isAdded) {
+                    cart.products.push({
+                        id: productData['product'].productId,
+                        name: productName,
+                        description: productData['product'].productDescription,
+                        price: productData['product'].unitPrice,
+                        qty: count,
+                        imgLink: productData['imageUrls'][0]
+
+                    })
                 }
             }
-            )
 
-            if (!isAdded) {
-                cart.products.push({
-                    id: productData['product'].productId,
-                    name: productName,
-                    description: productData['product'].productDescription,
-                    price: productData['product'].unitPrice,
-                    qty: count,
-                    imgLink: productData['imageUrls'][0]
-
-                })
-            }
+            localStorage.setItem('cart', JSON.stringify(cart))
         }
-
-        localStorage.setItem('cart', JSON.stringify(cart))
     }
+
+
     return (
         <div className="bg-white p-16 grid grid-cols-3 gap-4">
             <div className="h-[480px]">
@@ -174,7 +178,7 @@ export default function ProductOverview({ productData }) {
                                     <div
                                         className="border-solid rounded-full border-green-9 border-2 inline-block p-1  m-2 hover:cursor-default hover:bg-green-4 hover:fill-white"
                                         onClick={() => {
-                                            count > 0 ? setCount(count - 1) : setCount(0);
+                                            count > 0 ? setCount(Number(count - 1)) : setCount(0);
                                         }}
                                     >
                                         <svg
@@ -193,12 +197,13 @@ export default function ProductOverview({ productData }) {
                                         onChange={(e) => {
                                             setCount(e.target.value);
                                         }}
+                                        type="number"
                                     />
                                 </td>
                                 <td>
                                     <div
                                         className="border-solid rounded-full border-green-9 border-2 inline-block p-1 m-2 hover:cursor-default hover:bg-green-4 hover:fill-white"
-                                        onClick={() => (stock > count ? setCount(count + 1) : null)}
+                                        onClick={() => (stock > count ? setCount(Number(count + 1)) : null)}
                                     >
                                         <svg
                                             xmlns="http://www.w3.org/2000/svg"
