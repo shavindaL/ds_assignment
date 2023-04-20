@@ -96,6 +96,53 @@ const getInventoryItem = async (req, res) => {
         .catch((err) => res.status(404).json({ error: err }));
 };
 
+//* get a specific item from the inventory
+//* GET
+const searchInventoryItems = async (req, res) => {
+    const productName = decodeURI(req.params.prodName);
+
+    InventoryProduct.find({ productName: { $regex: ".*" + productName + ".*", $options: 'i' } })
+        .sort('productId')
+        .then(async (products) => {
+            //* check if the products array is empty
+            if (products !== null) {
+                const inventoryProducts = [];
+                let imageUrls = [];
+                for (let product of products) {
+
+                    imageUrls = [];
+
+                    if (product != null) {
+                        for (let productImage of product.productImages) {
+                            const getObjectParams = {
+                                Bucket: process.env.S3_BUCKET_NAME,
+                                Key: productImage,
+                            };
+
+                            const command = new GetObjectCommand(getObjectParams);
+                            //* get urls to images
+                            await getSignedUrl(s3, command, { expiresIn: 6000 }).then((url) =>
+                                imageUrls.push(url)
+                            );
+                        }
+                    }
+                    //* assign urls to images
+                    inventoryProducts.push({ product, imageUrls })
+                }
+
+                res.status(200).json(inventoryProducts);
+            }
+            else {
+                res.status(400).json({ error: "No such products" });
+            }
+
+
+        })
+        .catch((err) => res.status(400).send({ error: err }));
+};
+
+
+
 /*-------------------------------------------------------------------------------------------------------------------------------------------------------------- */
 
 //* add a new item to inventory
@@ -125,7 +172,7 @@ const addInventoryItem = async (req, res) => {
 
             //* resize the image
             const buffer = await sharp(image.buffer)
-                .resize({ height: 300, width: 300, fit: "contain" })
+                .resize({ height: 400, width: 400, fit: "contain" })
                 .toBuffer();
 
             //* S3 parameters
@@ -189,7 +236,7 @@ const addInventoryItem = async (req, res) => {
 /*-------------------------------------------------------------------------------------------------------------------------------------------------------------- */
 
 //* update a exsisting inventory item
-//* PATCH
+//* PUT
 const updateInventoryItem = async (req, res) => {
 
     const images = req.files;
@@ -211,7 +258,7 @@ const updateInventoryItem = async (req, res) => {
 
             //* resize the image
             const buffer = await sharp(images[i].buffer)
-                .resize({ height: 300, width: 300, fit: "contain" })
+                .resize({ height: 400, width: 400, fit: "fill" })
                 .toBuffer();
             //* S3 parameters
             const s3Params = {
@@ -308,4 +355,5 @@ module.exports = {
     addInventoryItem,
     updateInventoryItem,
     deleteInventoryItem,
+    searchInventoryItems
 };
