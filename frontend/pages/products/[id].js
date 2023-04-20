@@ -1,5 +1,9 @@
 import Navbar from "@/components/navBar";
-import ProductOverview from "@/components/customer/productOverview";
+import Footer from "@/components/Footer";
+import dynamic from "next/dynamic";
+
+const ProductOverview = dynamic(() => import("@/components/customer/productOverview"),
+    { ssr: false })
 
 export const getStaticPaths = async () => {
     const res = await fetch("http://127.0.0.1:5000/v1/inventory/products");
@@ -28,9 +32,10 @@ export const getStaticProps = async (context) => {
 
 export default function ProductOverviewPage({ product }) {
     return (
-        <main className="bg-black min-h-screen w-screen pb-96">
+        <main className="bg-black min-h-screen w-screen">
             <Navbar />
             <ProductOverview productData={product} />
+            <Footer />
         </main>
     );
 }

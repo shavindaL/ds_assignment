@@ -72,11 +72,11 @@ export default function ProductCard({ productData }) {
 
   return (
     <>
-      <div className="px-1 py-10 rounded-2xl mobile-720:w-96 mobile-360:w-80 bg-white border-solid border-2">
-        <table className="ml-auto mr-auto">
+      <div className="px-1 py-10 rounded-2xl mobile-720:w-96 mobile-360:w-80 bg-white border-solid border-2 border-green-4">
+        <table className="">
           <tbody>
             <tr>
-              <td colSpan={3}>
+              <td colSpan={4}>
                 <img src={imgLink} className="ml-auto mr-auto rounded-md" />
               </td>
             </tr>
@@ -97,13 +97,13 @@ export default function ProductCard({ productData }) {
               <td className="pr-4">
                 <p className="inline">{`(${reviewCount})`}</p>
               </td>
-              <td className="pr-4">
+              <td className="pr-4" >
                 <button className="bg-green-6 px-4 py-2 rounded-md text-white text-sm" onClick={addToCart}>
                   Add to cart
                 </button>
               </td>
               <td className="pr-4">
-                <Link href={{ pathname: `./products/${productData['product'].productId}` }} >
+                <Link href={{ pathname: `../products/${productData['product'].productId}` }} >
                   <button className="bg-green-4 px-4 py-2 rounded-md text-white">
                     View
                   </button>
