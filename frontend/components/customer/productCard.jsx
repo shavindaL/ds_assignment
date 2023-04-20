@@ -98,9 +98,11 @@ export default function ProductCard({ productData }) {
                 <p className="inline">{`(${reviewCount})`}</p>
               </td>
               <td className="pr-4">
-                <button className="bg-green-6 px-4 py-2 rounded-md text-white text-sm" onClick={addToCart}>
-                  Add to cart
-                </button>
+                <Link href={{ pathname: `../cart` }} >
+                  <button className="bg-green-6 px-4 py-2 rounded-md text-white text-sm" onClick={addToCart}>
+                    Add to cart
+                  </button>
+                </Link>
               </td>
               <td className="pr-4">
                 <Link href={{ pathname: `./products/${productData['product'].productId}` }} >

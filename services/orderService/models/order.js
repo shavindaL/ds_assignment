@@ -4,11 +4,12 @@ const mongoose = require('mongoose');
 // Define the schema for the order
 const orderSchema = mongoose.Schema({
     orderID: {
-        type: String,
+        type: Number,
+        unique: true,
         required: true
     },
     customerID : {
-        type : String,
+        type : Number,
         required : true
     },
     name : {

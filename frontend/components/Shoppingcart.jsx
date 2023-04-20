@@ -1,3 +1,4 @@
+import Link from "next/link";
 import styles from "../styles/Shoppingcart.module.css";
 import React, { useEffect, useState } from "react";
 
@@ -28,6 +29,39 @@ function Shopcart() {
     });
     setCartItems(result);
   };
+
+  const handleCheckout = () => {
+    // Retrieve cart data from state or props
+    const { cart, productId } = this.state;
+    
+    // Map cart items to order objects
+    const orders = cart.map(item => ({
+      orderId: item.id,
+      customerId: item.id,
+      name: item.name,
+      price: item.price * item.qty,
+      quantity: item.qty
+    }));
+    
+    // Make POST request to API
+    fetch('http://localhost:5004/addOrder/', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(orders)
+    })
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      // Handle successful response
+    })
+    .catch(error => {
+      console.error('There was a problem with the fetch operation:', error);
+      // Handle error
+    });
+  }
 
   return (
     <>
@@ -112,9 +146,12 @@ function Shopcart() {
                   <tr className="h-16">
                     <td colSpan={5}></td>
                     <td >
-                      <button className="text-white bg-green-7 border-solid border-2 px-5 py-2 rounded-lg hover:border-green-7 hover:text-green-7 hover:bg-white">
-                        Checkout
-                      </button>
+                    <Link href={{ pathname: `../payment` }} >
+                    <button className="text-white bg-green-7 border-solid border-2 px-5 py-2 rounded-lg hover:border-green-7 hover:text-green-7 hover:bg-white"
+                     >
+                      Checkout
+                    </button>
+                      </Link>
                     </td>
                   </tr>
                 </tfoot>
