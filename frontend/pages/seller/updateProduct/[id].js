@@ -1,9 +1,5 @@
-import Navbar from "@/components/navBar";
-import Footer from "@/components/Footer";
+import UpdateProductForm from "@/components/seller/updateProductForm";
 import dynamic from "next/dynamic";
-
-const ProductOverview = dynamic(() => import("@/components/customer/productOverview"),
-    { ssr: false })
 
 export const getStaticPaths = async () => {
     const res = await fetch("http://127.0.0.1:5000/v1/inventory/products");
@@ -21,7 +17,6 @@ export const getStaticPaths = async () => {
 };
 
 export const getStaticProps = async (context) => {
-
     const id = context.params.id;
     const res = await fetch(`http://127.0.0.1:5000/v1/inventory/products/${id}`);
     const data = await res.json();
@@ -30,12 +25,18 @@ export const getStaticProps = async (context) => {
     }
 };
 
-export default function ProductOverviewPage({ product }) {
+const Sidebar = dynamic(() => import("@/components/seller/Sidebar"),
+    { ssr: false })
+
+export default function Home({ product }) {
     return (
-        <main className="bg-black min-h-screen w-screen">
-            <Navbar />
-            <ProductOverview productData={product} />
-            <Footer />
-        </main>
-    );
+        <>
+            <Sidebar />
+            <div className="ml-[292px] grid desktop-1920:grid-cols-4 desktop-1440:grid-cols-3">
+                <UpdateProductForm currentProductData={product['product']} />
+            </div>
+
+
+        </>
+    )
 }

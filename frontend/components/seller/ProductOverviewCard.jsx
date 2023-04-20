@@ -1,5 +1,3 @@
-import { Margarine } from "next/font/google";
-
 export default function ProductOverviewCard() {
     return (
         /* Start of Product Overview Card for seller */
@@ -60,17 +58,17 @@ export default function ProductOverviewCard() {
                         </h5>
 
                         <div className="flex justify-center mt-[15px]">
-                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRl8FooisdI9HtDC1aanCbSF4ogKL4_4D6MeQ&usqp=CAU" 
-                            className="h-[100px] w-[100px] border-[1px] border-green-5 rounded-[10px] mr-[20px] p-[10px]"/>
+                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRl8FooisdI9HtDC1aanCbSF4ogKL4_4D6MeQ&usqp=CAU"
+                                className="h-[100px] w-[100px] border-[1px] border-green-5 rounded-[10px] mr-[20px] p-[10px]" />
 
                             <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRl8FooisdI9HtDC1aanCbSF4ogKL4_4D6MeQ&usqp=CAU"
-                            className="h-[100px] w-[100px] border-[1px] border-green-5 rounded-[10px] mr-[10px] p-[10px]"/>
+                                className="h-[100px] w-[100px] border-[1px] border-green-5 rounded-[10px] mr-[10px] p-[10px]" />
 
-                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRl8FooisdI9HtDC1aanCbSF4ogKL4_4D6MeQ&usqp=CAU" 
-                            className="h-[100px] w-[100px] border-[1px] border-green-5 rounded-[10px] ml-[20px] p-[10px]"/>
+                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRl8FooisdI9HtDC1aanCbSF4ogKL4_4D6MeQ&usqp=CAU"
+                                className="h-[100px] w-[100px] border-[1px] border-green-5 rounded-[10px] ml-[20px] p-[10px]" />
 
-                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRl8FooisdI9HtDC1aanCbSF4ogKL4_4D6MeQ&usqp=CAU" 
-                            className="h-[100px] w-[100px] border-[1px] border-green-5 rounded-[10px] ml-[20px] p-[10px]"/>
+                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRl8FooisdI9HtDC1aanCbSF4ogKL4_4D6MeQ&usqp=CAU"
+                                className="h-[100px] w-[100px] border-[1px] border-green-5 rounded-[10px] ml-[20px] p-[10px]" />
                         </div>
 
                         <div className="flex relative p-4 leading-[4]">
