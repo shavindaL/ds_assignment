@@ -35,7 +35,7 @@ export default function OrderNotifications() {
                       class="whitespace-nowrap  px-6 py-4"
                       style={{ color: "#6469DE", fontWeight: "700" }}
                     >
-                      APPROVE
+                      <button>APPROVE</button> &nbsp;&nbsp;&nbsp; <button className="text-[#D42A46]">REJECT</button>
                     </td>
                   </tr>
                   <tr class="border-b dark:border-neutral-500">
@@ -47,7 +47,7 @@ export default function OrderNotifications() {
                       class="whitespace-nowrap  px-6 py-4"
                       style={{ color: "#6469DE", fontWeight: "700" }}
                     >
-                      APPROVE
+                      <button>APPROVE</button> &nbsp;&nbsp;&nbsp; <button className="text-[#D42A46]">REJECT</button>
                     </td>
                   </tr>
                 </tbody>

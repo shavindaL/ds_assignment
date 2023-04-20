@@ -333,11 +333,9 @@ export default function Profile({ seller }) {
                     );
 
                 } else if (resMsg === "Seller updated successfully") {
-                    // Remove error alert if any
-                    //setErrorAlert("");
 
-                    // Reload page                  
-                    window.location.reload();
+                    // Return message
+                    return (resMsg);
 
                 } else {
                     // Set accountUpdateAlert state variable as following
@@ -386,43 +384,87 @@ export default function Profile({ seller }) {
 
             formData.append("sellerImage", imageData, imageData.name);
 
-            //try {
+            try {
 
-            //const res = await 
-            axios.post(`http://localhost:5000/v1/seller/updatePhoto/${seller.sellerID}`,
-                formData,
-                {
-                    headers:
+                const res = await axios.post(`http://localhost:5000/v1/seller/updatePhoto/${seller.sellerID}`,
+                    formData,
                     {
-                        'Content-Type': 'multipart/form-data'
-                    }
-                }).then(res => res.text()).then(resMsg => {
-                    if (resMsg === "Failed to upload the image for seller") {
-                        console.log(resMsg);
-                    } else if (resMsg === "Failed to upload the image to cloud") {
-                        console.log("Could not upload image to Google Cloud");
-                    } else {
-                        window.location.reload();
-                    }
-                }).catch(err => console.log(err.message));
+                        headers:
+                        {
+                            'Content-Type': 'multipart/form-data'
+                        }
+                    })
+
+                const resMsg = await res.data.toString();
+
+                if (resMsg === "Failed to upload the image for seller") {
+                    console.log(resMsg);
+
+                    // Set the error alert if failed to upadte the profile photo
+                    setAccountUpdateAlert(
+                        <div
+                            className="justify-center mb-3 inline-flex w-[300px] items-center rounded-lg bg-danger-100 px-6 py-5 text-base text-danger-700"
+                            role="alert"
+                        >
+                            <span class="mr-2">
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    viewBox="0 0 24 24"
+                                    fill="currentColor"
+                                    className="h-5 w-5"
+                                >
+                                    <path
+                                        fill-rule="evenodd"
+                                        d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25zm-1.72 6.97a.75.75 0 10-1.06 1.06L10.94 12l-1.72 1.72a.75.75 0 101.06 1.06L12 13.06l1.72 1.72a.75.75 0 101.06-1.06L13.06 12l1.72-1.72a.75.75 0 10-1.06-1.06L12 10.94l-1.72-1.72z"
+                                        clip-rule="evenodd"
+                                    />
+                                </svg>
+                            </span>
+                            Failed to update profile photo!
+                        </div>
+                    );
+
+                } else if (resMsg === "Failed to upload the image to cloud") {
+                    console.log("Could not upload image to Google Cloud");
+                } else {
+                    console.log(resMsg);
+
+                    // Return message
+                    return resMsg;
+                }
+
+            } catch (err) {
+                // Print error message
+                console.log(err.message);
+            }
 
 
         } else {
             // Print message that no file has been selected
             console.log("No file selected");
+
+            // Return message
+            return ("No image uploaded");
         }
     }
 
 
 
     // Function to handle the form submission of details and form submission of image
-    function updateHandler() {
+    async function updateHandler() {
+        // Make the spinners visible
+        document.getElementById("updateProgress").style.visibility = "visible"
 
         // Submit the form with details
-        document.getElementById("dataForm").onsubmit = submitUpdatedData();
+        const isSuccess1 = document.getElementById("dataForm").onsubmit = await submitUpdatedData();
 
         // Submit the form with image
-        document.getElementById("imgForm").onsubmit = submitUpdatedPhoto();
+        const isSuccess2 = document.getElementById("imgForm").onsubmit = await submitUpdatedPhoto();
+
+        if (isSuccess1 && isSuccess2) {
+            window.location.reload();
+        }
+
     }
 
 
@@ -565,7 +607,60 @@ export default function Profile({ seller }) {
             <center className="ml-[250px]">
                 {accountUpdateAlert}
                 {accountDeleteAlert}
+
+                {/* To show the updation progress if necessary */}
+                <div id="updateProgress" className="invisible relative right-[5px]">
+                    <div
+                        class="inline-block h-[15px] w-[15px] animate-[spinner-grow_0.75s_linear_infinite] rounded-full bg-[#118C42] align-[-0.125em] text-success opacity-0 motion-reduce:animate-[spinner-grow_1.5s_linear_infinite]"
+                        role="status">
+                        <span
+                            class="!absolute !-m-px !h-px !w-px !overflow-hidden !whitespace-nowrap !border-0 !p-0 ![clip:rect(0,0,0,0)]"
+                        >Loading...</span
+                        >
+                    </div>
+                    &nbsp;&nbsp;&nbsp;&nbsp;
+                    <div
+                        class="inline-block h-[15px] w-[15px] animate-[spinner-grow_0.75s_linear_infinite] rounded-full bg-[#118C42] align-[-0.125em] text-danger opacity-0 motion-reduce:animate-[spinner-grow_1.5s_linear_infinite]"
+                        role="status">
+                        <span
+                            class="!absolute !-m-px !h-px !w-px !overflow-hidden !whitespace-nowrap !border-0 !p-0 ![clip:rect(0,0,0,0)]"
+                        >Loading...</span
+                        >
+                    </div>
+                    &nbsp;&nbsp;&nbsp;&nbsp;
+                    <div
+                        class="inline-block h-[15px] w-[15px] animate-[spinner-grow_0.75s_linear_infinite] rounded-full bg-[#118C42] align-[-0.125em] text-warning opacity-0 motion-reduce:animate-[spinner-grow_1.5s_linear_infinite]"
+                        role="status">
+                        <span
+                            class="!absolute !-m-px !h-px !w-px !overflow-hidden !whitespace-nowrap !border-0 !p-0 ![clip:rect(0,0,0,0)]"
+                        >Loading...</span
+                        >
+                    </div>
+                    &nbsp;&nbsp;&nbsp;&nbsp;
+                    <div
+                        class="inline-block h-[15px] w-[15px] animate-[spinner-grow_0.75s_linear_infinite] rounded-full bg-[#118C42] align-[-0.125em] text-info opacity-0 motion-reduce:animate-[spinner-grow_1.5s_linear_infinite]"
+                        role="status">
+                        <span
+                            class="!absolute !-m-px !h-px !w-px !overflow-hidden !whitespace-nowrap !border-0 !p-0 ![clip:rect(0,0,0,0)]"
+                        >Loading...</span
+                        >
+                    </div>
+                    &nbsp;&nbsp;&nbsp;&nbsp;
+                    <div
+                        class="inline-block h-[15px] w-[15px] animate-[spinner-grow_0.75s_linear_infinite] rounded-full bg-[#118C42] align-[-0.125em] text-neutral-100 opacity-0 motion-reduce:animate-[spinner-grow_1.5s_linear_infinite]"
+                        role="status">
+                        <span
+                            class="!absolute !-m-px !h-px !w-px !overflow-hidden !whitespace-nowrap !border-0 !p-0 ![clip:rect(0,0,0,0)]"
+                        >Loading...</span
+                        >
+                    </div>
+
+                </div>
+
+
             </center>
+
+
 
             <center>
 
@@ -579,13 +674,16 @@ export default function Profile({ seller }) {
                 <button onClick={() => {
                     document.getElementById("imgFile").click();
                 }}>
-                    <img id="profileImg" className="rounded-full ml-[250px] mt-[20px]
+
+                    <img id="profileImg" className="rounded-full ml-[250px] mt-[20px] h-[250px] w-[250px]
                  hover:transition hover:duration-500 hover:opacity-70 hover:cursor-pointer"
                         src={seller.photo}
-                        height={250}
-                        width={250}></img>
+                    ></img>
+
 
                 </button>
+
+
 
                 <div className="ml-[250px] mt-[30px] font-roboto font-[500] text-[24px]">
                     Seller ID : {seller.sellerID}

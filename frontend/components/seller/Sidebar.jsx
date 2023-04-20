@@ -21,13 +21,12 @@ export default function Sidebar({ profilePhoto, sellerName, sellerID }) {
         data-te-sidenav-scroll-container="#scrollContainer"
       >
         <div className="flex justify-center pt-6 mt-[30px]">
-          <div id="header-content" className="pl-4">
-            <Link href={`/seller/profile/${sellerID}`}>
+          <div id="header-content" >
+            <Link className="justify-center" href={`/seller/profile/${sellerID}`}>
               <img
                 src={profilePhoto}
                 alt="Avatar"
-                className="mb-4 h-auto rounded-full align-middle"
-                style={{ maxWidth: "80px", maxHeight: "80px" }}
+                className="w-[80px] h-[80px] mb-4 h-auto rounded-full align-middle"
               />
             </Link>
           </div>
@@ -41,7 +40,7 @@ export default function Sidebar({ profilePhoto, sellerName, sellerID }) {
         <br />
 
         <div id="scrollContainer">
-          <ul className="relative list-none" data-te-sidenav-menu-ref>
+          <ul className="relative bottom-[15px] list-none" data-te-sidenav-menu-ref>
             <li className="relative">
               <Link
                 className="font-roboto font-[500px] text-[18px] text-white group flex h-12 cursor-pointer
@@ -106,7 +105,7 @@ export default function Sidebar({ profilePhoto, sellerName, sellerID }) {
               </a>
             </li>
 
-            <li className="relative">
+            {/* <li className="relative">
               <Link
                 className="font-roboto font-[500px] text-[18px] text-white group flex h-12 cursor-pointer
                                  items-center truncate w-[239px]
@@ -136,7 +135,7 @@ export default function Sidebar({ profilePhoto, sellerName, sellerID }) {
                 </span>
                 <span>Notifications</span>
               </Link>
-            </li>
+            </li> */}
 
             <li className="relative">
               <a
