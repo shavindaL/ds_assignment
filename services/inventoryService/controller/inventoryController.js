@@ -219,7 +219,7 @@ const addInventoryItem = async (req, res) => {
     await newInventoryProduct
         .save()
         .then((inventoryProduct) => {
-            res.status(201).send({ response: inventoryProduct });
+            res.status(201).json({ success: true });
 
             // axios
             //     .post("http://127.0.0.1:5000/v1/mail/newmail", data)
@@ -229,7 +229,10 @@ const addInventoryItem = async (req, res) => {
             //     .catch((err) => console.log(err));
         })
         .catch((err) => {
-            res.status(404).send({ error: err });
+            res.status(404).send({
+                success: false,
+                error: err
+            });
         });
 };
 
@@ -239,83 +242,93 @@ const addInventoryItem = async (req, res) => {
 //* PUT
 const updateInventoryItem = async (req, res) => {
 
-    const images = req.files;
-    const productImageNames = req.body.productImages;
-    const imageNames = [];
-    if (images != null) {
-        //* upload images to s3 bucket
-        for (let i = 0; i < images.length; i++) {
-            //* image name
-            let imageName = "";
-            if (productImageNames[i] !== undefined) {
-                imageName = productImageNames[i];
-            }
-            else {
-                imageName = randImgName();
-            }
-            //* save images to image array
-            imageNames.push(imageName);
+    const product = await InventoryProduct.findOne({ productId: req.params.id });
 
-            //* resize the image
-            const buffer = await sharp(images[i].buffer)
-                .resize({ height: 400, width: 400, fit: "fill" })
-                .toBuffer();
-            //* S3 parameters
-            const s3Params = {
-                Bucket: process.env.S3_BUCKET_NAME,
-                Key: imageName,
-                Body: buffer,
-                ContentType: images[i].mimetype,
-            };
-            const command = new PutObjectCommand(s3Params);
-            await s3.send(command);
-        }
+    if (!product) {
+        res.status(404).json({ error: "Product not found" });
     }
+    else {
+        const images = req.files;
+        const productImageNames = req.body.productImages;
+        const imageNames = [];
+        if (images != null) {
+            //* upload images to s3 bucket
+            for (let i = 0; i < images.length; i++) {
+                //* image name
+                let imageName = "";
+                if (productImageNames[i] !== undefined) {
+                    imageName = productImageNames[i];
+                }
+                else {
+                    imageName = randImgName();
+                }
+                //* save images to image array
+                imageNames.push(imageName);
 
-    //* inventory product object
-    const updatedInventoryProduct = {
-        productId: req.params.id,
-        productName: req.body.productName,
-        productDescription: req.body.productDescription,
-        brand: req.body.brand,
-        sellerId: req.body.sellerId,
-        packageQuantity: req.body.packageQuantity,
-        productCategory: req.body.productCategory,
-        productWeight: req.body.productWeight,
-        unitsInStock: req.body.unitsInStock,
-        unitPrice: req.body.unitPrice,
-        productImages: imageNames
-    };
+                //* resize the image
+                const buffer = await sharp(images[i].buffer)
+                    .resize({ height: 400, width: 400, fit: "fill" })
+                    .toBuffer();
+                //* S3 parameters
+                const s3Params = {
+                    Bucket: process.env.S3_BUCKET_NAME,
+                    Key: imageName,
+                    Body: buffer,
+                    ContentType: images[i].mimetype,
+                };
+                const command = new PutObjectCommand(s3Params);
+                await s3.send(command);
+            }
+        }
+
+        //* inventory product object
+        const updatedInventoryProduct = {
+            productId: req.params.id,
+            productName: req.body.productName,
+            productDescription: req.body.productDescription,
+            brand: req.body.brand,
+            sellerId: req.body.sellerId,
+            packageQuantity: req.body.packageQuantity,
+            productCategory: req.body.productCategory,
+            productWeight: req.body.productWeight,
+            unitsInStock: req.body.unitsInStock,
+            unitPrice: req.body.unitPrice,
+            productImages: imageNames
+        };
 
 
-    await InventoryProduct.findOneAndUpdate(
-        { productId: req.params.id },
-        updatedInventoryProduct,
-        { returnDocument: "after" }
-    )
-        .then((response) => {
+        await InventoryProduct.findOneAndUpdate(
+            { productId: req.params.id },
+            updatedInventoryProduct,
+            { returnDocument: "after" }
+        )
+            .then((response) => {
 
-            //* email Template
-            const msgTemplate = `<!DOCTYPE html><html><head><title>Product Updated</title><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"></head><body style="font-family: Arial, sans-serif; font-size: 14px; line-height: 1.5; color: #333;"><table style="width: 100%; max-width: 600px; margin: 0 auto; border-collapse: collapse; border-spacing: 0;"><tbody><tr><td style="background-color: #f5f5f5; padding: 20px;"><h1 style="margin: 0;">Product Updated</h1></td></tr><tr><td style="padding: 20px;"><p>Dear Seller,</p><p>We are writing to inform you that one of your products has been updated on our platform. Please find the updated details of the product below:</p><table style="width: 100%; margin-bottom: 20px; border-collapse: collapse; border-spacing: 0;"><tbody><tr><td style="width: 120px; padding: 5px 10px; font-weight: bold;">Product Name:</td><td style="padding: 5px 10px;">${response.productName}</td></tr><tr><td style="width: 120px; padding: 5px 10px; font-weight: bold;">Product Description:</td><td style="padding: 5px 10px;">${response.productDescription}</td></tr><tr><td style="width: 120px; padding: 5px 10px; font-weight: bold;">Product Price:</td><td style="padding: 5px 10px;">${response.unitPrice}</td></tr><tr><td style="width: 120px; padding: 5px 10px; font-weight: bold;">Product Image:</td><td style="padding: 5px 10px;"><img src="${response.productImageUrl}" alt="${response.productName}" style="max-width: 100%;"></td></tr></tbody></table><p>Please review the updated information for your product and ensure that it meets your requirements. If you have any questions or concerns, please don't hesitate to contact us.</p><p>Thank you for being a part of our platform.</p><p>Best regards,</p><p>The iHerb Team</p></td></tr></tbody></table></body></html>`;
+                //* email Template
+                const msgTemplate = `<!DOCTYPE html><html><head><title>Product Updated</title><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"></head><body style="font-family: Arial, sans-serif; font-size: 14px; line-height: 1.5; color: #333;"><table style="width: 100%; max-width: 600px; margin: 0 auto; border-collapse: collapse; border-spacing: 0;"><tbody><tr><td style="background-color: #f5f5f5; padding: 20px;"><h1 style="margin: 0;">Product Updated</h1></td></tr><tr><td style="padding: 20px;"><p>Dear Seller,</p><p>We are writing to inform you that one of your products has been updated on our platform. Please find the updated details of the product below:</p><table style="width: 100%; margin-bottom: 20px; border-collapse: collapse; border-spacing: 0;"><tbody><tr><td style="width: 120px; padding: 5px 10px; font-weight: bold;">Product Name:</td><td style="padding: 5px 10px;">${response.productName}</td></tr><tr><td style="width: 120px; padding: 5px 10px; font-weight: bold;">Product Description:</td><td style="padding: 5px 10px;">${response.productDescription}</td></tr><tr><td style="width: 120px; padding: 5px 10px; font-weight: bold;">Product Price:</td><td style="padding: 5px 10px;">${response.unitPrice}</td></tr><tr><td style="width: 120px; padding: 5px 10px; font-weight: bold;">Product Image:</td><td style="padding: 5px 10px;"><img src="${response.productImageUrl}" alt="${response.productName}" style="max-width: 100%;"></td></tr></tbody></table><p>Please review the updated information for your product and ensure that it meets your requirements. If you have any questions or concerns, please don't hesitate to contact us.</p><p>Thank you for being a part of our platform.</p><p>Best regards,</p><p>The iHerb Team</p></td></tr></tbody></table></body></html>`;
 
-            //* email data
-            const data = {
-                email: "lakmuthushavinda@gmail.com",
-                subject: "Product updated",
-                body: msgTemplate,
-            };
+                //* email data
+                const data = {
+                    email: "lakmuthushavinda@gmail.com",
+                    subject: "Product updated",
+                    body: msgTemplate,
+                };
 
-            res.status(201).json(response);
-            // axios
-            //     .post("http://127.0.0.1:5000/v1/mail/newmail", data)
-            //     .then(() => {
-            //         console.log("Confirmation mail sent");
-            //     })
-            //     .catch((err) => console.log(err));
-        })
-        .catch((err) => {
-            res.status(404).json({ error: err });
-        });
+                res.status(201).json({ success: true });
+                // axios
+                //     .post("http://127.0.0.1:5000/v1/mail/newmail", data)
+                //     .then(() => {
+                //         console.log("Confirmation mail sent");
+                //     })
+                //     .catch((err) => console.log(err));
+            })
+            .catch((err) => {
+                res.status(404).json({
+                    success: false,
+                    error: err
+                });
+            });
+    }
 };
 
 /*-------------------------------------------------------------------------------------------------------------------------------------------------------------- */
@@ -327,7 +340,10 @@ const deleteInventoryItem = async (req, res) => {
     const product = await InventoryProduct.findOne({ productId: req.params.id });
 
     if (!product) {
-        res.status(404).json({ error: "Product not found" });
+        res.status(404).json({
+            success: false,
+            error: "Product not found"
+        });
     }
     else {
         for (let productImage of product.productImages) {
@@ -343,8 +359,14 @@ const deleteInventoryItem = async (req, res) => {
 
         await InventoryProduct
             .findOneAndDelete({ productId: req.params.id })
-            .then(product => res.status(200).json({ msg: "product deleted", deleted: product }))
-            .catch(err => res.status(404).json(err));
+            .then(product => res.status(200).json({
+                success: true,
+                deleted: product
+            }))
+            .catch(err => res.status(404).json({
+                error: err,
+                success: false,
+            }));
 
     }
 };
