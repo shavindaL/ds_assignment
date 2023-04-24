@@ -1,5 +1,4 @@
 import Link from "next/link";
-import UpdateProductForm from "./updateProductForm";
 
 export default function ProductCard({ productData }) {
     const productId = productData["product"].productId;
@@ -7,15 +6,17 @@ export default function ProductCard({ productData }) {
     const price = productData["product"].unitPrice;
     const imgLink = productData["imageUrls"][0];
 
-    const handleDelete = async () => {
-        const res = await fetch(`http://127.0.0.1:5000/v1/inventory/products/${productId}`, {
-            method: `DELETE`
-        })
-        const json = await res.json()
 
-        if (res.ok) {
-            console.log(json);
-        }
+    const handleDelete = async (id) => {
+        alert(id)
+        // const res = await fetch(`http://127.0.0.1:5000/v1/inventory/products/${productId}`, {
+        //     method: `DELETE`
+        // })
+        // const json = await res.json()
+
+        // if (res.ok) {
+        //     console.log(json);
+        // }
     }
 
     return (
@@ -167,7 +168,7 @@ export default function ProductCard({ productData }) {
                                                 class="ml-1 inline-block rounded bg-red-700 px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-white hover:text-red-700 hover:border hover:border-solid hover:border-red-700 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-primary-600 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-primary-700 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(59,113,202,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)]"
                                                 data-te-ripple-init
                                                 data-te-ripple-color="light"
-                                                onClick={handleDelete}
+                                                onClick={() => { handleDelete(productId) }}
                                             >
                                                 Delete
                                             </button>

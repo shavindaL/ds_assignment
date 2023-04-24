@@ -9,6 +9,7 @@ export default function ProductCard({ productData }) {
 
 
   const addToCart = () => {
+    //* Get cart object from local cache
     const cs = localStorage.getItem('cart')
     let cart;
 
@@ -72,7 +73,7 @@ export default function ProductCard({ productData }) {
 
   return (
     <>
-      <div className="px-1 py-10 rounded-2xl mobile-720:w-96 mobile-360:w-80 bg-white border-solid border-2 border-green-4">
+      <div className="px-1 py-10 rounded-2xl mobile-720:w-[400px] mobile-360:w-80 bg-white border-solid border-2 border-green-4">
         <table className="">
           <tbody>
             <tr>
@@ -98,11 +99,12 @@ export default function ProductCard({ productData }) {
                 <p className="inline">{`(${reviewCount})`}</p>
               </td>
               <td className="pr-4">
-                <Link href={{ pathname: `../cart` }} >
-                  <button className="bg-green-6 px-4 py-2 rounded-md text-white text-sm" onClick={addToCart}>
-                    Add to cart
-                  </button>
-                </Link>
+                <button className="bg-green-6 px-4 py-2 rounded-md text-white text-sm h-12 w-20" onClick={addToCart}>
+                  <svg className="mx-auto" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" width={20} fill="#FFF">
+                    {/* <!--! Font Awesome Pro 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --> */}
+                    <path d="M0 24C0 10.7 10.7 0 24 0H69.5c22 0 41.5 12.8 50.6 32h411c26.3 0 45.5 25 38.6 50.4l-41 152.3c-8.5 31.4-37 53.3-69.5 53.3H170.7l5.4 28.5c2.2 11.3 12.1 19.5 23.6 19.5H488c13.3 0 24 10.7 24 24s-10.7 24-24 24H199.7c-34.6 0-64.3-24.6-70.7-58.5L77.4 54.5c-.7-3.8-4-6.5-7.9-6.5H24C10.7 48 0 37.3 0 24zM128 464a48 48 0 1 1 96 0 48 48 0 1 1 -96 0zm336-48a48 48 0 1 1 0 96 48 48 0 1 1 0-96z" />
+                  </svg>
+                </button>
               </td>
               <td className="pr-4">
                 <Link href={{ pathname: `../products/${productData['product'].productId}` }} >
