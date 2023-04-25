@@ -4,14 +4,14 @@ import SearchBar from "./search";
 import { UseLogout } from "@/hooks/userLogout";
 import { useAuthContext } from "@/hooks/userAuthContext";
 
-import userprofileDropdown from "@/components/userprofileDropdown";
+import UserprofileDropdown from "./userprofileDropdown";
 
 export default function Navbar() {
   const { logout } = UseLogout();
 
   const { user } = useAuthContext();
 
-  const handleClick = () => {
+const handleClick = () => {
     logout();
   };
 
@@ -77,11 +77,11 @@ export default function Navbar() {
 
             <div>
               {user && (
-                <div>
+                <div class="relative flex items-center">
                   {/* <span>{user.email}</span> */}
-                  <h1>email -</h1>
-                  <userprofileDropdown email={user.email}></userprofileDropdown>
                   <button onClick={handleClick}>LOG OUT</button>
+                  <UserprofileDropdown email={user.email} id={user.id}></UserprofileDropdown>
+                  
                 </div>
               )}
             </div>
