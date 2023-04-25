@@ -29,21 +29,20 @@ const loginSeller = async (req, res) => {
 
   try {
     const seller = await Seller.login(email, password)
-      
-    let abc = await Seller.findOne({_id: seller._id}, {_id: 1})
-    let sellerid = await abc._id
 
-    console.log(sellerid)
-    console.log(typeof(sellerid))
+    let sellerObject = await Seller.findOne({ _id: seller._id }, { _id: 1, sellerID: 1 })
+    let sellerObjectID = await sellerObject._id;
+    let sellerID = await sellerObject.sellerID;
 
-        // create a token
-        const token = createToken(sellerid);
+    // create a token
+    const token = createToken(sellerObjectID);
 
-        console.log("token",token)
+    // Print the token
+    console.log("token", token)
 
-        res.status(200).json({ email, token });
-     
-      
+    res.status(200).json({ email, token, sellerID });
+
+
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
@@ -78,36 +77,36 @@ const addSeller = async (req, res) => {
       // Respond with status code 400 (Bad Request) if seller exists
       res.status(400).send("Sorry, this email is already taken");
 
-            // Insert an audit log document
-            new SellerAuditTrail({
-                userIPAddress: req.socket.remoteAddress,
-                operation: "create",
-                documentID: "",
-                dataBefore: "",
-                dataAfter: "",
-                outcome: "failure",
-                time: new Date().toLocaleDateString()
-            }).save();
+      // Insert an audit log document
+      new SellerAuditTrail({
+        userIPAddress: req.socket.remoteAddress,
+        operation: "create",
+        documentID: "",
+        dataBefore: "",
+        dataAfter: "",
+        outcome: "failure",
+        time: new Date().toLocaleDateString()
+      }).save();
 
-        } else {
+    } else {
 
-            // Variable to hold the last document in the collection
-            let lastDoc = await Seller.find().limit(1).sort({$natural:-1}) ;
+      // Variable to hold the last document in the collection
+      let lastDoc = await Seller.find().limit(1).sort({ $natural: -1 });
 
-            // Variable to hold the sellerID of the last document in the collection
-            let lastDocSellerID = await lastDoc[0].sellerID;
+      // Variable to hold the sellerID of the last document in the collection
+      let lastDocSellerID = await lastDoc[0].sellerID;
 
-            // Create new document if isSellerExists variable is false
-            // Sensitive data is encrypted
-            const seller = new Seller({
-                sellerID: lastDocSellerID + 1,
-                firstName: req.body.firstName,
-                lastName: req.body.lastName,
-                phoneNumber: encrypt(req.body.phoneNumber, process.env.ENCRYPTION_KEY),
-                shopName: req.body.shopName,
-                email: encrypt(req.body.email, process.env.ENCRYPTION_KEY),
-                password: encrypt(req.body.password, process.env.ENCRYPTION_KEY)
-            });
+      // Create new document if isSellerExists variable is false
+      // Sensitive data is encrypted
+      const seller = new Seller({
+        sellerID: lastDocSellerID + 1,
+        firstName: req.body.firstName,
+        lastName: req.body.lastName,
+        phoneNumber: encrypt(req.body.phoneNumber, process.env.ENCRYPTION_KEY),
+        shopName: req.body.shopName,
+        email: encrypt(req.body.email, process.env.ENCRYPTION_KEY),
+        password: encrypt(req.body.password, process.env.ENCRYPTION_KEY)
+      });
 
       // Insert the new document
       const newSeller = await seller.save();
