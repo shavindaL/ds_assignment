@@ -51,33 +51,7 @@ sellerSchema.statics.login = async function (email, password) {
     throw Error("All fields must be filled login seller");
   } else {
     let testseller
-    // axios
-    //   .get("http://localhost:5000/v1/seller/sellers")
-    //   .then((res) => {
-    //     let data = res.data;
-    //     if (data) {
-    //       //   console.log(data);
-    //       isfound = false;
-    //       for (let seller of data) {
-    //         if (seller.email === email && seller.password === password) {
-    //           isfound = true;
-
-    //           console.log(typeof seller);
-              
-    //           testseller = seller;
-    //         }
-    //       }
-    //       if (isfound === false) {
-    //         throw Error("Invalid Email or password");
-    //       }
-    //     } else {
-    //       throw Error("No sellers in the database");
-    //     }
-    //   })
-    //   .catch((err) => console.log(err.message));
-
-
-
+    
     try{
         const res = await axios.get("http://127.0.0.1:5000/v1/seller/sellers");
        
@@ -106,19 +80,6 @@ sellerSchema.statics.login = async function (email, password) {
       return await testseller
   }
 
-  //   const seller = await this.findOne({ email });
-
-  //   console.log({ seller });
-
-  // if(!seller){
-  //     throw Error('incorrect seller email')
-  // }
-
-  // const match = await bcrypt.compare(password, seller.password)
-
-  // if(!match){
-  //     throw Error('Incorrect password')
-  // }
 };
 
 // Define the model

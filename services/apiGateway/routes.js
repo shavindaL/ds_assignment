@@ -65,6 +65,17 @@ const routes = [
                 ["^/v1/mail"]: "",
             },
         },
+    },
+    {
+        url: "/v1/sms",
+        auth: "false",
+        proxy: {
+            target: "http://127.0.0.1:5007",
+            changeOrigin: "true",
+            pathRewrite: {
+                ["^/v1/sms"]: "",
+            },
+        },
     }
 ];
 
