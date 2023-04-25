@@ -5,30 +5,40 @@ import PaypalCheckOutButton from "./paypalCheckoutButton";
 
 function Shopcart() {
   const [cartItems, setCartItems] = useState([]);
-  const [isEmpty, setIsEmpty] = useState(false);
+  const [isEmpty, setIsEmpty] = useState(true);
   let grandTotal = 0;
 
   let cs;
 
   useEffect(() => {
+    //* check cache for cart object
     cs = localStorage.getItem("cart");
 
     if (!cs) {
-      setIsEmpty(true);
       return;
     }
     const cart = JSON.parse(cs);
-    setCartItems(cart.products);
+    if (cart.products.length !== 0) {
+      setCartItems(cart.products);
+      setIsEmpty(false)
+    }
   }, []);
 
+  //* remove a item from cart
   const removeItem = (productId) => {
-    cartItems.map((cartItem) =>
-      grandTotal += cartItem.price * cartItem.qty
-    )
     const result = cartItems.filter((cartItem) => {
       return cartItem.id !== productId;
     });
-    setCartItems(result);
+
+    localStorage.removeItem("cart");
+
+    if (result.length !== 0) {
+      localStorage.setItem("cart", JSON.stringify({ id: 1, products: result }));
+      setCartItems(result);
+    }
+    else
+      setIsEmpty(true);
+
   };
 
   const handleCheckout = () => {
@@ -150,9 +160,9 @@ function Shopcart() {
                       <td colSpan={5}></td>
                       <td >
                         {/* <Link href={{ pathname: `../payment` }} > */}
-                          {/* <button className="text-white bg-green-7 border-solid border-2 px-5 py-2 rounded-lg hover:border-green-7 hover:text-green-7 hover:bg-white"> */}
-                            <PaypalCheckOutButton />
-                          {/* </button> */}
+                        {/* <button className="text-white bg-green-7 border-solid border-2 px-5 py-2 rounded-lg hover:border-green-7 hover:text-green-7 hover:bg-white"> */}
+                        <PaypalCheckOutButton />
+                        {/* </button> */}
                         {/* </Link> */}
                       </td>
                     </tr>
