@@ -172,7 +172,7 @@ const addInventoryItem = async (req, res) => {
 
             //* resize the image
             const buffer = await sharp(image.buffer)
-                .resize({ height: 400, width: 400, fit: "contain" })
+                .resize({ height: 400, width: 400, fit: "fill" })
                 .toBuffer();
 
             //* S3 parameters
