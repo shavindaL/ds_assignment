@@ -3,6 +3,7 @@ import Navbar from "@/components/navBar";
 import ProductCard from "@/components/customer/productCard";
 import Herocarousel from '@/components/customer/heroCarousel';
 import Footer from '@/components/Footer';
+import userprofileDropdown from '@/components/userprofileDropdown';
 
 export const getStaticProps = async () => {
   const res = await fetch("http://127.0.0.1:5000/v1/inventory/products");
@@ -34,6 +35,9 @@ export default function Home({ products }) {
             </div>
           ))}
         </div>
+
+        
+        <userprofileDropdown></userprofileDropdown>
         <Footer />
       
       </main>

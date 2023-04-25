@@ -4,6 +4,8 @@ import SearchBar from "./search";
 import { UseLogout } from "@/hooks/userLogout";
 import { useAuthContext } from "@/hooks/userAuthContext";
 
+import userprofileDropdown from "@/components/userprofileDropdown";
+
 export default function Navbar() {
   const { logout } = UseLogout();
 
@@ -76,7 +78,9 @@ export default function Navbar() {
             <div>
               {user && (
                 <div>
-                  <span>{user.email}</span>
+                  {/* <span>{user.email}</span> */}
+                  <h1>email -</h1>
+                  <userprofileDropdown email={user.email}></userprofileDropdown>
                   <button onClick={handleClick}>LOG OUT</button>
                 </div>
               )}
