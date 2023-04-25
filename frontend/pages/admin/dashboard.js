@@ -45,6 +45,21 @@ export default function AdminDashboard() {
                         <p className="justify-center font-roboto font-[500] text-[20px]">
                             {date}&nbsp;{month},&nbsp; {day}
                         </p>
+
+
+
+                        <div
+                            className="mt-[32px] block rounded-lg bg-[#F8F9F9] p-6 
+                            shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] 
+                            dark:bg-neutral-700">
+                            <p className="justify-center font-roboto font-[500] text-[20px]">
+                                Total Revenue
+                            </p>
+                            <p class="mb-4 font-roboto text-base text-neutral-600 dark:text-neutral-200">
+                                LKR 200.00
+                            </p>
+                        </div>
+
                     </center>
 
 

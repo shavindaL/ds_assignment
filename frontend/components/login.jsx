@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useLogin } from "@/hooks/userLogin";
 import { sellerLogin } from "@/hooks/sellerLogin";
+import Link from "next/link";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -169,12 +170,12 @@ export default function Login() {
                   </button>
                   <p className="mt-2 mb-0 pt-1 text-sm font-semibold">
                     Don't have an account?
-                    <a
-                      href="#!"
+                    <Link
+                      href="/signup"
                       className="text-danger transition duration-150 ease-in-out hover:text-danger-600 focus:text-danger-600 active:text-danger-700"
                     >
                       Register
-                    </a>
+                    </Link>
                   </p>
                 </div>
               </form>

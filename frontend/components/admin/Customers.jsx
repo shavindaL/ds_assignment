@@ -32,10 +32,12 @@ export default function Customers() {
                       <td class="whitespace-nowrap  px-6 py-4">Otto</td>
                       <td class="whitespace-nowrap  px-6 py-4">@mdo</td>
                       <td
-                        class="whitespace-nowrap  px-6 py-4"
+                        className="whitespace-nowrap  px-6 py-4"
                         style={{ color: "#6469DE", fontWeight: "700" }}
                       >
-                        Track Order
+                        <button className="transition 
+                        duration-150 ease-in-out hover:bg-[#D6D9DE] rounded px-2 pb-2 pt-2
+                        hover:pointer">Track Order</button>
                       </td>
                     </tr>
                     <tr class="border-b dark:border-neutral-500">
@@ -44,10 +46,12 @@ export default function Customers() {
                       <td class="whitespace-nowrap  px-6 py-4">Thornton</td>
                       <td class="whitespace-nowrap  px-6 py-4">@fat</td>
                       <td
-                        class="whitespace-nowrap  px-6 py-4"
+                        className="whitespace-nowrap  px-6 py-4 "
                         style={{ color: "#6469DE", fontWeight: "700" }}
                       >
-                        Track Order
+                        <button className="transition 
+                        duration-150 ease-in-out hover:bg-[#D6D9DE] rounded px-2 pb-2 pt-2
+                        hover:pointer">Track Order</button>
                       </td>
                     </tr>
                   </tbody>
