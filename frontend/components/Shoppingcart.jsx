@@ -9,6 +9,7 @@ function Shopcart() {
   let grandTotal = 0;
 
   let cs;
+  let cart;
 
   useEffect(() => {
     cs = localStorage.getItem("cart");
@@ -31,38 +32,38 @@ function Shopcart() {
     setCartItems(result);
   };
 
-  const handleCheckout = () => {
-    // Retrieve cart data from state or props
-    const { cart, productId } = this.state;
+  // const handleCheckout = () => {
+  //   // Retrieve cart data from state or props
+  //   const { cart, productId } = this.state;
 
     // Map cart items to order objects
-    const orders = cart.map(item => ({
-      orderId: item.id,
-      customerId: item.id,
-      name: item.name,
-      price: item.price * item.qty,
-      quantity: item.qty
-    }));
+    // const orders = cart.map(item => ({
+    //   orderId: item.id,
+    //   customerId: item.id,
+    //   name: item.name,
+    //   price: item.price * item.qty,
+    //   quantity: item.qty
+    // }));
 
-    // Make POST request to API
-    fetch('http://localhost:5004/addOrder/', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(orders)
-    })
-      .then(response => {
-        if (!response.ok) {
-          throw new Error('Network response was not ok');
-        }
-        // Handle successful response
-      })
-      .catch(error => {
-        console.error('There was a problem with the fetch operation:', error);
-        // Handle error
-      });
-  }
+  //   // Make POST request to API
+  //   fetch('http://localhost:5000/v1/order/addOrder/', {
+  //     method: 'POST',
+  //     headers: {
+  //       'Content-Type': 'application/json'
+  //     },
+  //     body: JSON.stringify(orders)
+  //   })
+  //     .then(response => {
+  //       if (!response.ok) {
+  //         throw new Error('Network response was not ok');
+  //       }
+  //       // Handle successful response
+  //     })
+  //     .catch(error => {
+  //       console.error('There was a problem with the fetch operation:', error);
+  //       // Handle error
+  //     });
+  //  }
 
   return (
     <>
@@ -151,7 +152,7 @@ function Shopcart() {
                       <td >
                         {/* <Link href={{ pathname: `../payment` }} > */}
                           {/* <button className="text-white bg-green-7 border-solid border-2 px-5 py-2 rounded-lg hover:border-green-7 hover:text-green-7 hover:bg-white"> */}
-                            <PaypalCheckOutButton />
+                            <PaypalCheckOutButton cartOrder ={orders} />
                           {/* </button> */}
                         {/* </Link> */}
                       </td>
