@@ -1,8 +1,14 @@
 import Link from "next/link";
-import SearchBar from "./search";
-
 import { UseLogout } from "@/hooks/userLogout";
 import { useAuthContext } from "@/hooks/userAuthContext";
+import dynamic from "next/dynamic";
+
+
+const SearchBar = dynamic(() => import("@/components/search"), {
+  ssr: false
+})
+
+
 
 export default function Navbar() {
   const { logout } = UseLogout();

@@ -17,6 +17,7 @@
     "payhere-embed-sdk": "^0.7.3",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "swr": "^2.1.3",
     "tw-elements": "1.0.0-beta1"
   },
   "devDependencies": {

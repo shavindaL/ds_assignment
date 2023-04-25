@@ -1,5 +1,6 @@
 // Import all the methods from sellerController
 const {
+    loginSeller,
     getSellers,
     getSellerService,
     addSeller,
@@ -14,6 +15,9 @@ const express = require("express");
 
 // Create new router object
 const router = express.Router();
+
+//seller login
+router.post("/login", loginSeller);
 
 // Handle GET request at root
 router.get("/", getSellerService);
