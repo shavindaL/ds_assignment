@@ -30,6 +30,12 @@ const orderSchema = mongoose.Schema({
             }
         }
     ],
+
+    total:{
+        type: Number,
+        required: true
+    },
+    
     orderStatus: {
         type: String,
         required: true,

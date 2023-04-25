@@ -1,9 +1,8 @@
 import { PayPalButtons } from "@paypal/react-paypal-js";
 import { useState } from "react";
 
-export default function PaypalCheckOutButton (props) {
+export default function PaypalCheckOutButton ({cartOrder}) {
 
-    const { cartOrder } = props;
     
     const [paidFor, setPaidFor] = useState(false);
     const [error, setError] = useState(null);
@@ -11,9 +10,10 @@ export default function PaypalCheckOutButton (props) {
    
   
 
-    const handleApprove = (orderId) => {
+    const handleApprove = async() => {
       // Call backend function to fulfill order
-      fetch('http://localhost:5000/v1/order/addOrder/', {
+      console.log(cartOrder);
+      await fetch('http://127.0.0.1:5000/v1/order/addOrder/', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -42,10 +42,10 @@ export default function PaypalCheckOutButton (props) {
       // alert("Your payment was processed successfully. However, we are unable to fulfill your purchase. Please contact us at support@designcode.io for assistance.");
     };
   
-    if (paidFor) {
-      // Display success message, modal or redirect user to success page
-      alert("Thank you for your purchase!");
-    }
+    // if (paidFor) {
+    //   // Display success message, modal or redirect user to success page
+    // //   alert("Thank you for your purchase!");
+    // }
 
     
     if (error) {
@@ -84,7 +84,7 @@ export default function PaypalCheckOutButton (props) {
                                     {
                                         amount: {
                                             currency_code: "USD",
-                                            value: "200",
+                                            value: "2",
                                         },
                                     },
                                 ],
@@ -95,13 +95,7 @@ export default function PaypalCheckOutButton (props) {
                             })
                     }}
                 onApprove={function (data, actions) {
-                    return actions.order.capture().then(function () {
-                        // Your code here after capture the order
-
-                        console.log("order", order);
-
-                        handleApprove(data.orderID);
-                    });
+                    handleApprove();
                 }}
                 onCancel={() => {
                     // Display cancel message, modal or redirect user to cancel page or back to cart

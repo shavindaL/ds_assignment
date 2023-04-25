@@ -33,7 +33,8 @@ const addOrder = async (req, res) => {
     const order = new Order({
         orderID: req.body.orderID,
         customerID: req.body.customerID,
-        data: req.body.data
+        data: req.body.data,
+        total: req.body.total
 
     });
 

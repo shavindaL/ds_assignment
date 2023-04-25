@@ -35,7 +35,19 @@ export default function OrderNotifications() {
                       class="whitespace-nowrap  px-6 py-4"
                       style={{ color: "#6469DE", fontWeight: "700" }}
                     >
-                      <button>APPROVE</button> &nbsp;&nbsp;&nbsp; <button className="text-[#D42A46]">REJECT</button>
+                      <button
+                        className="transition 
+                      duration-150 ease-in-out hover:bg-[#D6D9DE] rounded px-2 pb-2 pt-2"
+                      >
+                        APPROVE
+                      </button>{" "}
+                      &nbsp;&nbsp;&nbsp;
+                      <button
+                        className="text-[#D42A46] transition 
+                      duration-150 ease-in-out hover:bg-[#D6D9DE] rounded px-2 pb-2 pt-2"
+                      >
+                        REJECT
+                      </button>
                     </td>
                   </tr>
                   <tr class="border-b dark:border-neutral-500">
@@ -47,7 +59,19 @@ export default function OrderNotifications() {
                       class="whitespace-nowrap  px-6 py-4"
                       style={{ color: "#6469DE", fontWeight: "700" }}
                     >
-                      <button>APPROVE</button> &nbsp;&nbsp;&nbsp; <button className="text-[#D42A46]">REJECT</button>
+                      <button
+                        className="transition 
+                      duration-150 ease-in-out hover:bg-[#D6D9DE] rounded px-2 pb-2 pt-2"
+                      >
+                        APPROVE
+                      </button>
+                      &nbsp;&nbsp;&nbsp;
+                      <button
+                        className="text-[#D42A46] transition 
+                      duration-150 ease-in-out hover:bg-[#D6D9DE] rounded px-2 pb-2 pt-2"
+                      >
+                        REJECT
+                      </button>
                     </td>
                   </tr>
                 </tbody>

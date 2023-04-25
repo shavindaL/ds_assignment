@@ -30,7 +30,7 @@ export const sellerLogin = () => {
       localStorage.setItem('seller', JSON.stringify(json));
 
       //redirect
-      window.location.href = 'https://www.youtube.com/'
+      window.location.href = `http://localhost:3000/seller/dashboard/${json.sellerID}`;
 
       //update the auth context
       dispatch({type: 'LOGIN', payload: json})

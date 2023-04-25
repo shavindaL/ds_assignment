@@ -205,7 +205,7 @@ export default function CustomerSignUpForm() {
               href="#!"
               className="text-danger transition duration-150 ease-in-out hover:text-danger-600 focus:text-danger-600 active:text-danger-700"
             >
-              Login
+              &nbsp; Login
             </a>
           </p>
         </div>
