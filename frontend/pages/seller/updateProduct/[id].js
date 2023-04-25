@@ -1,5 +1,8 @@
-import UpdateProductForm from "@/components/seller/updateProductForm";
 import dynamic from "next/dynamic";
+
+const UpdateProductForm = dynamic(() => import("@/components/seller/updateProductForm"),
+    { ssr: false })
+
 
 export const getStaticPaths = async () => {
     const res = await fetch("http://127.0.0.1:5000/v1/inventory/products");

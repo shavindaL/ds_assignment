@@ -1,6 +1,7 @@
 import Link from "next/link";
 import styles from "../styles/Shoppingcart.module.css";
 import React, { useEffect, useState } from "react";
+import PaypalCheckOutButton from "./paypalCheckoutButton";
 
 function Shopcart() {
   const [cartItems, setCartItems] = useState([]);
@@ -148,11 +149,11 @@ function Shopcart() {
                     <tr className="h-16">
                       <td colSpan={5}></td>
                       <td >
-                        <Link href={{ pathname: `../payment` }} >
-                          <button className="text-white bg-green-7 border-solid border-2 px-5 py-2 rounded-lg hover:border-green-7 hover:text-green-7 hover:bg-white">
-                            Checkout
-                          </button>
-                        </Link>
+                        {/* <Link href={{ pathname: `../payment` }} > */}
+                          {/* <button className="text-white bg-green-7 border-solid border-2 px-5 py-2 rounded-lg hover:border-green-7 hover:text-green-7 hover:bg-white"> */}
+                            <PaypalCheckOutButton />
+                          {/* </button> */}
+                        {/* </Link> */}
                       </td>
                     </tr>
                   </tfoot>

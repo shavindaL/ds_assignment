@@ -25,6 +25,9 @@ export default function UpdateProductForm({ currentProductData }) {
     const [packageQuantityAlert, setPackageQuantityAlert] = useState(false);
     const [unitsInStockAlert, setUnitsInStockAlert] = useState(false);
     const [isPublishAlert, setIsPublishAlert] = useState(false);
+    const [isSucsess, setIsSucsess] = useState(false);
+    const [isFailed, setIsFailed] = useState(false);
+
 
     //* Validations
     const validateProduct = () => {
@@ -165,18 +168,75 @@ export default function UpdateProductForm({ currentProductData }) {
             });
             const json = await res.json();
 
-            // if (res.ok) {
-            //     window.location.reload()
-            // }
+            if (res.ok) {
+                if (json.success == true) {
+                    setIsSucsess(true)
+                }
+                else {
+                    setIsFailed(true)
+                }
+            }
         }
     };
 
     return (
         /* Start of Product Form for seller */
         <>
-            <div className="pointer-events-auto w-50vw rounded-md bg-white bg-clip-padding text-current shadow-lg outline-none my-11 border border-solid border-green-600 pt-10 mx-auto">
+            <div className="mt-8">
+                <h1 className="text-4xl">Update Product</h1>
+            </div>
+
+            <div className="pointer-events-auto w-50vw rounded-md bg-white bg-clip-padding font-roboto shadow-lg outline-none my-11 border border-solid border-green-600 pt-10 mx-auto">
                 <form onSubmit={handleSubmit}>
                     <table className="mx-auto">
+                        <thead>
+                            <th>
+                                <tr>
+                                    <td colSpan={2}>
+                                        {isFailed ?
+                                            <div
+                                                className="mb-3 inline-flex items-center rounded-lg bg-danger-100 px-6 py-2 text-base text-danger-700 mt-1 w-96 mx-auto"
+                                                role="alert"
+                                            >
+                                                <span className="mr-2">
+                                                    <svg
+                                                        xmlns="http://www.w3.org/2000/svg"
+                                                        viewBox="0 0 24 24"
+                                                        fill="currentColor"
+                                                        className="h-5 w-5"
+                                                    >
+                                                        <path
+                                                            fill-rule="evenodd"
+                                                            d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25zm-1.72 6.97a.75.75 0 10-1.06 1.06L10.94 12l-1.72 1.72a.75.75 0 101.06 1.06L12 13.06l1.72 1.72a.75.75 0 101.06-1.06L13.06 12l1.72-1.72a.75.75 0 10-1.06-1.06L12 10.94l-1.72-1.72z"
+                                                            clip-rule="evenodd"
+                                                        />
+                                                    </svg>
+                                                </span>
+                                                Product Update Failed
+                                            </div> : null}
+
+                                        {isSucsess ?
+                                            <div
+                                                class="mb-3 inline-flex w-96 items-center rounded-lg bg-success-100 px-6 py-5 text-base text-success-700"
+                                                role="alert">
+                                                <span class="mr-2">
+                                                    <svg
+                                                        xmlns="http://www.w3.org/2000/svg"
+                                                        viewBox="0 0 24 24"
+                                                        fill="currentColor"
+                                                        class="h-5 w-5">
+                                                        <path
+                                                            fill-rule="evenodd"
+                                                            d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75 0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 00-1.06 1.06l2.25 2.25a.75.75 0 001.14-.094l3.75-5.25z"
+                                                            clip-rule="evenodd" />
+                                                    </svg>
+                                                </span>
+                                                Product Update Success
+                                            </div> : null}
+                                    </td>
+                                </tr>
+                            </th>
+                        </thead>
                         <tbody>
                             <tr>
                                 <td>
@@ -199,15 +259,15 @@ export default function UpdateProductForm({ currentProductData }) {
                                     {/* Alert Message */}
                                     {productNameAlert ? (
                                         <div
-                                            class="mb-3 inline-flex w-full items-center rounded-lg bg-danger-100 px-6 py-2 text-base text-danger-700 mt-1"
+                                            className="mb-3 inline-flex w-full items-center rounded-lg bg-danger-100 px-6 py-2 text-base text-danger-700 mt-1"
                                             role="alert"
                                         >
-                                            <span class="mr-2">
+                                            <span className="mr-2">
                                                 <svg
                                                     xmlns="http://www.w3.org/2000/svg"
                                                     viewBox="0 0 24 24"
                                                     fill="currentColor"
-                                                    class="h-5 w-5"
+                                                    className="h-5 w-5"
                                                 >
                                                     <path
                                                         fill-rule="evenodd"
@@ -242,15 +302,15 @@ export default function UpdateProductForm({ currentProductData }) {
                                     {/* Alert Message */}
                                     {productDescriptionAlert ? (
                                         <div
-                                            class="mb-3 inline-flex w-full items-center rounded-lg bg-danger-100 px-6 py-2 text-base text-danger-700 mt-1"
+                                            className="mb-3 inline-flex w-full items-center rounded-lg bg-danger-100 px-6 py-2 text-base text-danger-700 mt-1"
                                             role="alert"
                                         >
-                                            <span class="mr-2">
+                                            <span className="mr-2">
                                                 <svg
                                                     xmlns="http://www.w3.org/2000/svg"
                                                     viewBox="0 0 24 24"
                                                     fill="currentColor"
-                                                    class="h-5 w-5"
+                                                    className="h-5 w-5"
                                                 >
                                                     <path
                                                         fill-rule="evenodd"
@@ -286,15 +346,15 @@ export default function UpdateProductForm({ currentProductData }) {
                                     {/* Alert Message */}
                                     {unitsInStockAlert ? (
                                         <div
-                                            class="mb-3 inline-flex w-full items-center rounded-lg bg-danger-100 px-6 py-2 text-base text-danger-700 mt-1"
+                                            className="mb-3 inline-flex w-full items-center rounded-lg bg-danger-100 px-6 py-2 text-base text-danger-700 mt-1"
                                             role="alert"
                                         >
-                                            <span class="mr-2">
+                                            <span className="mr-2">
                                                 <svg
                                                     xmlns="http://www.w3.org/2000/svg"
                                                     viewBox="0 0 24 24"
                                                     fill="currentColor"
-                                                    class="h-5 w-5"
+                                                    className="h-5 w-5"
                                                 >
                                                     <path
                                                         fill-rule="evenodd"
@@ -330,15 +390,15 @@ export default function UpdateProductForm({ currentProductData }) {
                                     {/* Alert Message */}
                                     {brandAlert ? (
                                         <div
-                                            class="mb-3 inline-flex w-full items-center rounded-lg bg-danger-100 px-6 py-2 text-base text-danger-700 mt-1"
+                                            className="mb-3 inline-flex w-full items-center rounded-lg bg-danger-100 px-6 py-2 text-base text-danger-700 mt-1"
                                             role="alert"
                                         >
-                                            <span class="mr-2">
+                                            <span className="mr-2">
                                                 <svg
                                                     xmlns="http://www.w3.org/2000/svg"
                                                     viewBox="0 0 24 24"
                                                     fill="currentColor"
-                                                    class="h-5 w-5"
+                                                    className="h-5 w-5"
                                                 >
                                                     <path
                                                         fill-rule="evenodd"
@@ -374,15 +434,15 @@ export default function UpdateProductForm({ currentProductData }) {
                                     {/* Alert Message */}
                                     {weightAlert ? (
                                         <div
-                                            class="mb-3 inline-flex w-full items-center rounded-lg bg-danger-100 px-6 py-2 text-base text-danger-700 mt-1"
+                                            className="mb-3 inline-flex w-full items-center rounded-lg bg-danger-100 px-6 py-2 text-base text-danger-700 mt-1"
                                             role="alert"
                                         >
-                                            <span class="mr-2">
+                                            <span className="mr-2">
                                                 <svg
                                                     xmlns="http://www.w3.org/2000/svg"
                                                     viewBox="0 0 24 24"
                                                     fill="currentColor"
-                                                    class="h-5 w-5"
+                                                    className="h-5 w-5"
                                                 >
                                                     <path
                                                         fill-rule="evenodd"
@@ -418,15 +478,15 @@ export default function UpdateProductForm({ currentProductData }) {
                                     {/* Alert Message */}
                                     {packageQuantityAlert ? (
                                         <div
-                                            class="mb-3 inline-flex w-full items-center rounded-lg bg-danger-100 px-6 py-2 text-base text-danger-700 mt-1"
+                                            className="mb-3 inline-flex w-full items-center rounded-lg bg-danger-100 px-6 py-2 text-base text-danger-700 mt-1"
                                             role="alert"
                                         >
-                                            <span class="mr-2">
+                                            <span className="mr-2">
                                                 <svg
                                                     xmlns="http://www.w3.org/2000/svg"
                                                     viewBox="0 0 24 24"
                                                     fill="currentColor"
-                                                    class="h-5 w-5"
+                                                    className="h-5 w-5"
                                                 >
                                                     <path
                                                         fill-rule="evenodd"
@@ -484,15 +544,15 @@ export default function UpdateProductForm({ currentProductData }) {
                                     {/* Alert Message */}
                                     {productUnitPriceAlert ? (
                                         <div
-                                            class="mb-3 inline-flex w-full items-center rounded-lg bg-danger-100 px-6 py-2 text-base text-danger-700 mt-1"
+                                            className="mb-3 inline-flex w-full items-center rounded-lg bg-danger-100 px-6 py-2 text-base text-danger-700 mt-1"
                                             role="alert"
                                         >
-                                            <span class="mr-2">
+                                            <span className="mr-2">
                                                 <svg
                                                     xmlns="http://www.w3.org/2000/svg"
                                                     viewBox="0 0 24 24"
                                                     fill="currentColor"
-                                                    class="h-5 w-5"
+                                                    className="h-5 w-5"
                                                 >
                                                     <path
                                                         fill-rule="evenodd"
@@ -627,15 +687,15 @@ export default function UpdateProductForm({ currentProductData }) {
                                             {/* Alert Message */}
                                             {isPublishAlert ? (
                                                 <div
-                                                    class="mb-3 inline-flex w-full items-center rounded-lg bg-danger-100 px-6 py-2 text-base text-danger-700 mt-1 block"
+                                                    className="mb-3 inline-flex w-full items-center rounded-lg bg-danger-100 px-6 py-2 text-base text-danger-700 mt-1 block"
                                                     role="alert"
                                                 >
-                                                    <span class="mr-2">
+                                                    <span className="mr-2">
                                                         <svg
                                                             xmlns="http://www.w3.org/2000/svg"
                                                             viewBox="0 0 24 24"
                                                             fill="currentColor"
-                                                            class="h-5 w-5"
+                                                            className="h-5 w-5"
                                                         >
                                                             <path
                                                                 fill-rule="evenodd"
@@ -663,7 +723,7 @@ export default function UpdateProductForm({ currentProductData }) {
                                     active:text-success-700"
                                         data-te-ripple-init
                                     >
-                                        Submit item
+                                        Update Item
                                     </button>
                                 </div></td>
                             </tr>
