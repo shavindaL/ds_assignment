@@ -76,27 +76,29 @@ export default function ProductCard({ productData }) {
 
   return (
     <>
-      <div className="px-1 py-10 rounded-2xl mobile-720:w-[400px] mobile-360:w-80 bg-white border-solid border-2 border-green-4">
+      <div className="px-0 pb-10 rounded-2xl mobile-720:w-[400px] mobile-360:w-80 bg-white border-solid border-2 border-green-4">
         <table className="">
           <tbody>
             <tr>
               <td colSpan={4}>
-                <img src={imgLink} className="ml-auto mr-auto rounded-md" />
+                <img src={imgLink} className="ml-auto mr-auto rounded-t-2xl" />
               </td>
             </tr>
             <tr className="pt-3">
               <td colSpan={3}>
-                <p>{productName}</p>
+                <p className="pl-4">{productName}</p>
               </td>
             </tr>
             <tr>
               <td colSpan={3}>
-                <p>{`$${price}`}</p>
+                <p className="pl-4">{`$${price}`}</p>
               </td>
             </tr>
             <tr>
               <td className="pr-4">
-                <StarRating />
+                <div className="pl-4">
+                  <StarRating />
+                </div>
               </td>
               <td className="pr-4">
                 <p className="inline">{`(${reviewCount})`}</p>
@@ -126,9 +128,9 @@ export default function ProductCard({ productData }) {
                   <td colSpan={4}>
 
                     <div
-                      class="mb-3 inline-flex w-full items-center rounded-lg bg-success-100 px-6 py-5 text-base text-success-700 mt-5"
+                      className="mb-3 inline-flex w-full items-center rounded-lg bg-success-100 px-6 py-5 text-base text-success-700 mt-5"
                       role="alert">
-                      <span class="mr-2">
+                      <span className="mr-2">
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
                           viewBox="0 0 24 24"

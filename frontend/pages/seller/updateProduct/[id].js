@@ -36,7 +36,12 @@ export default function Home({ product }) {
         <>
             <Sidebar />
             <div className="ml-[292px] grid desktop-1920:grid-cols-4 desktop-1440:grid-cols-3">
-                <UpdateProductForm currentProductData={product['product']} />
+                <div className="mt-8">
+                    <h1 className="text-4xl">Update Product</h1>
+                </div>
+                <div>
+                    <UpdateProductForm currentProductData={product['product']} />
+                </div>
             </div>
 
 
