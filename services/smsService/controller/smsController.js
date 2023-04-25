@@ -37,7 +37,7 @@ const sendSMS = async (req, res) => {
         }
     };
 
-    // Invoke the sendNewSMS function
+    // Invoke sendSMS function
     sendNewSMS();
 }
 
