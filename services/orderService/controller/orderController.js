@@ -17,9 +17,10 @@ const getOrders = async (req, res) => {
 
         } else {
             // Respond with status code 400 (Bad Request) if unsuccessful
-            res.status(400).send("Failed to get orders"); 
+            res.status(400).send("Failed to get orders");
 
-    } } catch (err) {
+        }
+    } catch (err) {
         // Print error message
         console.log(err.message);
     }
@@ -32,10 +33,8 @@ const addOrder = async (req, res) => {
     const order = new Order({
         orderID: req.body.orderID,
         customerID: req.body.customerID,
-        name: req.body.name,
-        quantity: req.body.quantity,
-        price: req.body.price
-        
+        data: req.body.data
+
     });
 
     try {
@@ -94,11 +93,8 @@ const updateOrder = async (req, res) => {
             {
                 $set:
                 {
-                    customerID: req.body.customerID,
-                    name: req.body.name,
-                    quantity: req.body.quantity,
-                    price: req.body.price
-                    
+                    orderStatus: req.body.orderStatus
+
                 }
             }
         );
