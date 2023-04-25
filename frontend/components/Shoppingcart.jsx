@@ -1,14 +1,14 @@
-import Link from "next/link";
-import styles from "../styles/Shoppingcart.module.css";
 import React, { useEffect, useState } from "react";
 import PaypalCheckOutButton from "./paypalCheckoutButton";
 
 function Shopcart() {
   const [cartItems, setCartItems] = useState([]);
   const [isEmpty, setIsEmpty] = useState(true);
+  const [data, setData] = useState([]);
   let grandTotal = 0;
 
   let cs;
+
 
   useEffect(() => {
     //* check cache for cart object
@@ -19,6 +19,20 @@ function Shopcart() {
     }
     const cart = JSON.parse(cs);
     if (cart.products.length !== 0) {
+      setData(cart.products.map(cartItem => {
+
+        return {
+
+
+          name: cartItem.name,
+
+          price: cartItem.price,
+
+          quantity: cartItem.qty,
+
+        }
+
+      }))
       setCartItems(cart.products);
       setIsEmpty(false)
     }
@@ -41,38 +55,7 @@ function Shopcart() {
 
   };
 
-  const handleCheckout = () => {
-    // Retrieve cart data from state or props
-    const { cart, productId } = this.state;
-
-    // Map cart items to order objects
-    const orders = cart.map(item => ({
-      orderId: item.id,
-      customerId: item.id,
-      name: item.name,
-      price: item.price * item.qty,
-      quantity: item.qty
-    }));
-
-    // Make POST request to API
-    fetch('http://localhost:5004/addOrder/', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(orders)
-    })
-      .then(response => {
-        if (!response.ok) {
-          throw new Error('Network response was not ok');
-        }
-        // Handle successful response
-      })
-      .catch(error => {
-        console.error('There was a problem with the fetch operation:', error);
-        // Handle error
-      });
-  }
+  
 
   return (
     <>
@@ -159,11 +142,9 @@ function Shopcart() {
                     <tr className="h-16">
                       <td colSpan={5}></td>
                       <td >
-                        {/* <Link href={{ pathname: `../payment` }} > */}
-                        {/* <button className="text-white bg-green-7 border-solid border-2 px-5 py-2 rounded-lg hover:border-green-7 hover:text-green-7 hover:bg-white"> */}
-                        <PaypalCheckOutButton />
-                        {/* </button> */}
-                        {/* </Link> */}
+                        
+                        <PaypalCheckOutButton cartOrder={{ orderID: 5, customerID: 3, data, total:grandTotal }} />
+                        
                       </td>
                     </tr>
                   </tfoot>
