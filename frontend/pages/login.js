@@ -12,12 +12,12 @@ const Login = dynamic(() => import('@/components/login'), {
 export default function LogIn() {
     const { user } = useAuthContext();
 
-    if (!user) {
+    // if (!user) {
         return (
             <Login />
         )
-    }
-    else {
-        window.location.replace(".")
-    }
+    //}
+    // else {
+    //     window.location.replace(".")
+    // }
 }

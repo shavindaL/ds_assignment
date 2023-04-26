@@ -6,7 +6,7 @@ const SignUp = dynamic(() => import('@/components/signUp'), {
 });
 
 export default function SignIn() {
-    const { user } = useAuthContext();
+    const user = useAuthContext();
 
     if (!user.user) {
         return (

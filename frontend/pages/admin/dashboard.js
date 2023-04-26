@@ -53,20 +53,23 @@ export default function AdminDashboard() {
         // Invoke the getAllSellers method
         getAllSellers();
 
-        // Function to fetch all user data
-        // async function getAllCustomers() {
-        //     try {
-        //         const res = await fetch("http://localhost:5000/v1/sellers/sellers");
-        //         const allCustomers = await res.json();
+        //Function to fetch all customer data
+        async function getAllCustomers() {
+            try {
+                const res = await fetch("http://localhost:5000/v1/customer/customers/customerall");
+                const allCustomers = await res.json();
 
-        //         // Set the state variable
-        //         setTotSellers(allSellers.length);
+                // Set the state variable
+                setTotCustomers(allCustomers.length);
 
-        //     } catch (err) {
-        //         // Print error message
-        //         console.log(err.message);
-        //     }
-        // }
+            } catch (err) {
+                // Print error message
+                console.log(err.message);
+            }
+        }
+
+         // Invoke the getAllCustomers method
+        getAllCustomers();
 
     }, []);
 
@@ -112,7 +115,7 @@ export default function AdminDashboard() {
                                 Total Customers
                             </p>
                             <p class="mb-4 font-roboto text-base text-neutral-600 dark:text-neutral-200">
-                                LKR 200.00
+                                {totCustomers}
                             </p>
                         </div>
 
