@@ -1,11 +1,14 @@
 import Link from "next/link";
 import StarRating from "./starRating";
+import { useState } from "react";
 
 export default function ProductCard({ productData }) {
   const productName = productData['product'].productName;
   const price = productData['product'].unitPrice;
   const imgLink = productData['imageUrls'][0];
   const reviewCount = 231;
+
+  const [showMsg, setShowMsg] = useState(false)
 
 
   const addToCart = () => {
@@ -21,7 +24,6 @@ export default function ProductCard({ productData }) {
         products: [{
           id: productData['product'].productId,
           name: productName,
-          description: productData['product'].productDescription,
           price: productData['product'].unitPrice,
           qty: 1,
           imgLink: productData['imageUrls'][0]
@@ -36,7 +38,6 @@ export default function ProductCard({ productData }) {
           return {
             id: ci.id,
             name: ci.name,
-            description: ci.description,
             price: ci.price,
             qty: ci.qty + 1,
             imgLink: ci.imgLink
@@ -46,7 +47,6 @@ export default function ProductCard({ productData }) {
         return {
           id: ci.id,
           name: ci.name,
-          description: ci.description,
           price: ci.price,
           qty: ci.qty,
           imgLink: ci.imgLink
@@ -59,7 +59,6 @@ export default function ProductCard({ productData }) {
         cart.products.push({
           id: productData['product'].productId,
           name: productName,
-          description: productData['product'].productDescription,
           price: productData['product'].unitPrice,
           qty: 1,
           imgLink: productData['imageUrls'][0]
@@ -68,32 +67,38 @@ export default function ProductCard({ productData }) {
       }
     }
 
-    localStorage.setItem('cart', JSON.stringify(cart))
+    localStorage.setItem('cart', JSON.stringify(cart));
+    setShowMsg(true)
+    setTimeout(() => setShowMsg(false), 800)
+
+
   }
 
   return (
     <>
-      <div className="px-1 py-10 rounded-2xl mobile-720:w-[400px] mobile-360:w-80 bg-white border-solid border-2 border-green-4">
+      <div className="px-0 pb-10 rounded-2xl mobile-720:w-[400px] mobile-360:w-80 bg-white border-solid border-2 border-green-4">
         <table className="">
           <tbody>
             <tr>
               <td colSpan={4}>
-                <img src={imgLink} className="ml-auto mr-auto rounded-md" />
+                <img src={imgLink} className="ml-auto mr-auto rounded-t-2xl" />
               </td>
             </tr>
             <tr className="pt-3">
               <td colSpan={3}>
-                <p>{productName}</p>
+                <p className="pl-4">{productName}</p>
               </td>
             </tr>
             <tr>
               <td colSpan={3}>
-                <p>{`$${price}`}</p>
+                <p className="pl-4">{`$${price}`}</p>
               </td>
             </tr>
             <tr>
               <td className="pr-4">
-                <StarRating />
+                <div className="pl-4">
+                  <StarRating />
+                </div>
               </td>
               <td className="pr-4">
                 <p className="inline">{`(${reviewCount})`}</p>
@@ -117,6 +122,32 @@ export default function ProductCard({ productData }) {
                 </Link>
               </td>
             </tr>
+            {
+              showMsg ?
+                <tr>
+                  <td colSpan={4}>
+
+                    <div
+                      className="mb-3 inline-flex w-full items-center rounded-lg bg-success-100 px-6 py-5 text-base text-success-700 mt-5"
+                      role="alert">
+                      <span className="mr-2">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          viewBox="0 0 24 24"
+                          fill="currentColor"
+                          class="h-5 w-5">
+                          <path
+                            fillRule="evenodd"
+                            d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75 0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 00-1.06 1.06l2.25 2.25a.75.75 0 001.14-.094l3.75-5.25z"
+                            clipRule="evenodd" />
+                        </svg>
+                      </span>
+                      Product Added Cart
+                    </div>
+                  </td>
+                </tr> : null
+            }
+
           </tbody>
         </table>
       </div>

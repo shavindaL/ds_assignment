@@ -17,10 +17,13 @@ export default function ProductOverview({ productData }) {
     const [mainImg, setMainImg] = useState(imgLinks[0]);
     const [count, setCount] = useState(0);
     const [total, setTotal] = useState(0);
+    const [showMsg, setShowMsg] = useState(false);
+    const [showAlertMsg, setShowAlertMsg] = useState(false);
+
     useEffect(() => setTotal(price * count), [count]);
 
     const addToCart = () => {
-        if (count !== 0 ) {
+        if (count !== 0) {
             const cs = localStorage.getItem('cart');
             let cart;
 
@@ -32,7 +35,6 @@ export default function ProductOverview({ productData }) {
                     products: [{
                         id: productData['product'].productId,
                         name: productName,
-                        description: productData['product'].productDescription,
                         price: productData['product'].unitPrice,
                         qty: count,
                         imgLink: productData['imageUrls'][0]
@@ -47,7 +49,6 @@ export default function ProductOverview({ productData }) {
                         return {
                             id: ci.id,
                             name: ci.name,
-                            description: ci.description,
                             price: ci.price,
                             qty: ci.qty + count,
                             imgLink: ci.imgLink
@@ -57,7 +58,6 @@ export default function ProductOverview({ productData }) {
                     return {
                         id: ci.id,
                         name: ci.name,
-                        description: ci.description,
                         price: ci.price,
                         qty: ci.qty,
                         imgLink: ci.imgLink
@@ -70,7 +70,6 @@ export default function ProductOverview({ productData }) {
                     cart.products.push({
                         id: productData['product'].productId,
                         name: productName,
-                        description: productData['product'].productDescription,
                         price: productData['product'].unitPrice,
                         qty: count,
                         imgLink: productData['imageUrls'][0]
@@ -80,6 +79,12 @@ export default function ProductOverview({ productData }) {
             }
 
             localStorage.setItem('cart', JSON.stringify(cart))
+            setShowMsg(true)
+            setTimeout(() => setShowMsg(false), 800)
+        }
+        else {
+            setShowAlertMsg(true)
+            setTimeout(() => setShowAlertMsg(false), 800)
         }
     }
 
@@ -232,6 +237,47 @@ export default function ProductOverview({ productData }) {
                         </tbody>
                     </table>
                 </div>
+                {
+                    showMsg ?
+                        <div
+                            className="mb-3 inline-flex w-full items-center rounded-lg bg-success-100 px-6 py-5 text-base text-success-700 mt-5"
+                            role="alert">
+                            <span className="mr-2">
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    viewBox="0 0 24 24"
+                                    fill="currentColor"
+                                    className="h-5 w-5">
+                                    <path
+                                        fillRule="evenodd"
+                                        d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75 0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 00-1.06 1.06l2.25 2.25a.75.75 0 001.14-.094l3.75-5.25z"
+                                        clipRule="evenodd" />
+                                </svg>
+                            </span>
+                            Product Added Cart
+                        </div> : null
+                }
+                {
+                    showAlertMsg ?
+                        <div
+                            className="mb-3 inline-flex w-full items-center rounded-lg bg-danger-100 px-6 py-5 text-base text-danger-700"
+                            role="alert">
+                            <span className="mr-2">
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    viewBox="0 0 24 24"
+                                    fill="currentColor"
+                                    className="h-5 w-5">
+                                    <path
+                                        fillRule="evenodd"
+                                        d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25zm-1.72 6.97a.75.75 0 10-1.06 1.06L10.94 12l-1.72 1.72a.75.75 0 101.06 1.06L12 13.06l1.72 1.72a.75.75 0 101.06-1.06L13.06 12l1.72-1.72a.75.75 0 10-1.06-1.06L12 10.94l-1.72-1.72z"
+                                        clipRule="evenodd" />
+                                </svg>
+                            </span>
+                            Please enter valid quantity.
+                        </div> : null
+                }
+
             </div>
         </div>
     );

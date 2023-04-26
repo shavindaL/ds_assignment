@@ -8,16 +8,16 @@ export default function ProductCard({ productData }) {
 
 
     const handleDelete = async (id) => {
-        alert(id)
-        // const res = await fetch(`http://127.0.0.1:5000/v1/inventory/products/${productId}`, {
-        //     method: `DELETE`
-        // })
-        // const json = await res.json()
+        const res = await fetch(`http://127.0.0.1:5000/v1/inventory/products/${productId}`, {
+            method: `DELETE`
+        })
+        const json = await res.json()
 
-        // if (res.ok) {
-        //     console.log(json);
-        // }
+        if (res.ok) {
+            console.log(json);
+        }
     }
+
 
     return (
         /* Start of Product Card for seller */
@@ -27,13 +27,13 @@ export default function ProductCard({ productData }) {
                         border-solid border-green-4 rounded-[10px] mx-5 my-4"
             >
                 <div className="max-w-sm bg-white">
-                    <a href="#!" data-te-ripple-init data-te-ripple-color="light">
+                    <div data-te-ripple-init data-te-ripple-color="light">
                         <img
                             style={{ height: "250px", width: "200px" }}
                             src={imgLink}
                             alt=""
                         />
-                    </a>
+                    </div>
 
                     <div className="inline justify-center">
                         <p className="font-roboto font-400 text-14px mt-[30px]">
@@ -80,7 +80,7 @@ export default function ProductCard({ productData }) {
                                 uppercase leading-normal text-[#FF0000] drop-shadow-[0_4px_4px_rgba(0,0,0,0.25)]
                                 font-roboto font-700 text-14px hover:bg-[#D9D9D9] transition duration-[0.4s]"
                                 data-te-toggle="modal"
-                                data-te-target="#exampleModal"
+                                data-te-target={`#productModal${productId}`}
                                 data-te-ripple-init
                                 data-te-ripple-color="light"
                             >
@@ -105,7 +105,7 @@ export default function ProductCard({ productData }) {
                             <div
                                 data-te-modal-init
                                 class="fixed left-0 top-10 z-[1055] hidden h-full w-full overflow-y-auto overflow-x-hidden outline-none"
-                                id="exampleModal"
+                                id={`productModal${productId}`}
                                 tabindex="-1"
                                 aria-labelledby="exampleModalLabel"
                                 aria-hidden="true"
@@ -119,7 +119,6 @@ export default function ProductCard({ productData }) {
                                             {/* <!--Modal title--> */}
                                             <h5
                                                 class="text-xl font-medium leading-normal text-neutral-800 dark:text-neutral-200"
-                                                id="exampleModalLabel"
                                             >
                                                 Are you sure ?
                                             </h5>
@@ -168,7 +167,7 @@ export default function ProductCard({ productData }) {
                                                 class="ml-1 inline-block rounded bg-red-700 px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-white hover:text-red-700 hover:border hover:border-solid hover:border-red-700 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-primary-600 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-primary-700 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(59,113,202,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)]"
                                                 data-te-ripple-init
                                                 data-te-ripple-color="light"
-                                                onClick={() => { handleDelete(productId) }}
+                                                onClick={() => { handleDelete() }}
                                             >
                                                 Delete
                                             </button>
