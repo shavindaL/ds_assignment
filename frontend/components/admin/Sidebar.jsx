@@ -9,7 +9,7 @@ export default function Sidebar() {
       <nav
         id="full-screen-example"
         className="fixed top-0 left-0 z-[1035] h-screen w-[239px] 
-                -translate-x-full overflow-hidden bg-[#3061AF]
+                -translate-x-full overflow-hidden bg-[#183058]
                 shadow-[0_4px_12px_0_rgba(0,0,0,0.07),_0_2px_4px_rgba(0,0,0,0.05)] 
                 dark:bg-green-10 md:data-[te-sidenav-hidden='false']:translate-x-0"
         data-te-sidenav-init
@@ -52,7 +52,7 @@ export default function Sidebar() {
                                 active:text-inherit active:outline-none data-[te-sidenav-state-active]:text-inherit 
                                 data-[te-sidenav-state-focus]:outline-none motion-reduce:transition-none 
                                 "
-                href="#"
+                href="./dashboard"
               >
                 <span className="mr-4 [&>svg]:h-3.5 [&>svg]:w-[18px] [&svg]:h-[18px]">
                   <svg
@@ -73,8 +73,41 @@ export default function Sidebar() {
                 <span>Dashboard</span>
               </Link>
             </li>
+
             <li className="relative">
-              <a
+              <Link
+                className="font-roboto font-[500px] text-[18px] text-white group flex h-12 cursor-pointer
+                                 items-center truncate w-[239px]
+                                py-4 px-6 outline-none transition duration-300 
+                                ease-linear hover:bg-white hover:text-inherit hover:outline-none 
+                                focus:bg-white focus:text-inherit focus:outline-none active:bg-white 
+                                active:text-inherit active:outline-none data-[te-sidenav-state-active]:text-inherit 
+                                data-[te-sidenav-state-focus]:outline-none motion-reduce:transition-none 
+                                "
+                href="./orders"
+              >
+                <span className="mr-4 [&>svg]:h-3.5 [&>svg]:w-[18px] [&svg]:h-[18px]">
+                  <svg
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="1.5"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                    aria-hidden="true"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0"
+                    ></path>
+                  </svg>
+                </span>
+                <span>Orders</span>
+              </Link>
+            </li>
+
+            <li className="relative">
+              <Link
                 className="font-roboto font-[500px] text-[18px] text-white group flex h-12 cursor-pointer
                                  items-center truncate w-[239px]
                                 py-4 px-6 outline-none transition duration-300 
@@ -84,7 +117,7 @@ export default function Sidebar() {
                                 data-[te-sidenav-state-focus]:outline-none motion-reduce:transition-none 
                                 "
                 // href={`/seller/products/${sellerID}`}
-                href="#"
+                href="./customers"
               >
                 <span className="mr-4 [&>svg]:h-3.5 [&>svg]:w-[18px] [&svg]:h-[18px]">
                   <svg
@@ -103,7 +136,7 @@ export default function Sidebar() {
                   </svg>
                 </span>
                 <span>Customers</span>
-              </a>
+              </Link>
             </li>
 
             <li className="relative">
@@ -116,7 +149,7 @@ export default function Sidebar() {
                                 active:text-inherit active:outline-none data-[te-sidenav-state-active]:text-inherit 
                                 data-[te-sidenav-state-focus]:outline-none motion-reduce:transition-none 
                                 "
-                href="#"
+                href="./sellers"
               >
                 <span className="mr-4 [&>svg]:h-3.5 [&>svg]:w-[18px] [&svg]:h-[18px]">
                   <svg
