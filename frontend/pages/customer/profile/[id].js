@@ -42,8 +42,9 @@ export default function Home({ userprop }) {
   return (
     <>
       <Navbar />
-      <CustomerSideMenu />
       <Customer_header />
+      <CustomerSideMenu />
+      
       <Footer />
     </>
   )

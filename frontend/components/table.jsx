@@ -40,6 +40,13 @@ export default function Table() {
                       <td class="whitespace-nowrap  px-6 py-4">@fat</td>
                       <td class="whitespace-nowrap  px-6 py-4" style={{color:"#6469DE",fontWeight:"700"}}>Track Order</td>
                     </tr>
+                    <tr class="border-b dark:border-neutral-500">
+                      <td class="whitespace-nowrap  px-6 py-4 font-medium">2</td>
+                      <td class="whitespace-nowrap  px-6 py-4 ">Jacob</td>
+                      <td class="whitespace-nowrap  px-6 py-4">Thornton</td>
+                      <td class="whitespace-nowrap  px-6 py-4">@fat</td>
+                      <td class="whitespace-nowrap  px-6 py-4" style={{color:"#6469DE",fontWeight:"700"}}>Track Order</td>
+                    </tr>
                   </tbody>
                 </table>
               </div>

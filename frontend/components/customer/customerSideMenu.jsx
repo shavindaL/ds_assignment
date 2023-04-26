@@ -1,3 +1,5 @@
+import Table from "../table";
+
 export default function CustomerSideMenu() {
   return (
     <>
@@ -9,7 +11,7 @@ export default function CustomerSideMenu() {
         style={{
           position: "absolute",
           left: "100px",
-          top: "100px",
+          top: "180px",
           width: "15%",
           backgroundColor: "white",
           boxShadow: "1px 2px 9px #0000000f",
@@ -74,8 +76,8 @@ export default function CustomerSideMenu() {
 
       {/* <!--Tabs content--> */}
       <div
-        class="my-2"
-        style={{ position: "absolute", left: "500px", top: "200px" }}
+        class="my-2 mb-10"
+        style={{ position: "relative", left: "500px", width:"900px"}}
       >
         <div
           class="hidden opacity-0 opacity-100 transition-opacity duration-150 ease-linear data-[te-tab-active]:block"
@@ -85,6 +87,10 @@ export default function CustomerSideMenu() {
           data-te-tab-active
         >
           Tab 1 content
+          <br></br>
+          <Table></Table>
+
+          
         </div>
         <div
           class="hidden opacity-0 transition-opacity duration-150 ease-linear data-[te-tab-active]:block"

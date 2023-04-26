@@ -34,21 +34,21 @@ export default function UserprofileDropdown({ email, id }) {
         <li>
           <Link
             class="block w-full whitespace-nowrap bg-transparent px-4 py-2 text-sm font-normal text-neutral-700 hover:bg-neutral-100 active:text-neutral-800 active:no-underline disabled:pointer-events-none disabled:bg-transparent disabled:text-neutral-400 dark:text-neutral-200 dark:hover:bg-neutral-600"
-            href={`/customer/dashboard/${id}`}
+            href={`/customer/profile/${id}`}
             data-te-dropdown-item-ref
           >My orders</Link>
         </li>
         <li>
           <a
             class="block w-full whitespace-nowrap bg-transparent px-4 py-2 text-sm font-normal text-neutral-700 hover:bg-neutral-100 active:text-neutral-800 active:no-underline disabled:pointer-events-none disabled:bg-transparent disabled:text-neutral-400 dark:text-neutral-200 dark:hover:bg-neutral-600"
-            href="#"
+            href={`/customer/profile/${id}`}
             data-te-dropdown-item-ref
           >Payment history</a>
         </li>
         <li>
           <a
             class="block w-full whitespace-nowrap bg-transparent px-4 py-2 text-sm font-normal text-neutral-700 hover:bg-neutral-100 active:text-neutral-800 active:no-underline disabled:pointer-events-none disabled:bg-transparent disabled:text-neutral-400 dark:text-neutral-200 dark:hover:bg-neutral-600"
-            href="#"
+            href={`/customer/profile/${id}`}
             data-te-dropdown-item-ref
           >Address</a
           >
@@ -58,7 +58,7 @@ export default function UserprofileDropdown({ email, id }) {
         <li>
           <a
             class="block w-full whitespace-nowrap bg-transparent px-4 py-2 text-sm font-normal text-neutral-700 hover:bg-neutral-100 active:text-neutral-800 active:no-underline disabled:pointer-events-none disabled:bg-transparent disabled:text-neutral-400 dark:text-neutral-200 dark:hover:bg-neutral-600"
-            href="#"
+            href={`/customer/profile/${id}`}
             data-te-dropdown-item-ref
           >Settings</a
           >
