@@ -3,13 +3,13 @@ import { useEffect, useState } from "react";
 // Function to approve the order
 async function approveOrder(orderID) {
   try {
-    const res = await fetch(`http://localhost:5000/v1/order/${orderID}`, {
+    const res = await fetch(`http://10.5.0.3:5000/v1/order/${orderID}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        orderStatus: "Approved",
+        orderStatus: "Confirmed",
       }),
     });
   } catch (err) {
@@ -21,7 +21,7 @@ async function approveOrder(orderID) {
 // Function to reject the order
 async function rejectOrder(orderID) {
   try {
-    const res = await fetch(`http://localhost:5000/v1/order/${orderID}`, {
+    const res = await fetch(`http://10.5.0.3:5000/v1/order/${orderID}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -45,9 +45,10 @@ export default function OrderNotifications() {
     async function getAllOrders() {
       try {
         //Fetch all exisitng orders form the database collection
-        const res = await fetch("http://localhost:5000/v1/order");
+        const res = await fetch("http://10.5.0.3:5000/v1/order");
         const allOrders = await res.json();
 
+        console.log(allOrders);
         if (allOrders) {
           // Array to hold only pending orders
           let pendingOrders = allOrders.filter(
@@ -68,7 +69,7 @@ export default function OrderNotifications() {
 
     // Invoke getAllOrders function
     getAllOrders();
-  });
+  }, []);
 
   // Function to get all details of a particular customer
   // async function getCustomerData(customerID){
@@ -146,7 +147,7 @@ export default function OrderNotifications() {
                             <div className="flex">
                               <p className="ml-[43px]">{pendingOrder.orderDate.toLocaleString().split("T")[0]}</p>
                               <p className="ml-[92px]">
-                                Order ID :{pendingOrder.orderID}
+                                Order ID :&nbsp;{pendingOrder.orderID}
                               </p>
                               <p className="ml-[100px]">
                                 Net Total : LKR {pendingOrder.total}

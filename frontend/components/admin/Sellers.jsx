@@ -8,7 +8,7 @@ export default function Sellers() {
   useEffect(() => {
     // Method to get all seller details
     async function getAllSellers() {
-      const res = await fetch("http://localhost:5000/v1/seller/sellers");
+      const res = await fetch("http://10.5.0.3:5000/v1/seller/sellers");
       const allSellers = await res.json();
 
       if (allSellers) {

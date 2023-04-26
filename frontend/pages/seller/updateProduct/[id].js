@@ -5,7 +5,7 @@ const UpdateProductForm = dynamic(() => import("@/components/seller/updateProduc
 
 
 export const getStaticPaths = async () => {
-    const res = await fetch("http://127.0.0.1:5000/v1/inventory/products");
+    const res = await fetch("http://10.5.0.3:5000/v1/inventory/products");
     const data = await res.json();
 
     const paths = data.map((productData) => {
@@ -21,7 +21,7 @@ export const getStaticPaths = async () => {
 
 export const getStaticProps = async (context) => {
     const id = context.params.id;
-    const res = await fetch(`http://127.0.0.1:5000/v1/inventory/products/${id}`);
+    const res = await fetch(`http://10.5.0.3:5000/v1/inventory/products/${id}`);
     const data = await res.json();
     return {
         props: { product: data }

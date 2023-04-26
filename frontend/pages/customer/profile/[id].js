@@ -8,7 +8,7 @@ import Footer from '@/components/Footer';
 
 
 export const getStaticPaths = async () => {
-  const res = await fetch("http://127.0.0.1:5000/v1/customer/customers/customerall");
+  const res = await fetch("http://10.5.0.3:5000/v1/customer/customers/customerall");
   const data = await res.json();
 
   const paths = data.map((userData) => {
@@ -26,7 +26,7 @@ export const getStaticPaths = async () => {
 export const getStaticProps = async (context) => {
 
   const id = context.params.id;
-  const res = await fetch(`http://127.0.0.1:5000/v1/customer/${id}`);
+  const res = await fetch(`http://10.5.0.3:5000/v1/customer/${id}`);
   const data = await res.json();
 
   

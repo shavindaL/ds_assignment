@@ -11,7 +11,7 @@ export const useLogin = () => {
     setIsloading(true);
     setError(null);
 
-    const response = await fetch('http://localhost:5000/v1/customer/login', {
+    const response = await fetch('http://10.5.0.3:5000/v1/customer/login', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ email, password }),
@@ -28,7 +28,7 @@ export const useLogin = () => {
       localStorage.setItem('user', JSON.stringify(json));
 
       //redirect
-     window.location.href = "http://localhost:3000"
+     window.location.href = "http://10.5.0.10:3000"
 
       //update the auth context
       dispatch({type: 'LOGIN', payload: json})

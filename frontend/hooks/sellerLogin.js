@@ -11,7 +11,7 @@ export const sellerLogin = () => {
     setError(null);
 // console.log(email, password)
     
-    const response = await fetch('http://localhost:5000/v1/seller/login', {
+    const response = await fetch('http://10.5.0.3:5000/v1/seller/login', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ email, password }),
@@ -32,7 +32,7 @@ export const sellerLogin = () => {
       localStorage.setItem('seller', JSON.stringify(json));
 
       //redirect
-      window.location.href = `http://localhost:3000/seller/dashboard/${json.sellerID}`;
+      window.location.href = `http://10.5.0.10:3000/seller/dashboard/${json.sellerID}`;
      
       //update the auth context
       //dispatch({type: 'LOGIN', payload: json})
