@@ -1,6 +1,7 @@
 // import React from "react";
 import { useState } from "react";
 import { useSignup } from "@/hooks/userSignup";
+import Link from "next/link";
 
 export default function CustomerSignUpForm() {
   const [firstname, setFirstname] = useState("");
@@ -201,12 +202,12 @@ export default function CustomerSignUpForm() {
           </button>
           <p className="mt-2 mb-0 pt-1 text-sm font-semibold">
             Have an account?
-            <a
-              href="#!"
+            <Link
+              href="/login"
               className="text-danger transition duration-150 ease-in-out hover:text-danger-600 focus:text-danger-600 active:text-danger-700"
             >
               &nbsp; Login
-            </a>
+            </Link>
           </p>
         </div>
       </form>

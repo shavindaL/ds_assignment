@@ -589,6 +589,8 @@ export default function SellerSignUpForm() {
           </p>
         </div>
       </form>
+
+    
     </div>
   );
 }
