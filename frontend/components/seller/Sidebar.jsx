@@ -2,7 +2,7 @@ import Link from "next/link";
 import { SellerLogout } from "@/hooks/sellerLogout";
 
 export default function Sidebar({ profilePhoto, sellerName, sellerID }) {
-  const { logout } = SellerLogout();
+  const { sLogout } = SellerLogout();
 
   //const { seller } = useAuthContext();
 
@@ -159,7 +159,7 @@ export default function Sidebar({ profilePhoto, sellerName, sellerID }) {
                                 data-[te-sidenav-state-focus]:outline-none motion-reduce:transition-none 
                                 "
                 onClick={() => {
-                  logout();
+                  sLogout();
                   window.location.replace("http://localhost:3000/");
                 }}
               >

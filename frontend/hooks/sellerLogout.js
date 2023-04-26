@@ -3,7 +3,7 @@ import { useAuthContext } from "./userAuthContext";
 export const SellerLogout = () => {
   const { dispatch } = useAuthContext();
 
-  const logout = () => {
+  const sLogout = () => {
     // remove user from storage
     localStorage.removeItem("seller");
 
@@ -11,5 +11,5 @@ export const SellerLogout = () => {
     dispatch({ type: "LOGOUT" });
   }
 
-  return {logout}
+  return {sLogout}
 };
