@@ -28,9 +28,12 @@ export const getStaticProps = async (context) => {
   const id = context.params.id;
   const res = await fetch(`http://127.0.0.1:5000/v1/customer/${id}`);
   const data = await res.json();
+
+  
   return {
     props: { userprop: data }
   }
+
 };
 
 
@@ -42,8 +45,9 @@ export default function Home({ userprop }) {
   return (
     <>
       <Navbar />
-      <CustomerSideMenu />
       <Customer_header />
+      <CustomerSideMenu userprop={userprop}/>
+      
       <Footer />
     </>
   )

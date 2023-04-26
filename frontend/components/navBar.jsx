@@ -19,6 +19,7 @@ export default function Navbar() {
 
 const handleClick = () => {
     logout();
+    window.location.href = `http://localhost:3000`;
   };
 
   return (
