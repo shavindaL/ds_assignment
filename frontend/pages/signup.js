@@ -8,7 +8,7 @@ const SignUp = dynamic(() => import('@/components/signUp'), {
 export default function SignIn() {
     const user = useAuthContext();
 
-    if (!user) {
+    if (!user.user) {
         return (
             <SignUp />
         )
