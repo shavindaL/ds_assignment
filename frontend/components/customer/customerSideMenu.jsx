@@ -1,6 +1,9 @@
 import Table from "../table";
+import ProfileInfo from "./ProfileInfo";
 
-export default function CustomerSideMenu() {
+export default function CustomerSideMenu({userprop}) {
+
+  
   return (
     <>
       {/* <!--Tabs navigation--> */}
@@ -114,7 +117,7 @@ export default function CustomerSideMenu() {
           role="tabpanel"
           aria-labelledby="tabs-contact-tab03"
         >
-          Tab 4 content
+          <ProfileInfo userprop={userprop}></ProfileInfo>
         </div>
       </div>
     </>

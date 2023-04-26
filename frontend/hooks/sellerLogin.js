@@ -33,7 +33,7 @@ export const sellerLogin = () => {
       window.location.href = `http://localhost:3000/seller/dashboard/${json.sellerID}`;
 
       //update the auth context
-      dispatch({type: 'LOGIN', payload: json})
+      //dispatch({type: 'LOGIN', payload: json})
 
       
     }

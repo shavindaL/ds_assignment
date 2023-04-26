@@ -6,6 +6,7 @@ import Link from "next/link";
 export default function CustomerSignUpForm() {
   const [firstname, setFirstname] = useState("");
   const [lastname, setLastname] = useState("");
+  const [phoneno,setPhoneno] = useState("")
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
