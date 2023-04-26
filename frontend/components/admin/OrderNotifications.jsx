@@ -144,9 +144,9 @@ export default function OrderNotifications() {
                             aria-controls={"collapse" + pendingOrder._id}
                           >
                             <div className="flex">
-                              <p className="ml-[43px]">26/04/2023</p>
+                              <p className="ml-[43px]">{pendingOrder.orderDate.toLocaleString().split("T")[0]}</p>
                               <p className="ml-[92px]">
-                                Order ID : {pendingOrder.orderID}
+                                Order ID :{pendingOrder.orderID}
                               </p>
                               <p className="ml-[100px]">
                                 Net Total : LKR {pendingOrder.total}
@@ -214,7 +214,7 @@ export default function OrderNotifications() {
                                   Quantity
                                 </th>
                                 <th scope="col" class=" px-6 py-4">
-                                  Total (LKR)
+                                  Unit Price (LKR)
                                 </th>
                                 <th scope="col" class=" px-6 py-4"></th>
                               </tr>
