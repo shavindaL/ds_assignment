@@ -15,7 +15,7 @@ export async function getStaticPaths() {
 
     // Fetch all existing data from sellers collection in sellerDB
     try {
-        const res = await fetch("http://127.0.0.1:5000/v1/seller/sellers");
+        const res = await fetch("http://10.5.0.3:5000/v1/seller/sellers");
 
         // Get all sellers
         const sellers = await res.json();
@@ -45,7 +45,7 @@ export async function getStaticProps(context) {
     // Fetch details of particular seller
     try {
 
-        const res = await fetch(`http://127.0.0.1:5000/v1/seller/${context.params.id}`);
+        const res = await fetch(`http://10.5.0.3:5000/v1/seller/${context.params.id}`);
 
         // Assign data
         sellerData = await res.json();
@@ -318,7 +318,7 @@ export default function Profile({ seller }) {
                 };
 
                 const res = await fetch(
-                    `http://127.0.0.1:5000/v1/seller/${seller.sellerID}`,
+                    `http://10.5.0.3:5000/v1/seller/${seller.sellerID}`,
                     reqOpts
                 );
 
@@ -386,7 +386,7 @@ export default function Profile({ seller }) {
 
             try {
 
-                const res = await axios.post(`http://localhost:5000/v1/seller/updatePhoto/${seller.sellerID}`,
+                const res = await axios.post(`http://10.5.0.3:5000/v1/seller/updatePhoto/${seller.sellerID}`,
                     formData,
                     {
                         headers:
@@ -482,14 +482,14 @@ export default function Profile({ seller }) {
                 },
             };
 
-            const res = await fetch(`http://localhost:5000/v1/seller/${seller.sellerID}`, reqOpts);
+            const res = await fetch(`http://10.5.0.3:5000/v1/seller/${seller.sellerID}`, reqOpts);
 
             const resMsg = await res.text();
 
             if (resMsg === "Seller deleted successfully") {
 
                 // Redirect to homepage (root) if successfully deleted
-                window.location.replace("http://localhost:3000/");
+                window.location.replace("http://10.5.0.10:3000/");
 
             } else {
                 // Set accountDeleteAlert state variable as following

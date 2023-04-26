@@ -38,7 +38,7 @@ export default function AdminDashboard() {
         // Function to fetch all seller data
         async function getAllSellers() {
             try {
-                const res = await fetch("http://localhost:5000/v1/seller/sellers");
+                const res = await fetch("http://10.5.0.3:5000/v1/seller/sellers");
                 const allSellers = await res.json();
 
                 // Set the value of totSellers state variable
@@ -56,7 +56,7 @@ export default function AdminDashboard() {
         //Function to fetch all customer data
         async function getAllCustomers() {
             try {
-                const res = await fetch("http://localhost:5000/v1/customer/customers/customerall");
+                const res = await fetch("http://10.5.0.3:5000/v1/customer/customers/customerall");
                 const allCustomers = await res.json();
 
                 // Set the state variable
