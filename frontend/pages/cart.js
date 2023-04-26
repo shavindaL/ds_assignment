@@ -9,6 +9,7 @@ const Shopcart = dynamic(() => import("@/components/Shoppingcart"),
 
 export default function CartPage() {
     const { user } = useAuthContext();
+    // console.log(user);
 
     if (user) {
         return (

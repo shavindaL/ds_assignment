@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from "react";
 import uniqid from 'uniqid';
+import { useAuthContext } from "@/hooks/userAuthContext";
 import PaypalCheckOutButton from "./paypalCheckoutButton";
 
 function Shopcart() {
+  const { user } = useAuthContext();
+
   const [cartItems, setCartItems] = useState([]);
   const [isEmpty, setIsEmpty] = useState(true);
   const [data, setData] = useState([]);
@@ -144,7 +147,7 @@ function Shopcart() {
                       <td colSpan={5}></td>
                       <td >
                         
-                        <PaypalCheckOutButton cartOrder={{ orderID: uniqid(), customerID: 3, data, total: grandTotal }} />
+                        <PaypalCheckOutButton cartOrder={{ orderID: uniqid(), customerID: user._id, data, total: grandTotal }} />
                         
                       </td>
                     </tr>
