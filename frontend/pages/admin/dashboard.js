@@ -1,5 +1,6 @@
 import dynamic from "next/dynamic";
 import OrderNotifications from "@/components/admin/OrderNotifications";
+import { useEffect, useState } from "react";
 
 // Sidebar component is dynamically imported to prevent hydration error
 const Sidebar = dynamic(() => import("@/components/admin/Sidebar"),
@@ -28,6 +29,50 @@ const day = days[dateObj.getDay()];
 
 
 export default function AdminDashboard() {
+    // Set of state variables to hold the total no.of customers & sellers
+    const [totCustomers, setTotCustomers] = useState(0);
+    const [totSellers, setTotSellers] = useState(0);
+
+    // Use useEffect hook
+    useEffect(() => {
+        // Function to fetch all seller data
+        async function getAllSellers() {
+            try {
+                const res = await fetch("http://localhost:5000/v1/seller/sellers");
+                const allSellers = await res.json();
+
+                // Set the value of totSellers state variable
+                setTotSellers(allSellers.length);
+
+            } catch (err) {
+                // Print error message
+                console.log(err.message);
+            }
+        }
+
+        // Invoke the getAllSellers method
+        getAllSellers();
+
+        //Function to fetch all customer data
+        async function getAllCustomers() {
+            try {
+                const res = await fetch("http://localhost:5000/v1/customer/customers/customerall");
+                const allCustomers = await res.json();
+
+                // Set the state variable
+                setTotCustomers(allCustomers.length);
+
+            } catch (err) {
+                // Print error message
+                console.log(err.message);
+            }
+        }
+
+         // Invoke the getAllCustomers method
+        getAllCustomers();
+
+    }, []);
+
     return (
         /* Start of Dashboard page for admin */
         <>
@@ -49,7 +94,7 @@ export default function AdminDashboard() {
 
 
                         <div
-                            className="mt-[32px] block rounded-lg bg-[#F8F9F9] p-6 
+                            className="mt-[32px] block rounded-lg bg-[#E3EBF7] p-6 
                             shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] 
                             dark:bg-neutral-700">
                             <p className="justify-center font-roboto font-[500] text-[20px]">
@@ -60,16 +105,34 @@ export default function AdminDashboard() {
                             </p>
                         </div>
 
+
+
+                        <div
+                            className="mt-[32px] block rounded-lg bg-[#E3EBF7] p-6 
+                            shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] 
+                            dark:bg-neutral-700">
+                            <p className="justify-center font-roboto font-[500] text-[20px]">
+                                Total Customers
+                            </p>
+                            <p class="mb-4 font-roboto text-base text-neutral-600 dark:text-neutral-200">
+                                {totCustomers}
+                            </p>
+                        </div>
+
+                        <div
+                            className="mt-[32px] block rounded-lg bg-[#E3EBF7] p-6 
+                            shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] 
+                            dark:bg-neutral-700">
+                            <p className="justify-center font-roboto font-[500] text-[20px]">
+                                Total Sellers
+                            </p>
+                            <p class="mb-4 font-roboto text-base text-neutral-600 dark:text-neutral-200">
+                                {totSellers}
+                            </p>
+                        </div>
+
+
                     </center>
-
-
-                    <div
-                        className="mt-[32px] border border-[#6469DE] rounded-[5px] bg-white p-[10px]
-            shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)]">
-                        <div className="flex p-[10px] font-roboto font-[500] text-[24px]">Pending Orders</div>
-                        <OrderNotifications />
-                    </div>
-
                 </div>
 
             </center>

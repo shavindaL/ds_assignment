@@ -1,6 +1,11 @@
 import Link from "next/link";
+import { SellerLogout } from "@/hooks/sellerLogout";
 
 export default function Sidebar({ profilePhoto, sellerName, sellerID }) {
+  const { sLogout } = SellerLogout();
+
+  //const { seller } = useAuthContext();
+
   return (
     /* Start of Sidebar for seller */
     <>
@@ -21,12 +26,15 @@ export default function Sidebar({ profilePhoto, sellerName, sellerID }) {
         data-te-sidenav-scroll-container="#scrollContainer"
       >
         <div className="flex justify-center pt-6 mt-[30px]">
-          <div id="header-content" >
-            <Link className="justify-center" href={`/seller/profile/${sellerID}`}>
+          <div id="header-content">
+            <Link
+              className="justify-center"
+              href={`/seller/profile/${sellerID}`}
+            >
               <img
                 src={profilePhoto}
                 alt="Avatar"
-                className="w-[80px] h-[80px] mb-4 h-auto rounded-full align-middle"
+                className="w-[80px] h-[80px] mb-4 rounded-full align-middle"
               />
             </Link>
           </div>
@@ -40,7 +48,10 @@ export default function Sidebar({ profilePhoto, sellerName, sellerID }) {
         <br />
 
         <div id="scrollContainer">
-          <ul className="relative bottom-[15px] list-none" data-te-sidenav-menu-ref>
+          <ul
+            className="relative bottom-[15px] list-none"
+            data-te-sidenav-menu-ref
+          >
             <li className="relative">
               <Link
                 className="font-roboto font-[500px] text-[18px] text-white group flex h-12 cursor-pointer
@@ -138,7 +149,7 @@ export default function Sidebar({ profilePhoto, sellerName, sellerID }) {
             </li> */}
 
             <li className="relative">
-              <a
+              <button
                 className="font-roboto font-[500px] text-[18px] text-white group flex h-12 cursor-pointer
                                  items-center truncate w-[239px]
                                 py-4 px-6 outline-none transition duration-300 
@@ -147,7 +158,10 @@ export default function Sidebar({ profilePhoto, sellerName, sellerID }) {
                                 active:text-inherit active:outline-none data-[te-sidenav-state-active]:text-inherit 
                                 data-[te-sidenav-state-focus]:outline-none motion-reduce:transition-none 
                                 "
-                href="#!"
+                onClick={() => {
+                  sLogout();
+                  window.location.replace("http://localhost:3000/");
+                }}
               >
                 <span className="mr-4 [&>svg]:h-3.5 [&>svg]:w-[18px] [&svg]:h-[18px]">
                   <svg
@@ -166,7 +180,7 @@ export default function Sidebar({ profilePhoto, sellerName, sellerID }) {
                   </svg>
                 </span>
                 <span>Logout</span>
-              </a>
+              </button>
             </li>
           </ul>
         </div>

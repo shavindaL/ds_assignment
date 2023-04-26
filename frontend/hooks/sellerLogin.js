@@ -24,18 +24,20 @@ export const sellerLogin = () => {
     if (!response.ok) {
       
       setError(json.error);
+
     }
     if (response.ok) {
+
       //save the user to local storage
       localStorage.setItem('seller', JSON.stringify(json));
 
       //redirect
       window.location.href = `http://localhost:3000/seller/dashboard/${json.sellerID}`;
-
+     
       //update the auth context
-      dispatch({type: 'LOGIN', payload: json})
+      //dispatch({type: 'LOGIN', payload: json})
 
-      
+
     }
   };
 

@@ -182,10 +182,6 @@ export default function UpdateProductForm({ currentProductData }) {
     return (
         /* Start of Product Form for seller */
         <>
-            <div className="mt-8">
-                <h1 className="text-4xl">Update Product</h1>
-            </div>
-
             <div className="pointer-events-auto w-50vw rounded-md bg-white bg-clip-padding font-roboto shadow-lg outline-none my-11 border border-solid border-green-600 pt-10 mx-auto">
                 <form onSubmit={handleSubmit}>
                     <table className="mx-auto">
