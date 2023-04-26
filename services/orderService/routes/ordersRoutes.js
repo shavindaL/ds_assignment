@@ -15,22 +15,22 @@ const express = require("express");
 const router = express.Router();
 
 // Handle GET request at root
-router.get("/", getOrderService);
+// router.get("/", getOrderService);
 
-// Handle GET request at "/orders" URI
-router.get("/orders", getOrders);
+// Handle GET request at "/" URI
+router.get("/", getOrders);
 
-// Handle POST request at "addOrder" URI
+// Handle POST request at "/addOrder" URI
 router.post("/addOrder", addOrder);
 
-// Handle GET request at "orders/:id" URI
-router.get("/orders/:id", getOrder);
+// Handle GET request at "/:id" URI
+router.get("/:id", getOrder);
 
-// Handle PUT request at "orders/:id" URI
-router.put("/orders/:id", updateOrder);
+// Handle PUT request at "/:id" URI
+router.put("/:id", updateOrder);
 
-// Handle DELETE request at "orders/:id" URI
-router.delete("/orders/:id", deleteOrder);
+// Handle DELETE request at "/:id" URI
+router.delete("/:id", deleteOrder);
 
 // Export the router object
 module.exports = router;

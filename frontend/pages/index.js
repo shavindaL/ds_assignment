@@ -19,7 +19,7 @@ export default function Home({ products }) {
   return (
     <>
       <main >
-        
+
         <Navbar />
         <Herocarousel />
         <div className="grid desktop-1920:grid-cols-4 desktop-1440:grid-cols-3 mobile-720:grid-cols-2 mobile-360:grid-cols-1 gap-10 w-95vw my-12 mx-auto">
@@ -29,11 +29,8 @@ export default function Home({ products }) {
             </div>
           ))}
         </div>
-
-        
-        <userprofileDropdown></userprofileDropdown>
         <Footer />
-      
+
       </main>
     </>
   )

@@ -33,7 +33,9 @@ const loginUser = async(req,res) =>{
         console.log(user._id)
         console.log(typeof(user._id))
 
-        res.status(200).json({email,token,_id:user._id})
+
+        res.status(200).json({email,token,_id:user._id, type:"customer"})
+
     } catch (error) {
         res.status(400).json({error: error.message})
     }
