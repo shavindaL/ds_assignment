@@ -28,7 +28,7 @@ export const useLogin = () => {
       localStorage.setItem('user', JSON.stringify(json));
 
       //redirect
-      window.location.href = "http://localhost:3000"
+     window.location.href = "http://localhost:3000"
 
       //update the auth context
       dispatch({type: 'LOGIN', payload: json})

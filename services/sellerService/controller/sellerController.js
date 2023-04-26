@@ -40,7 +40,7 @@ const loginSeller = async (req, res) => {
     // Print the token
     console.log("token", token)
 
-    res.status(200).json({ email, token, sellerID });
+    res.status(200).json({ email, token, sellerID, type:"seller" });
 
 
   } catch (error) {
