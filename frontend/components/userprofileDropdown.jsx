@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import Link from "next/link";
+import React from "react";
 
 
 export default function UserprofileDropdown({email,id}) {
@@ -31,20 +32,18 @@ export default function UserprofileDropdown({email,id}) {
     aria-labelledby="dropdownMenuButton1d"
     data-te-dropdown-menu-ref>
     <li>
-      <a
+      <Link
         class="block w-full whitespace-nowrap bg-transparent px-4 py-2 text-sm font-normal text-neutral-700 hover:bg-neutral-100 active:text-neutral-800 active:no-underline disabled:pointer-events-none disabled:bg-transparent disabled:text-neutral-400 dark:text-neutral-200 dark:hover:bg-neutral-600"
-        href="#"
+        href={`./customer/dashboard/${id}`}
         data-te-dropdown-item-ref
-        >My orders</a
-      >
+        >My orders</Link>
     </li>
     <li>
       <a
         class="block w-full whitespace-nowrap bg-transparent px-4 py-2 text-sm font-normal text-neutral-700 hover:bg-neutral-100 active:text-neutral-800 active:no-underline disabled:pointer-events-none disabled:bg-transparent disabled:text-neutral-400 dark:text-neutral-200 dark:hover:bg-neutral-600"
         href="#"
         data-te-dropdown-item-ref
-        >Payment history</a
-      >
+        >Payment history</a>
     </li>
     <li>
       <a

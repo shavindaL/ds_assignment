@@ -94,7 +94,7 @@ const handleClick = () => {
                 <div class="relative flex items-center">
                   {/* <span>{user.email}</span> */}
                   <button onClick={handleClick}>LOG OUT</button>
-                  <UserprofileDropdown email={user.email} id={user.id}></UserprofileDropdown>
+                  <UserprofileDropdown email={user.email} id={user._id}></UserprofileDropdown>
                   
                 </div>
               )}

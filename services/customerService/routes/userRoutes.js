@@ -2,7 +2,9 @@
 const {
     loginUser,
     signupUser,
-    getUserService
+    getUserService,
+    getUser,
+    getAllUsers
 } = require('../controller/userContrller');
 
 // Import the express module
@@ -23,6 +25,12 @@ router.post("/signup", signupUser);
 
 // Handle GET request at root
 router.get("/", getUserService);
+
+//get one user
+router.get("/:id", getUser);
+
+//get one user
+router.get("/customers/customerall",getAllUsers)
 
 
 

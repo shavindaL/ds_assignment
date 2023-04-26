@@ -1,6 +1,6 @@
-import styles from '../styles/Customer_header.module.css';
+import styles from '/styles/Customer_header.module.css';
 
-const customer_header = () => {
+const Customer_header = () => {
     return ( 
         <>
             <div className="customerheader">
@@ -27,4 +27,4 @@ const customer_header = () => {
     );
 }
  
-export default customer_header;
+export default Customer_header;
