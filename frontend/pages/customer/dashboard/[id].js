@@ -26,7 +26,7 @@ export const getStaticPaths = async () => {
 export const getStaticProps = async (context) => {
 
     const id = context.params.id;
-    const res = await fetch(`http://localhost:5000/v1/customer/dashboard/${id}`);
+    const res = await fetch(`http://localhost:5000/v1/customer/${id}`);
     const data = await res.json();
     return {
         props: { userprop: data }
@@ -41,13 +41,7 @@ export const getStaticProps = async (context) => {
 export default function Home({ userprop }) {
   return (
     <>
-      <main >
-        <Navbar></Navbar>
-        {/* <Customer_header></Customer_header> */}
-      <CustomerSideMenu></CustomerSideMenu>
-      <Footer></Footer>
-      
-      </main>
+      <h1>rfgergertgre</h1>
     </>
   )
 }
