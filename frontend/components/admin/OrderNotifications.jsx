@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 // Function to approve the order
 async function approveOrder(orderID) {
   try {
-    const res = await fetch(`http://10.5.0.3:5000/v1/order/${orderID}`, {
+    const res = await fetch(`http://localhost:5000/v1/order/${orderID}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -21,7 +21,7 @@ async function approveOrder(orderID) {
 // Function to reject the order
 async function rejectOrder(orderID) {
   try {
-    const res = await fetch(`http://10.5.0.3:5000/v1/order/${orderID}`, {
+    const res = await fetch(`http://localhost:5000/v1/order/${orderID}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -45,7 +45,7 @@ export default function OrderNotifications() {
     async function getAllOrders() {
       try {
         //Fetch all exisitng orders form the database collection
-        const res = await fetch("http://10.5.0.3:5000/v1/order");
+        const res = await fetch("http://localhost:5000/v1/order");
         const allOrders = await res.json();
 
         console.log(allOrders);
