@@ -8,8 +8,8 @@ export default function PaypalCheckOutButton ({cartOrder}) {
     const [error, setError] = useState(null);
 
    
-  
 
+    
     const handleApprove = async() => {
       // Call backend function to fulfill order
       console.log(cartOrder);
@@ -83,9 +83,17 @@ export default function PaypalCheckOutButton ({cartOrder}) {
                                 purchase_units: [
                                     {
                                         amount: {
-                                            currency_code: "USD",
-                                            value: "2",
+                                            currency_code: "JPY",
+                                            value: cartOrder.total,
+                                            
                                         },
+                                        // items: 
+                                        //   {
+                                        //     quantity: cartOrder.customerId,
+                                            
+                                        //   }
+                                        
+                                       
                                     },
                                 ],
                             })
@@ -103,7 +111,7 @@ export default function PaypalCheckOutButton ({cartOrder}) {
                   onError={(err) => {
                     setError(err);
                     console.error("PayPal Checkout onError", err);
-                  }}  
+                  }}
             />
         </>
     )

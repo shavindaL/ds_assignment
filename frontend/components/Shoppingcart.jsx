@@ -1,7 +1,11 @@
 import React, { useEffect, useState } from "react";
+import uniqid from 'uniqid';
+import { useAuthContext } from "@/hooks/userAuthContext";
 import PaypalCheckOutButton from "./paypalCheckoutButton";
 
 function Shopcart() {
+  const { user } = useAuthContext();
+
   const [cartItems, setCartItems] = useState([]);
   const [isEmpty, setIsEmpty] = useState(true);
   const [data, setData] = useState([]);
@@ -56,7 +60,36 @@ function Shopcart() {
   };
 
   
+  //* increment quantity
+  const incrementQuantity = (productId) => {
+    const updatedItems = cartItems.map((cartItem) => {
+      if (cartItem.id === productId) {
+        return { ...cartItem, qty: cartItem.qty + 1 };
+      } else {
+        return cartItem;
+      }
+    });
 
+    localStorage.removeItem("cart");
+    localStorage.setItem("cart", JSON.stringify({ id: 1, products: updatedItems }));
+    setCartItems(updatedItems);
+  };
+
+  //* decrement quantity
+  const decrementQuantity = (productId) => {
+    const updatedItems = cartItems.map((cartItem) => {
+      if (cartItem.id === productId) {
+        return { ...cartItem, qty: cartItem.qty - 1 };
+      } else {
+        return cartItem;
+      }
+    });
+
+    localStorage.removeItem("cart");
+    localStorage.setItem("cart", JSON.stringify({ id: 1, products: updatedItems }));
+    setCartItems(updatedItems);
+  };
+  
   return (
     <>
       <div class="flex flex-col w-80vw mx-auto">
@@ -89,6 +122,40 @@ function Shopcart() {
                     {cartItems &&
                       cartItems.map((cartItem) => {
                         grandTotal += cartItem.price * cartItem.qty
+                        const increment = () => {
+                          const updatedCartItems = [...cartItems];
+                          const index = updatedCartItems.findIndex(
+                            (item) => item.id === cartItem.id
+                          );
+                          updatedCartItems[index] = {
+                            ...updatedCartItems[index],
+                            qty: updatedCartItems[index].qty + 1,
+                          };
+                          setCartItems(updatedCartItems);
+                          localStorage.setItem(
+                            "cart",
+                            JSON.stringify({ id: 1, products: updatedCartItems })
+                          );
+                        };
+  
+                        const decrement = () => {
+                          const updatedCartItems = [...cartItems];
+                          const index = updatedCartItems.findIndex(
+                            (item) => item.id === cartItem.id
+                          );
+                          if (updatedCartItems[index].qty === 1) {
+                            return;
+                          }
+                          updatedCartItems[index] = {
+                            ...updatedCartItems[index],
+                            qty: updatedCartItems[index].qty - 1,
+                          };
+                          setCartItems(updatedCartItems);
+                          localStorage.setItem(
+                            "cart",
+                            JSON.stringify({ id: 1, products: updatedCartItems })
+                          );
+                        };
                         return (
                           <tr
                             class="border-b dark:border-neutral-500"
@@ -106,7 +173,19 @@ function Shopcart() {
                               {cartItem.name}
                             </td>
                             <td class="whitespace-nowrap  px-6 py-4 ">
+                              <button
+                                onClick={decrement}
+                                className="bg-green-600 text-white rounded-lg px-2 py-1 mx-2"
+                              >
+                                -
+                              </button>
                               {cartItem.qty}
+                              <button
+                                onClick={increment}
+                                className="bg-green-600 text-white rounded-lg px-2 py-1 mx-2"
+                              >
+                                +
+                              </button>
                             </td>
                             <td class="whitespace-nowrap  px-6 py-4">
                               <button onClick={() => removeItem(cartItem.id)}>
@@ -143,7 +222,7 @@ function Shopcart() {
                       <td colSpan={5}></td>
                       <td >
                         
-                        <PaypalCheckOutButton cartOrder={{ orderID: 5, customerID: 3, data, total:grandTotal }} />
+                        <PaypalCheckOutButton cartOrder={{ orderID: uniqid(), customerID: user._id, data, total: grandTotal }} />
                         
                       </td>
                     </tr>

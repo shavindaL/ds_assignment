@@ -5,12 +5,12 @@ const mongoose = require('mongoose');
 const orderSchema = mongoose.Schema({
 
     orderID: {
-        type: Number,
+        type: String,
         unique: true,
         required: true
     },
     customerID: {
-        type: Number,
+        type: String,
         required: true
     },
     data: [
@@ -40,6 +40,12 @@ const orderSchema = mongoose.Schema({
         type: String,
         required: true,
         default: "Pending"
+    },
+
+    orderDate: {
+        type: Object,
+        required: true,
+        default: new Date()
     }
 });
 
