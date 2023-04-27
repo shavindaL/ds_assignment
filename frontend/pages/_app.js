@@ -14,7 +14,7 @@ export default function App({ Component, pageProps }) {
   return (
     <>
       <Head>
-        <title>iHerb</title>
+        <title>AyuCare</title>
       </Head>
 
       <AuthContextProvider>
