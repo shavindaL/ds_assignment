@@ -36,6 +36,9 @@ userSchema.statics.signup = async function(firstname,lastname,phoneno,email,pass
     if(!email || !password || !firstname || !lastname || !phoneno){
         throw Error('All fields must be filled')
     }
+    if(!validator.isMobilePhone(phoneno)){
+        throw Error('Mobile is not valid')
+    }
     if(!validator.isEmail(email)){
         throw Error('Email is not valid')
     }

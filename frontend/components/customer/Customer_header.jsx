@@ -7,7 +7,7 @@ const Customer_header = () => {
                 <div className={styles.custContainer}>
 
                     <div >
-                        <h2 className={styles.myOrder}>My orders</h2>
+                        <h2 className={styles.myOrder}>Welcome</h2>
                     </div>
 
                     <div className={styles.breadcrumbs}>
@@ -15,8 +15,8 @@ const Customer_header = () => {
                         <a href="#">Home </a>
                         <h5>{'>'}</h5>
                         <a href="#"> Account </a>
-                        <h5>{'>'}</h5>
-                        <a href="#"> Profile Info</a>
+                        {/* <h5>{'>'}</h5>
+                        <a href="#"> </a> */}
 
                     </div>
 
