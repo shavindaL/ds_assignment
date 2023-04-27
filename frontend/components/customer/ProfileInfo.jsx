@@ -6,65 +6,62 @@ export default function ProfileInfo({ userprop }) {
   async function deleteAccount() {
 
     try {
-        // Define request options
-        const reqOpts = {
-            method: "DELETE",
-            headers: {
-                "Content-Type": "application/json",
-            },
-        };
+      // Define request options
+      const reqOpts = {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      };
 
-        const ids = window.location.pathname.split("/")[3]
+      const ids = window.location.pathname.split("/")[3]
 
-        const res = await fetch(`http://localhost:5000/v1/customer/${ids}`, reqOpts);
+      const res = await fetch(`http://localhost:5000/v1/customer/${ids}`, reqOpts);
 
-        const resMsg = await res.text();
+      const resMsg = await res.text();
 
-        if (resMsg === "User deleted successfully") {
+      if (resMsg === "User deleted successfully") {
 
 
-          localStorage.removeItem("user");  
+        localStorage.removeItem("user");
 
-          message("Account deleted")
-          
-          // Redirect to homepage (root) if successfully deleted
-            window.location.replace("http://localhost:3000/");
-            alert()
+        // Redirect to homepage (root) if successfully deleted
+        window.location.replace("http://localhost:3000/");
 
-        } else {
-            // Set accountDeleteAlert state variable as following
-            setAccountDeleteAlert(
-                <div
-                    className="justify-center mb-3 inline-flex w-[300px] items-center rounded-lg bg-danger-100 px-6 py-5 text-base text-danger-700"
-                    role="alert"
-                >
-                    <span class="mr-2">
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            viewBox="0 0 24 24"
-                            fill="currentColor"
-                            className="h-5 w-5"
-                        >
-                            <path
-                                fill-rule="evenodd"
-                                d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25zm-1.72 6.97a.75.75 0 10-1.06 1.06L10.94 12l-1.72 1.72a.75.75 0 101.06 1.06L12 13.06l1.72 1.72a.75.75 0 101.06-1.06L13.06 12l1.72-1.72a.75.75 0 10-1.06-1.06L12 10.94l-1.72-1.72z"
-                                clip-rule="evenodd"
-                            />
-                        </svg>
-                    </span>
-                    Failed to delete account!
-                </div>
-            );
-        }
+      } else {
+        // Set accountDeleteAlert state variable as following
+        setAccountDeleteAlert(
+          <div
+            className="justify-center mb-3 inline-flex w-[300px] items-center rounded-lg bg-danger-100 px-6 py-5 text-base text-danger-700"
+            role="alert"
+          >
+            <span class="mr-2">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+                className="h-5 w-5"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25zm-1.72 6.97a.75.75 0 10-1.06 1.06L10.94 12l-1.72 1.72a.75.75 0 101.06 1.06L12 13.06l1.72 1.72a.75.75 0 101.06-1.06L13.06 12l1.72-1.72a.75.75 0 10-1.06-1.06L12 10.94l-1.72-1.72z"
+                  clip-rule="evenodd"
+                />
+              </svg>
+            </span>
+            Failed to delete account!
+          </div>
+        );
+      }
 
     } catch (err) {
-        // Print message
-        console.log(err.message);
+      // Print message
+      console.log(err.message);
     }
 
 
 
-}
+  }
 
 
   return (
@@ -171,8 +168,8 @@ export default function ProfileInfo({ userprop }) {
       </div>
 
       <button
-      type="button"
-        style={{background:"red",padding:"10px",color:"white"}}
+        type="button"
+        style={{ background: "red", padding: "10px", color: "white" }}
         onClick={deleteAccount}
       >
         Delete Account
