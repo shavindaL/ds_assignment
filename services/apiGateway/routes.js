@@ -59,7 +59,7 @@ const routes = [
         url: "/v1/mail",
         auth: "false",
         proxy: {
-            target: "http://10.5.0.9:5006",
+            target: "http://10.5.0.6:5006",
             changeOrigin: "true",
             pathRewrite: {
                 ["^/v1/mail"]: "",
