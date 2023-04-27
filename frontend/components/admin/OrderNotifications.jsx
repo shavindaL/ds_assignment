@@ -71,7 +71,7 @@ export default function OrderNotifications() {
 
 
   // State varibale to hold customer name
-  const [custName, setCustName] = useState("");
+  // const [custName, setCustName] = useState("");
 
   return (
     <>
@@ -121,22 +121,7 @@ export default function OrderNotifications() {
 
                   
 
-                  async function getCustomerName(customerID){
-                    try{
-                      const res = await fetch(`http://localhost:5000/v1/customer/${customerID}`);
-                      const customer = await res.json();
-                
-                      const customerName = customer.firstname;
-                
-                      setCustName(customerName);
-                
-                    } catch(err){
-                      // Print error message
-                      console.log(err.message);
-                    }
-                  }
-
-                  getCustomerName(pendingOrder.customerID);
+                  
                   
 
                   return (
@@ -205,14 +190,7 @@ export default function OrderNotifications() {
                             </div>
                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            <div className="flex">
-                              <p className="font-roboto font-[700] text-[14px]">
-                                Customer Name&nbsp;:
-                              </p>
-                              <p className="font-roboto font-[400] text-[14px]">
-                                &nbsp;{custName}
-                              </p>
-                            </div>
+                           
                           </div>
 
                           <table class="min-w-full text-center text-sm font-light">
