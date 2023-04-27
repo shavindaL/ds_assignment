@@ -120,7 +120,7 @@ const handleClick = () => {
                   </li>
                   <li class="p-2" data-te-nav-item-ref>
                     <Link
-                      href="/signup"
+                      href={"/signup"}
                       className="p-0 text-white opacity-60 hover:opacity-80 focus:opacity-80 disabled:text-black/30 lg:px-2 [&.active]:text-black/90 dark:[&.active]:text-neutral-400"
                     >
                       Sign Up

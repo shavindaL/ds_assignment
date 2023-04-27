@@ -66,7 +66,7 @@ export default function Herocarousel() {
               style={{backfaceVisibility: "hidden"}}
             >
               <img
-                src="https://tecdn.b-cdn.net/img/Photos/Slides/img%20(22).jpg"
+                src="hero1.png"
                 className="block w-full"
                 alt="..."
               />
@@ -84,7 +84,7 @@ export default function Herocarousel() {
               style={{backfaceVisibility: "hidden"}}
             >
               <img
-                src="https://tecdn.b-cdn.net/img/Photos/Slides/img%20(23).jpg"
+                src="hero1.png"
                 className="block w-full"
                 alt="..."
               />

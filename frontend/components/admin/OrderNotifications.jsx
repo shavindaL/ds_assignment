@@ -55,8 +55,6 @@ export default function OrderNotifications() {
             (order) => order.orderStatus == "Pending"
           );
 
-          // console.log("SDSDSD", typeof(pendingOrders[0].orderID.toString()))
-          // Set the state variable
           setPendingOrders(pendingOrders);
         } else {
           console.log("No orders in the database collection");
@@ -71,15 +69,9 @@ export default function OrderNotifications() {
     getAllOrders();
   }, []);
 
-  // Function to get all details of a particular customer
-  // async function getCustomerData(customerID){
-  //   try{
-  //     const res = await fetch("")
-  //   } catch(err){
-  //     // Print error message
-  //     console.log(err.message);
-  //   }
-  // }
+
+  // State varibale to hold customer name
+  // const [custName, setCustName] = useState("");
 
   return (
     <>
@@ -126,6 +118,12 @@ export default function OrderNotifications() {
             <>
               {pendingOrders &&
                 pendingOrders.map((pendingOrder) => {
+
+                  
+
+                  
+                  
+
                   return (
                     <>
                       <div
@@ -149,7 +147,7 @@ export default function OrderNotifications() {
                               <p className="ml-[92px]">
                                 Order ID :&nbsp;{pendingOrder.orderID}
                               </p>
-                              <p className="ml-[100px]">
+                              <p className="ml-[80px]">
                                 Net Total : LKR {pendingOrder.total}
                               </p>
                             </div>
@@ -192,14 +190,7 @@ export default function OrderNotifications() {
                             </div>
                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            <div className="flex">
-                              <p className="font-roboto font-[700] text-[14px]">
-                                Customer Name&nbsp;:
-                              </p>
-                              <p className="font-roboto font-[400] text-[14px]">
-                                &nbsp;John Smith
-                              </p>
-                            </div>
+                           
                           </div>
 
                           <table class="min-w-full text-center text-sm font-light">

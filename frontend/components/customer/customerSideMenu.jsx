@@ -72,7 +72,7 @@ export default function CustomerSideMenu({userprop}) {
             aria-controls="tabs-contact03"
             aria-selected="false"
           >
-            Settings
+            Profile
           </a>
         </li>
       </ul>
@@ -89,7 +89,7 @@ export default function CustomerSideMenu({userprop}) {
           aria-labelledby="tabs-home-tab03"
           data-te-tab-active
         >
-          Tab 1 content
+          Orders
           <br></br>
           <Table></Table>
 
@@ -101,7 +101,7 @@ export default function CustomerSideMenu({userprop}) {
           role="tabpanel"
           aria-labelledby="tabs-profile-tab03"
         >
-          Tab 2 content
+          Payment History
         </div>
         <div
           class="hidden opacity-0 transition-opacity duration-150 ease-linear data-[te-tab-active]:block"
@@ -109,7 +109,7 @@ export default function CustomerSideMenu({userprop}) {
           role="tabpanel"
           aria-labelledby="tabs-profile-tab03"
         >
-          Tab 3 content
+          Profile
         </div>
         <div
           class="hidden opacity-0 transition-opacity duration-150 ease-linear data-[te-tab-active]:block"

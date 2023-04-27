@@ -135,6 +135,34 @@ const deleteOrder = async (req, res) => {
     }
 };
 
+
+
+
+
+//method to get all order of a particular customer
+const myallorders = async (req, res) => {
+
+    try {
+
+        // Find the particular document
+        const order = await Order.find({ customerID: req.params.id });
+
+        // Respond with status code 200 (OK) if successful
+        res.status(200).send(order);
+
+    } catch (err) {
+
+        // Respond with status code 400 (Bad Request) if unsuccessful
+        res.status(400).send("Failed to find my orders");
+
+        // Print the error message
+        console.log(err.message);
+    }
+
+};
+
+
+
 //* export all the functions
 module.exports = {
     getOrderService,
@@ -142,5 +170,6 @@ module.exports = {
     addOrder,
     getOrder,
     updateOrder,
-    deleteOrder
+    deleteOrder,
+    myallorders
 }

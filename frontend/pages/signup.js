@@ -8,13 +8,13 @@ const SignUp = dynamic(() => import('@/components/signUp'), {
 export default function SignIn() {
     const user = useAuthContext();
 
-    if (!user.user) {
+    // if (!user.user) {
         return (
             <SignUp />
         )
-    }
-    else {
-        window.location.replace(".")
-    }
+    // }
+    // else {
+    //     window.location.replace(".")
+    // }
 
 }
