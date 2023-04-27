@@ -2,16 +2,34 @@ import ProductForm from "@/components/seller/ProductForm";
 import SellerSearchBar from "@/components/seller/SellerSearchBar";
 import dynamic from "next/dynamic";
 
-export const getStaticProps = async () => {
-    const res = await fetch("http://localhost:5000/v1/inventory/products");
+
+export const getStaticPaths = async () => {
+    const res = await fetch("http://10.5.0.3:5000/v1/seller/sellers");
     const data = await res.json();
 
+    const paths = data.map((sellerData) => {
+        return {
+            params: { id: sellerData.sellerID.toString() },
+        };
+    });
     return {
-        props: {
-            products: data
-        }
+        paths: paths,
+        fallback: false, // can also be true or 'blocking'
+    };
+};
+
+export const getStaticProps = async (context) => {
+    const id = context.params.id;
+    const res = await fetch(`http://10.5.0.3:5000/v1/inventory/products/seller/${id}`);
+    const data = await res.json();
+    console.log(data);
+    return {
+        props: { products: data }
     }
-}
+};
+
+
+
 
 const Sidebar = dynamic(() => import("@/components/seller/Sidebar"),
     { ssr: false })
@@ -20,7 +38,6 @@ const ProductCard = dynamic(() => import("@/components/seller/ProductCard"),
     { ssr: false })
 
 export default function Products({ products }) {
-
     return (
         <>
             <Sidebar />

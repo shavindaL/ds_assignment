@@ -45,7 +45,7 @@ export default function ProductCard({ productData }) {
                     <div className="flex mt-[15px]">
 
                         <div className="flex justify-center mr-[20px]">
-                            <Link href={{ pathname: `./updateProduct/${productId}` }} >
+                            <Link href={{ pathname: `../updateProduct/${productId}` }} >
                                 <button
                                     type="button"
                                     className="flex p-[10px] gap-[15px] rounded-[10px] bg-white
