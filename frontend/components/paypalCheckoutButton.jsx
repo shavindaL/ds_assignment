@@ -12,7 +12,7 @@ export default function PaypalCheckOutButton({ cartOrder }) {
     if (customer) {
       //Send email
       try {
-        const emailRes = await fetch("http://localhost:5000/v1/mail/newmail", {
+        await fetch("http://localhost:5000/v1/mail/newmail", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -32,7 +32,7 @@ export default function PaypalCheckOutButton({ cartOrder }) {
 
       // Send sms
       try {
-        const smsRes = await fetch("http://localhost:5000/v1/sms/sendSMS", {
+        await fetch("http://localhost:5000/v1/sms/sendSMS", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -46,6 +46,8 @@ export default function PaypalCheckOutButton({ cartOrder }) {
         console.log(err.message);
       }
     }
+
+    localStorage.removeItem('cart')
   }
 
   const handleApprove = async () => {
