@@ -160,7 +160,7 @@ export default function Sidebar({ profilePhoto, sellerName, sellerID }) {
                                 "
                 onClick={() => {
                   sLogout();
-                  window.location.replace("http://10.5.0.10:3000/");
+                  window.location.replace("http://localhost:3000/");
                 }}
               >
                 <span className="mr-4 [&>svg]:h-3.5 [&>svg]:w-[18px] [&svg]:h-[18px]">

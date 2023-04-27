@@ -314,7 +314,7 @@ export default function SellerSignUpForm() {
         };
 
         const res = await fetch(
-          "http://10.5.0.3:5000/v1/seller/addSeller",
+          "http://localhost:5000/v1/seller/addSeller",
           reqOpts
         );
 
@@ -340,7 +340,7 @@ export default function SellerSignUpForm() {
             "visible";
 
           // Redirect to login page if account creation was successful
-          window.location.replace("http://10.5.0.10:3000/");
+          window.location.replace("http://localhost:3000/");
         } else {
           // Alert the user if account creation was unsuccessful
           setAccountAlert(

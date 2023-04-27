@@ -13,7 +13,7 @@ export default function PaypalCheckOutButton ({cartOrder}) {
     const handleApprove = async() => {
       // Call backend function to fulfill order
       console.log(cartOrder);
-      await fetch('http://10.5.0.3:5000/v1/order/addOrder/', {
+      await fetch('http://localhost:5000/v1/order/addOrder/', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
