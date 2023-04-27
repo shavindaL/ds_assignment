@@ -1,6 +1,9 @@
+import { useAuthContext } from "@/hooks/userAuthContext";
 import { useState } from "react";
 
 export default function ProductForm() {
+    const { user } = useAuthContext();
+
     const [productName, setProductName] = useState("");
     const [productDescription, setProductDescription] = useState("");
     const [productImage1, setProductImage1] = useState();
@@ -25,6 +28,7 @@ export default function ProductForm() {
     const [packageQuantityAlert, setPackageQuantityAlert] = useState(false);
     const [unitsInStockAlert, setUnitsInStockAlert] = useState(false);
     const [isPublishAlert, setIsPublishAlert] = useState(false);
+    const [showMsg, setShowMsg] = useState(false)
 
     //* Validations
     const validateProduct = () => {
@@ -79,7 +83,7 @@ export default function ProductForm() {
         if (validateProduct()) {
             const formData = new FormData();
             formData.append("productName", productName);
-            formData.append("sellerId", 12);
+            formData.append("sellerId", user.sellerID);
             formData.append("productDescription", productDescription);
             formData.append("images", productImage1, productImage1.name);
             formData.append("images", productImage2, productImage2.name);
@@ -101,6 +105,8 @@ export default function ProductForm() {
 
             if (res.ok) {
                 console.log(json);
+                setShowMsg(true)
+                setTimeout(() => setShowMsg(false), 800)
             }
         }
     };
@@ -620,6 +626,27 @@ export default function ProductForm() {
                                     Submit item
                                 </button>
                             </div>
+                            {
+                                showMsg ?
+
+                                    <div
+                                        className="mb-3 inline-flex w-96 items-center rounded-lg bg-success-100 px-6 py-5 text-base text-success-700 mt-5 mx-auto text-center"
+                                        role="alert">
+                                        <span className="mr-2">
+                                            <svg
+                                                xmlns="http://www.w3.org/2000/svg"
+                                                viewBox="0 0 24 24"
+                                                fill="currentColor"
+                                                class="h-5 w-5">
+                                                <path
+                                                    fillRule="evenodd"
+                                                    d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75 0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 00-1.06 1.06l2.25 2.25a.75.75 0 001.14-.094l3.75-5.25z"
+                                                    clipRule="evenodd" />
+                                            </svg>
+                                        </span>
+                                        Product Successfuly Added
+                                    </div> : null
+                            }
                         </div>
                     </div>
                 </div>
