@@ -1,0 +1,81 @@
+version: '2.17.2'
+services:
+  frontend:
+    build: ./frontend
+    container_name: frontend_c
+    ports:
+      - '3000:3000'
+    networks:
+      network:
+        ipv4_address: 10.5.0.10
+  adminservice:
+    build: ./services/adminService
+    container_name: admin_c
+    ports:
+      - '5001:5001'
+    networks:
+      network:
+        ipv4_address: 10.5.0.2
+  apigateway:
+    build: ./services/apiGateway
+    container_name: apigateway_c
+    ports:
+      - '5000:5000'
+    networks:
+      network:
+        ipv4_address: 10.5.0.3
+  customerservice:
+    build: ./services/customerService
+    container_name: customer_c
+    ports:
+      - '5002:5002'
+    networks:
+      network:
+        ipv4_address: 10.5.0.4
+  inventoryservice:
+    build: ./services/inventoryService
+    container_name: inventory_c
+    ports:
+      - '5003:5003'
+    networks:
+      network:
+        ipv4_address: 10.5.0.5
+  mailservice:
+    build: ./services/mailService
+    container_name: mail_c
+    ports:
+      - '5006:5006'
+    networks:
+      network:
+        ipv4_address: 10.5.0.6
+  orderservice:
+    build: ./services/orderService
+    container_name: order_c
+    ports:
+      - '5004:5004'
+    networks:
+      network:
+        ipv4_address: 10.5.0.7
+  sellerservice:
+    build: ./services/sellerService
+    container_name: seller_c
+    ports:
+      - '5005:5005'
+    networks:
+      network:
+        ipv4_address: 10.5.0.8
+  smsservice:
+    build: ./services/smsService
+    container_name: sms_c
+    ports:
+      - '5007:5007'
+    networks:
+      network:
+        ipv4_address: 10.5.0.9
+networks:
+  network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 10.5.0.0/16
+          gateway: 10.5.0.1

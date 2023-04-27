@@ -314,7 +314,7 @@ export default function SellerSignUpForm() {
         };
 
         const res = await fetch(
-          "http://127.0.0.1:5000/v1/seller/addSeller",
+          "http://localhost:5000/v1/seller/addSeller",
           reqOpts
         );
 

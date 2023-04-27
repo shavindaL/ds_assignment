@@ -1,5 +1,4 @@
 import dynamic from "next/dynamic";
-import OrderNotifications from "@/components/admin/OrderNotifications";
 import { useEffect, useState } from "react";
 
 // Sidebar component is dynamically imported to prevent hydration error

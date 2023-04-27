@@ -640,7 +640,7 @@ const uploadPhoto = async (req) => {
 
     // Google authentication
     const auth = new google.auth.GoogleAuth({
-      keyFile: "../sellerService/googlekey.json",
+      keyFile: "./googlekey.json",
       scopes: ["https://www.googleapis.com/auth/drive"],
     });
 

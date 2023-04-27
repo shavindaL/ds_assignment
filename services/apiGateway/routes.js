@@ -3,7 +3,7 @@ const routes = [
         url: "/v1/admin",
         auth: "false",
         proxy: {
-            target: "http://127.0.0.1:5001",
+            target: "http://10.5.0.2:5001",
             changeOrigin: "true",
             pathRewrite: {
                 ["^/v1/admin"]: "",
@@ -14,7 +14,7 @@ const routes = [
         url: "/v1/customer",
         auth: "false",
         proxy: {
-            target: "http://127.0.0.1:5002",
+            target: "http://10.5.0.4:5002",
             changeOrigin: "true",
             pathRewrite: {
                 ["^/v1/customer"]: "",
@@ -25,7 +25,7 @@ const routes = [
         url: '/v1/inventory',
         auth: 'false',
         proxy: {
-            target: "http://127.0.0.1:5003",
+            target: "http://10.5.0.5:5003",
             changeOrigin: "true",
             pathRewrite:
             {
@@ -37,7 +37,7 @@ const routes = [
         url: "/v1/order",
         auth: "false",
         proxy: {
-            target: "http://127.0.0.1:5004",
+            target: "http://10.5.0.7:5004",
             changeOrigin: "true",
             pathRewrite: {
                 ["^/v1/order"]: "",
@@ -48,7 +48,7 @@ const routes = [
         url: "/v1/seller",
         auth: "false",
         proxy: {
-            target: "http://127.0.0.1:5005",
+            target: "http://10.5.0.8:5005",
             changeOrigin: "true",
             pathRewrite: {
                 ["^/v1/seller"]: "",
@@ -59,10 +59,21 @@ const routes = [
         url: "/v1/mail",
         auth: "false",
         proxy: {
-            target: "http://127.0.0.1:5006",
+            target: "http://10.5.0.9:5006",
             changeOrigin: "true",
             pathRewrite: {
                 ["^/v1/mail"]: "",
+            },
+        },
+    },
+    {
+        url: "/v1/sms",
+        auth: "false",
+        proxy: {
+            target: "http://10.5.0.9:5007",
+            changeOrigin: "true",
+            pathRewrite: {
+                ["^/v1/sms"]: "",
             },
         },
     }

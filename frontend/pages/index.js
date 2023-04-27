@@ -5,7 +5,7 @@ import Herocarousel from '@/components/customer/heroCarousel';
 import Footer from '@/components/Footer';
 
 export const getStaticProps = async () => {
-  const res = await fetch("http://127.0.0.1:5000/v1/inventory/products");
+  const res = await fetch("http://10.5.0.3:5000/v1/inventory/products");
   const data = await res.json();
 
   return {

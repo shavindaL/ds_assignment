@@ -25,7 +25,7 @@ export default function SearchResults() {
     const query = search.get("q");
     const encodedQuery = encodeURI(query);
 
-    const { data, error } = useSWR(`http://127.0.0.1:5000/v1/inventory/products/search/${encodedQuery}`, fetcher);
+    const { data, error } = useSWR(`http://localhost:5000/v1/inventory/products/search/${encodedQuery}`, fetcher);
 
     const products = data
 
