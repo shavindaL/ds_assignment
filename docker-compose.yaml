@@ -5,6 +5,9 @@ services:
     container_name: frontend_c
     ports:
       - '3000:3000'
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
     networks:
       network:
         ipv4_address: 10.5.0.10
@@ -13,6 +16,9 @@ services:
     container_name: admin_c
     ports:
       - '5001:5001'
+    volumes:
+      - ./services/adminService:/app
+      - /app/node_modules
     networks:
       network:
         ipv4_address: 10.5.0.2
@@ -21,6 +27,9 @@ services:
     container_name: apigateway_c
     ports:
       - '5000:5000'
+    volumes:
+      - ./services/apiGateway:/app
+      - /app/node_modules
     networks:
       network:
         ipv4_address: 10.5.0.3
@@ -29,6 +38,9 @@ services:
     container_name: customer_c
     ports:
       - '5002:5002'
+    volumes:
+      - ./services/customerService:/app
+      - /app/node_modules
     networks:
       network:
         ipv4_address: 10.5.0.4
@@ -37,6 +49,9 @@ services:
     container_name: inventory_c
     ports:
       - '5003:5003'
+    volumes:
+      - ./services/inventoryService:/app
+      - /app/node_modules
     networks:
       network:
         ipv4_address: 10.5.0.5
@@ -45,6 +60,9 @@ services:
     container_name: mail_c
     ports:
       - '5006:5006'
+    volumes:
+      - ./services/mailService:/app
+      - /app/node_modules
     networks:
       network:
         ipv4_address: 10.5.0.6
@@ -53,6 +71,9 @@ services:
     container_name: order_c
     ports:
       - '5004:5004'
+    volumes:
+      - ./services/orderService:/app
+      - /app/node_modules
     networks:
       network:
         ipv4_address: 10.5.0.7
@@ -61,6 +82,9 @@ services:
     container_name: seller_c
     ports:
       - '5005:5005'
+    volumes:
+      - ./services/sellerService:/app
+      - /app/node_modules
     networks:
       network:
         ipv4_address: 10.5.0.8
@@ -69,6 +93,9 @@ services:
     container_name: sms_c
     ports:
       - '5007:5007'
+    volumes:
+      - ./services/smsService:/app
+      - /app/node_modules
     networks:
       network:
         ipv4_address: 10.5.0.9
