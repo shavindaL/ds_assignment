@@ -2,6 +2,7 @@ import axios from "axios";
 import dynamic from "next/dynamic";
 
 import { useState } from "react";
+import { SellerLogout } from "@/hooks/sellerLogout";
 
 
 // Sidebar component is dynamically imported to prevent hydration error
@@ -67,6 +68,7 @@ export async function getStaticProps(context) {
 
 
 export default function Profile({ seller }) {
+    const { sLogout } = SellerLogout();
 
     // Set of states for the input fields of seller profile
     const [firstName, setFirstName] = useState(seller.firstName);
@@ -488,6 +490,9 @@ export default function Profile({ seller }) {
 
             if (resMsg === "Seller deleted successfully") {
 
+                // Remove the seller token
+                sLogout();
+                
                 // Redirect to homepage (root) if successfully deleted
                 window.location.replace("http://localhost:3000/");
 
