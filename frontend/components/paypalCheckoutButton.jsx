@@ -5,16 +5,6 @@ export default function PaypalCheckOutButton({ cartOrder }) {
   const [paidFor, setPaidFor] = useState(false);
   const [error, setError] = useState(null);
 
-async function updateProductQty (productId, orderedQuantity){
-  try {
-    const res = await fetch('http://localhost:5000/v1/inventory/products/qty/'+ productId, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({orderedQuantity})
-    })
-
   async function sendMsgs(customerID) {
     const res = await fetch(`http://localhost:5000/v1/customer/${customerID}`);
     const customer = await res.json();
@@ -57,16 +47,6 @@ async function updateProductQty (productId, orderedQuantity){
       }
     }
 
-  } catch (error) {
-    
-  }
-}
-    
-    const handleApprove = async() => {
-      // Call backend function to fulfill order
-      console.log(cartOrder);
-      await fetch('http://localhost:5000/v1/order/addOrder/', {
-      method: 'POST',
     localStorage.removeItem('cart')
   }
 
@@ -94,29 +74,6 @@ async function updateProductQty (productId, orderedQuantity){
         console.error("There was a problem with the fetch operation:", error);
         // Handle error
       });
-      for(let product of cartOrder.data){
-        updateProductQty(product._id, product.quantity)
-      }
-      // if response is success
-      setPaidFor(true);
-      // Refresh user's account or subscription status
-  
-      // if response is error
-      // alert("Your payment was processed successfully. However, we are unable to fulfill your purchase. Please contact us at support@designcode.io for assistance.");
-    };
-  
-    // if (paidFor) {
-    //   // Display success message, modal or redirect user to success page
-    // //   alert("Thank you for your purchase!");
-    // }
-
-    
-    if (error) {
-        // Display error message, modal or redirect user to error page
-        alert(error);
-    }
-  
-  
 
     // if response is success
     setPaidFor(true);
