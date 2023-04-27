@@ -340,7 +340,7 @@ export default function SellerSignUpForm() {
             "visible";
 
           // Redirect to login page if account creation was successful
-          window.location.replace("http://localhost:3000/");
+          window.location.replace("http://localhost:3000/login");
         } else {
           // Alert the user if account creation was unsuccessful
           setAccountAlert(
