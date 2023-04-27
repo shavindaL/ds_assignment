@@ -22,14 +22,10 @@ export default function ProfileInfo({ userprop }) {
 
         if (resMsg === "User deleted successfully") {
 
-
           localStorage.removeItem("user");  
-
-          message("Account deleted")
           
           // Redirect to homepage (root) if successfully deleted
             window.location.replace("http://localhost:3000/");
-            alert()
 
         } else {
             // Set accountDeleteAlert state variable as following
