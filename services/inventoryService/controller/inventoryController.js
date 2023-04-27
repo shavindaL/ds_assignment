@@ -142,6 +142,52 @@ const searchInventoryItems = async (req, res) => {
 };
 
 
+//* get a specific item from the inventory
+//* GET
+const getInventoryItemsBySeller = async (req, res) => {
+    const sellerId = decodeURI(req.params.sellerId);
+
+    InventoryProduct.find({ sellerId: sellerId })
+        .then(
+            async (products) => {
+                //* check if the products array is empty
+                if (products !== null) {
+
+                    const inventoryProducts = [];
+                    let imageUrls = [];
+
+                    for (let product of products) {
+                        imageUrls = [];
+                        if (product != null) {
+                            for (let productImage of product.productImages) {
+                                const getObjectParams = {
+                                    Bucket: process.env.S3_BUCKET_NAME,
+                                    Key: productImage,
+                                };
+
+                                const command = new GetObjectCommand(getObjectParams);
+                                //* get urls to images
+                                await getSignedUrl(s3, command, { expiresIn: 6000 }).then((url) =>
+                                    imageUrls.push(url)
+                                );
+                            }
+                        }
+                        //* assign urls to images
+                        inventoryProducts.push({ product, imageUrls })
+                    }
+
+                    res.status(200).json(inventoryProducts);
+                }
+                else {
+                    res.status(400).json({ error: "No such products" });
+                }
+
+
+            })
+        .catch((err) => res.status(400).send({ error: err }));
+};
+
+
 
 /*-------------------------------------------------------------------------------------------------------------------------------------------------------------- */
 
@@ -331,6 +377,42 @@ const updateInventoryItem = async (req, res) => {
     }
 };
 
+//* update inventory item quantity
+//* PUT
+
+const updateInventoryItemQty = async (req, res) => {
+
+    const product = await InventoryProduct.findOne({ productId: req.params.id });
+
+    if (!product) {
+        res.status(404).json({ error: "Product not found" });
+    }
+    else {
+
+        //* inventory product object
+        const updatedInventoryProduct = {
+            unitsInStock: (product.unitsInStock - req.body.orderedQuantity),
+        };
+
+
+        await InventoryProduct.findOneAndUpdate(
+            { productId: req.params.id },
+            updatedInventoryProduct,
+            { returnDocument: "after" }
+        )
+            .then((response) => {
+                res.status(201).json({ success: true });
+            })
+            .catch((err) => {
+                res.status(404).json({
+                    success: false,
+                    error: err
+                });
+            });
+    }
+};
+
+
 /*-------------------------------------------------------------------------------------------------------------------------------------------------------------- */
 
 //* delete a exsisting inventory item
@@ -374,8 +456,10 @@ const deleteInventoryItem = async (req, res) => {
 module.exports = {
     getInventoryItems,
     getInventoryItem,
+    getInventoryItemsBySeller,
     addInventoryItem,
     updateInventoryItem,
+    updateInventoryItemQty,
     deleteInventoryItem,
     searchInventoryItems
 };
