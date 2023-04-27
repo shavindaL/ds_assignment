@@ -7,8 +7,21 @@ export default function PaypalCheckOutButton ({cartOrder}) {
     const [paidFor, setPaidFor] = useState(false);
     const [error, setError] = useState(null);
 
-   
+async function updateProductQty (productId, orderedQuantity){
+  try {
+    const res = await fetch('http://localhost:5000/v1/inventory/products/qty/'+ productId, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({orderedQuantity})
+    })
 
+
+  } catch (error) {
+    
+  }
+}
     
     const handleApprove = async() => {
       // Call backend function to fulfill order
@@ -33,7 +46,9 @@ export default function PaypalCheckOutButton ({cartOrder}) {
         console.error('There was a problem with the fetch operation:', error);
         // Handle error
       });
-  
+      for(let product of cartOrder.data){
+        updateProductQty(product._id, product.quantity)
+      }
       // if response is success
       setPaidFor(true);
       // Refresh user's account or subscription status
