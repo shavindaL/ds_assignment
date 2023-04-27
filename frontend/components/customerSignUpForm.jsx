@@ -15,7 +15,7 @@ export default function CustomerSignUpForm() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    await signup(firstname, lastname, email, password);
+    await signup(firstname, lastname, phoneno, email, password);
   };
 
   return (
@@ -32,7 +32,7 @@ export default function CustomerSignUpForm() {
           Sign up
         </p>
 
-        {error && <div className="error">{error}</div>}
+        {error && <div class="text-danger mt-1 mb-3" >{error}</div>}
 
         {/* <<<<<<<<<<-------------------- customer sign up form -------------->>>>>>>>>>>>>>>>> */}
 
@@ -72,10 +72,29 @@ export default function CustomerSignUpForm() {
           />
         </div>
 
+
+        {/*----- phone no -------*/}
+        <div className="relative mb-6">
+          <input
+            type="text"
+            onChange={(e) => setPhoneno(e.target.value)}
+            value={phoneno}
+            style={{
+              border: "1px",
+              borderStyle: "solid",
+              height: "50px",
+              padding: "5px",
+            }}
+            className="peer block min-h-[auto] w-full rounded border-0 bg-transparent"
+            // id="exampleFormControlInput2"
+            placeholder="Phone no"
+          />
+        </div>
+
         {/* <!-- Email input --> */}
         <div className="relative mb-6">
           <input
-            type="email"
+            type="text"
             onChange={(e) => setEmail(e.target.value)}
             value={email}
             style={{

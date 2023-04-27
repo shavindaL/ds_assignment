@@ -1,4 +1,34 @@
+import { useEffect, useState } from "react";
+
+
 export default function Table() {
+
+
+
+  // State variable to hold all sellers
+  const [allMyorders, setAllmyorders] = useState([]);
+
+  // Use the useEffect hook
+  useEffect(() => {
+
+    const ids = window.location.pathname.split("/")[3]
+    // Method to get all seller details
+    async function getAllMyOrders() {
+      const res = await fetch(`http://localhost:5000/v1/order/myorders/list/${ids}`);
+      const allMyorders = await res.json();
+
+      if (allMyorders) {
+        // Set the value of allSellers state variable
+        setAllmyorders(allMyorders);
+      } else {
+        console.log("No orders in the database collection");
+      }
+    }
+    // Invoke the getAllSellers function
+    getAllMyOrders();
+  },[]);
+
+  
     return (
       <>
         <div class="flex flex-col">
@@ -26,27 +56,21 @@ export default function Table() {
                     </tr>
                   </thead>
                   <tbody>
-                    <tr class="border-b dark:border-neutral-500">
-                      <td class="whitespace-nowrap  px-6 py-4 font-medium">1</td>
-                      <td class="whitespace-nowrap  px-6 py-4">Mark</td>
-                      <td class="whitespace-nowrap  px-6 py-4">Otto</td>
-                      <td class="whitespace-nowrap  px-6 py-4">@mdo</td>
+
+
+                  {allMyorders &&
+                    allMyorders.map((user) => {
+                      return (
+                        <tr class="border-b dark:border-neutral-500">
+                      <td class="whitespace-nowrap  px-6 py-4 font-medium">{user.orderID}</td>
+                      <td class="whitespace-nowrap  px-6 py-4">{user.orderDate}</td>
+                      <td class="whitespace-nowrap  px-6 py-4">{user.orderStatus}</td>
+                      <td class="whitespace-nowrap  px-6 py-4">{user.total}</td>
                       <td class="whitespace-nowrap  px-6 py-4" style={{color:"#6469DE",fontWeight:"700"}}>Track Order</td>
                     </tr>
-                    <tr class="border-b dark:border-neutral-500">
-                      <td class="whitespace-nowrap  px-6 py-4 font-medium">2</td>
-                      <td class="whitespace-nowrap  px-6 py-4 ">Jacob</td>
-                      <td class="whitespace-nowrap  px-6 py-4">Thornton</td>
-                      <td class="whitespace-nowrap  px-6 py-4">@fat</td>
-                      <td class="whitespace-nowrap  px-6 py-4" style={{color:"#6469DE",fontWeight:"700"}}>Track Order</td>
-                    </tr>
-                    <tr class="border-b dark:border-neutral-500">
-                      <td class="whitespace-nowrap  px-6 py-4 font-medium">2</td>
-                      <td class="whitespace-nowrap  px-6 py-4 ">Jacob</td>
-                      <td class="whitespace-nowrap  px-6 py-4">Thornton</td>
-                      <td class="whitespace-nowrap  px-6 py-4">@fat</td>
-                      <td class="whitespace-nowrap  px-6 py-4" style={{color:"#6469DE",fontWeight:"700"}}>Track Order</td>
-                    </tr>
+                      );
+                    })}
+                    
                   </tbody>
                 </table>
               </div>

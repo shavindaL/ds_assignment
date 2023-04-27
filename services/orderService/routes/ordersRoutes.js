@@ -5,7 +5,8 @@ const {
     addOrder,
     getOrder,
     updateOrder,
-    deleteOrder
+    deleteOrder,
+    myallorders
 } = require('../controller/orderController');
 
 // Import the express module
@@ -31,6 +32,10 @@ router.put("/:id", updateOrder);
 
 // Handle DELETE request at "/:id" URI
 router.delete("/:id", deleteOrder);
+
+
+//get my all orders
+router.get("/myorders/list/:id",myallorders);
 
 // Export the router object
 module.exports = router;

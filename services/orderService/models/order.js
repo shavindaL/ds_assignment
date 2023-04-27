@@ -5,12 +5,12 @@ const mongoose = require('mongoose');
 const orderSchema = mongoose.Schema({
 
     orderID: {
-        type: Number,
+        type: String,
         unique: true,
         required: true
     },
     customerID: {
-        type: Number,
+        type: String,
         required: true
     },
     data: [

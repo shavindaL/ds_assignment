@@ -108,6 +108,27 @@ const getAllUsers = async (req, res) => {
   };
 
 
+  //method to delete user
+  const deleteuser = async (req, res) => {
+    try {
+      const deleteuser = await User.findOneAndDelete({
+        _id: req.params.id,
+      });
+  
+      if (deleteuser) {
+        // Respond with status code 200 (OK) if successful
+        res.status(200).send("User deleted successfully");    
+      }else{
+        // Respond with status code 400 (Bad Request) if unsuccessful
+        res.status(400).send("Failed to delete User");
+      }
+    } catch (err) {
+      // Print the error message
+      console.log(err.message);
+    }
+  };
+
+
 
 
 
@@ -133,6 +154,7 @@ module.exports = {
     getUserService,
     getUser,
     getAllUsers,
+    deleteuser
     
     
 }

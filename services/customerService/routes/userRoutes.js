@@ -4,7 +4,8 @@ const {
     signupUser,
     getUserService,
     getUser,
-    getAllUsers
+    getAllUsers,
+    deleteuser
 } = require('../controller/userContrller');
 
 // Import the express module
@@ -28,6 +29,9 @@ router.get("/", getUserService);
 
 //get one user
 router.get("/:id", getUser);
+
+//delete user
+router.delete("/:id",deleteuser)
 
 //get one user
 router.get("/customers/customerall",getAllUsers)
